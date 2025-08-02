@@ -1,0 +1,2 @@
+# Shift-Node
+ShiftNode é um sistema web de agendamento e gerenciamento de serviços para oficinas mecânicas. Desenvolvido com PHP (MVC), MySQL, HTML5, CSS3 (Bootstrap) e JavaScript, o sistema permite que clientes agendem serviços com base na disponibilidade de profissionais e horários. Conta com painel administrativo e controle de agenda.
