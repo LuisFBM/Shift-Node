@@ -1,0 +1,64 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Open+Sans:wght@400;700&display=swap');
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: white;
+    font-family: 'Lato', sans-serif;
+}
+
+/* Navbar */
+.navbar {
+    background: linear-gradient(to right, #061F40, #6155f5);
+    background-image: url(img/shiftnode.png);
+    display: flex;
+    align-items: center;
+    padding: 10px 20px;
+    margin-inline: 20px;
+    font-family: 'Open Sans', sans-serif;
+    text-decoration: underline;
+}
+
+/* Fundo */
+.fundo {
+    background: url('../img/fundo.png') no-repeat center center;
+    background-size: cover;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    color: #fff;
+    position: relative;
+    padding-left: 60px;
+}
+
+.fundo::before {
+    background: rgba(0,0,0,0.5); /* camada escura */
+}
+
+.fundo-content {
+    position: relative;
+    z-index: 1;
+}
+
+/* Quem Somos */
+.quem-somos {
+    background: linear-gradient(90deg, #061F40, #0A2A66, #6155f5);
+    color: #fff;
+    padding: 80px 40px;
+}
+
+.quem-somos h1 {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+}
+
+.quem-somos p {
+    max-width: 700px;
+    line-height: 1.6;
+    font-family: 'Lato', sans-serif;
+}
