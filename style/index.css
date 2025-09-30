@@ -1,64 +1,129 @@
-@import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Open+Sans:wght@400;700&display=swap');
+/* Títulos Opens Sanss */
+@import url("https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Open+Sans:wght@400;700&display=swap");
+
+/* Texto Roboto */
+@import url("https://fonts.googleapis.com/css2?family=Alan+Sans:wght@300..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap");
+
+/* Links Alan Sans */
+@import url("https://fonts.googleapis.com/css2?family=Alan+Sans:wght@300..900&display=swap");
 
 * {
-    padding: 0;
-    margin: 0;
-    box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
 }
 
-body {
-    background-color: white;
-    font-family: 'Lato', sans-serif;
+.hero {
+  height: 4.3vw;
+  width: 100%;
+  background: linear-gradient(to right, #061f40, #6155f5);
 }
 
-/* Navbar */
-.navbar {
-    background: linear-gradient(to right, #061F40, #6155f5);
-    background-image: url(img/shiftnode.png);
-    display: flex;
-    align-items: center;
-    padding: 10px 20px;
-    margin-inline: 20px;
-    font-family: 'Open Sans', sans-serif;
-    text-decoration: underline;
+nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding: 10px 5%;
 }
 
-/* Fundo */
+.logo img {
+  max-height: 70px;
+  width: auto;
+}
+
+button {
+  padding: 8px 20px;
+  font-size: 0.9rem;
+}
+
+nav ul li {
+  font-family: "Alan Sans", sans-serif;
+  list-style-type: none;
+  display: inline-block;
+  padding: 8px 20px;
+}
+
+nav ul li a {
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+
+nav ul li a:hover {
+  color: lightblue;
+  transition: 0.3s;
+}
+
+button {
+  border: none;
+  background: white;
+  padding: 10px 20px;
+  border-radius: 40px;
+  font-weight: bold;
+  font-size: 15px;
+  transition: 0.4s;
+}
+
+button:hover {
+  transform: scale(1.3);
+  cursor: pointer;
+}
+
+/* Fundo do Home */
+
 .fundo {
-    background: url('../img/fundo.png') no-repeat center center;
-    background-size: cover;
-    height: 100vh;
-    display: flex;
-    align-items: center;
-    color: #fff;
-    position: relative;
-    padding-left: 60px;
+  position: relative;
+  background: url("../img/fundo.png") no-repeat center center;
+  background-size: cover;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  color: #fff;
+  padding-left: 60px;
+  overflow: hidden;
 }
 
 .fundo::before {
-    background: rgba(0,0,0,0.5); /* camada escura */
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  z-index: 1;
 }
 
 .fundo-content {
-    position: relative;
-    z-index: 1;
+  position: relative;
+  z-index: 2;
+  font-family: "Roboto", sans-serif;
+}
+
+ul li {
+  font-family: "Roboto", sans-serif;
+  font-size: 1.4rem;
+}
+
+.fundo-content {
+  font-family: "Roboto", sans-serif;
 }
 
 /* Quem Somos */
 .quem-somos {
-    background: linear-gradient(90deg, #061F40, #0A2A66, #6155f5);
-    color: #fff;
-    padding: 80px 40px;
+  background: linear-gradient(70deg, #061f40, #6155f5);
+  color: #fff;
+  padding: 80px 40px;
 }
 
 .quem-somos h1 {
-    font-family: 'Open Sans', sans-serif;
-    font-size: 2.5rem;
-    margin-bottom: 20px;
+  font-family: "Open Sans", sans-serif;
+  font-size: 2.5rem;
+  margin-bottom: 20px;
 }
 
 .quem-somos p {
-    max-width: 700px;
-    line-height: 1.6;
-    font-family: 'Lato', sans-serif;
+  max-width: 700px;
+  line-height: 1.6;
+  font-family: "Lato", sans-serif;
 }

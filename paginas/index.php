@@ -6,34 +6,23 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <title>Shift Node</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
-    <link rel="stylesheet" href="estilo/inicial.css">
+    <link rel="stylesheet" href="../style/index.css">
 
 </head>
 <body>
 
-    <header>
-        <nav class="navbar">
-            <div class="logo">Shift Node</div>
-
-            <ul>
-                <li><a href="#">Agendar</a></li>
-                <li><a href="#">Serviços</a></li>
-                <li><a href="#">Quem Somos</a></li>
-                <li><a href="#">Contato</a></li>
-            </ul>
-
-            <div class="profile">
-                <span>Cliente</span>
-                <i class="fa-solid fa-user"></i>
-            </div>
-
-            <div class="hamburger" onclick="toggleMenu()">
-                <div></div>
-                <div></div>
-                <div></div>
-            </div>
-        </nav>
-    </header>
+        <div class="hero">
+          <nav>
+              <a href="index.php" class="logo"><img src="../img/shiftnode.png" alt="logo"></a>
+          <ul>
+            <li><a href="Agendar.php">Agendamentos</a></li>
+            <li><a href="Serviços.php">Serviços</a></li>
+            <li><a href="QuemSomos.php">Quem Somos</a></li>
+            <li><a href="Contatos.php">Contatos</a></li>
+          </ul>
+          <a href="cadastro.php"><button type="button">Cadastre-se</button></a>
+          </nav>
+        </div>
 
 <main>
 
@@ -68,13 +57,15 @@ A empresa se destaca pelo atendimento ágil, transparente e confiável, fornecen
 
 
     <div class="galeria">
-    <img src="img_site/pastilha.jpg" alt="Oficina 1">
-    <img src="img_site/óleomotor.jpg" alt="Oficina 2">
-    <img src="img_site/fluidoveiculo.jpg" alt="Oficina 3">
-    <img src="img_site/arrefecimento.jpg" alt="Oficina 4">
+    <img src=".img/atendimento.jpg" alt="atendimento">
+    <img src=".img/confiavel.jpeg" alt="confiança">
+    <img src=".img/ferramentas.png" alt="ferramentas">
+    <img src=".img/manutencao.jpg" alt="manutencao">
     </div>
 
   </section>
+
+  
 
 </main>
 
