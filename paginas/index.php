@@ -20,7 +20,14 @@
             <li><a href="QuemSomos.php">Quem Somos</a></li>
             <li><a href="Contatos.php">Contatos</a></li>
           </ul>
-          <a href="cadastro.php"><button type="button">Cadastre-se</button></a>
+
+          <div class="cadastro">
+
+            <a href="cadastro.php">Cadastre-se</a>
+            <a href="login.php">Login</a>
+
+          </div>
+          
           </nav>
         </div>
 
@@ -51,18 +58,27 @@
     <br>
 
     <p>
-A 4 Nitros – É uma oficina especializada em manutenção preventiva e corretiva básica, com foco na segurança e desempenho dos veículos.
-A empresa se destaca pelo atendimento ágil, transparente e confiável, fornecendo orçamentos claros e orientações técnicas que permitem ao cliente entender a real condição do seu carro.
+      A 4 Nitros – É uma oficina especializada em manutenção preventiva e corretiva básica, com foco na segurança e desempenho dos veículos.
+      A empresa se destaca pelo atendimento ágil, transparente e confiável, fornecendo orçamentos claros e orientações técnicas que permitem ao cliente entender a real condição do seu carro.
     </p>
 
 
-    <div class="galeria">
-    <img src=".img/atendimento.jpg" alt="atendimento">
-    <img src=".img/confiavel.jpeg" alt="confiança">
-    <img src=".img/ferramentas.png" alt="ferramentas">
-    <img src=".img/manutencao.jpg" alt="manutencao">
+    <div class="img1">
+    <img src="img/atendimento.jpg" alt="atendimento">
     </div>
 
+    <div class="img2">
+    <img src="img/confiavel.jpeg" alt="confiança">
+    </div>
+
+    <div class="img3">
+    <img src="img/ferramentas.png" alt="ferramentas">
+    </div>
+    
+    <div class="img4">
+    <img src="img/manutencao.jpg" alt="manutencao">
+    </div>
+    
   </section>
 
   

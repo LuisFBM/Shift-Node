@@ -1,34 +1,28 @@
-
 <?php
-
-Class Database {
-
-    private $host = '127.0.0.1';
-
-    private $banco = "shifnode";
-
+class Database {
+    private $host = 'localhost';
+    private $port = '3316'; 
+    private $banco = "shift_node";
     private $usuario = "root";
-
-    private $senha = "";
-
+    private $senha = "123456";
     public $con;
 
     public function conectar(){
         $this->con = null;
-
         try {
-            $this->con = new PDO("mysql:host=$this->bacnp;dbname=$this->banco", $this->usuario, $this->senha);
+           
+            $dsn = "mysql:host=$this->host;port=$this->port;dbname=$this->banco";
+            $this->con = new PDO($dsn, $this->usuario, $this->senha);
+            $this->con->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+           // echo "✅ Conectado na porta $this->port!";
+            return $this->con;
         } catch (PDOException $e) {
-
-            echo "Erro ao Conectar: " . $e->getMessage();
-
+            echo "❌ Erro: " . $e->getMessage();
+            return null;
         }
-
-        return $this->con;
-
     }
-
 }
 
+$db = new Database();
+$conn = $db->conectar();
 ?>
-
