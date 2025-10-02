@@ -1,10 +1,28 @@
 <?php
-include 'conexao.php';
+include '../banco/database.php';
 
 
 function agendar(){
 
-  if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+
+    function cadastrarAgendamentos() {
+
+        $sql = ""
+    }
+
+    function listarAgendamentos() {
+
+    }
+
+    function excluirAgendamentos() {
+
+    }
+
+
+    function verificarHorario(){
+
+
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $id_cliente = $_POST['id_cliente'];
     $data = $_POST['data'];
     $hora = $_POST['hora'];
@@ -25,7 +43,12 @@ function agendar(){
 
         echo "Agendamento realizado com sucesso!";
     }
-}
+
+    }   
+
+    }
+
+  
   
 }
  

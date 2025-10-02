@@ -2,57 +2,56 @@
 
 include_once "../controllers/usuariosController.php";
 
-if($_SERVER['REQUEST_METHOD'] === "POST"){
-    $controller = new usuariosController();
 
-    if(isset($_POST['cadastrar'])){
-        $controller->cadastrarUsuarios($_POST['usuario']);
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $usuarioController = new usuariosController();
+
+    if ($usuarioController->cadastrarUsuarios($_POST)) {
+
+        echo "Usuário cadastrado com sucesso!";
+
+    } else {
+
+        echo "Erro ao cadastrar usuário.";
+        
     }
 }
 
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>cadastro</title>
+    <title>Cadastro</title>
 </head>
 <body>
 
-    <h1>cadastro</h1>
+    <h1>cadastro-se</h1>
 
-<form action="cadastro.php" method="POST">
-    <div class="nome">
-        <label for="nome" class="form-label">Nome Completo</label>
-        <input type="text" class="form-control" id="nome" name="nome" required>
-    </div>
-    <div class="email">
-        <label for="email" class="form-label">Email</label>
-        <input type="email" class="form-control" id="email" name="email" required>
-    </div>
-    <div class="senha">
-        <label for="senha" class="form-label">Senha</label>
-        <input type="password" class="form-control" id="senha" name="senha" required>
-    </div>
-
-     <div class="telefone">
-        <label for="telefone" class="form-label">Telefone</label>
-        <input type="telefone" class="form-control" id="telefone" name="telefone" required>
-    </div>
-    
-    <div class="cpf">
-        <label for="cpf" class="form-label">CPF</label>
-        <input type="cpf" class="form-control" id="cpf" name="cpf" required>
-    </div>
-
-    
-    <button type="submit" class="btn btn-primary"><a href="index.php"></a>Registrar</button>
-
-</form>
-    
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Cadastro</title>
+</head>
+<body>
+    <h1>Cadastre-se</h1>
+    <form action="cadastro.php" method="POST">
+        <input type="text" name="nome" placeholder="Nome" required>
+        <input type="email" name="email" placeholder="Email" required>
+        <input type="password" name="senha" placeholder="Senha" required>
+        <input type="text" name="telefone" placeholder="Telefone" required>
+        <input type="text" name="cpf" placeholder="CPF" required>
+        <select name="tipo" required>
+            <option value="CLIENTE">Cliente</option>
+            <option value="ATENDENTE">Atendente</option>
+            <option value="MECANICO">Mecânico</option>
+            <option value="ADMIN">Admin</option>
+        </select>
+        <button type="submit">Registrar</button>
+    </form>
 </body>
 </html>
-
-

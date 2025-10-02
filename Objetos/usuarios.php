@@ -1,34 +1,34 @@
 <?php
-class Usuario {
-    private $nome;
-    private $email;
-    private $senha;
-    private $telefone;
-    private $cpf;
-    private $tipo;
+class Usuarios {
+    public $nome;
+    public $email;
+    public $senha;
+    public $telefone;
+    public $cpf;
+    public $tipo;
 
     public function __construct($bd) {
         $this->bd = $bd;
     }
 
-    public function cadastrar($conn) {
-        $sql = "CALL cadastrar_usuario(?, ?, ?, ?, ?, ?)";
-        $stmt = $conn->prepare($sql);
-        $stmt->bind_param("ssssss", 
-            $this->nome, 
-            $this->email, 
-            $this->senha, 
-            $this->telefone, 
-            $this->cpf, 
-            $this->tipo
-        );
+    public function cadastrar($dados) {
 
-        if ($stmt->execute()) {
-            return true;
-        } else {
-            return false;
-        }
+    $sql = "INSERT INTO usuarios (nome, email, senha, telefone, cpf, tipo) 
+            VALUES (:nome, :email, :senha, :telefone, :cpf, :tipo)";
+
+    $stmt = $this->conn->prepare($sql);
+    $stmt->bindParam(':nome', $dados['nome']);
+    $stmt->bindParam(':email', $dados['email']);
+    $senhaHash = password_hash($dados['senha'], PASSWORD_DEFAULT);
+    $stmt->bindParam(':senha', $senhaHash);
+    $stmt->bindParam(':telefone', $dados['telefone']);
+    $stmt->bindParam(':cpf', $dados['cpf']);
+    $stmt->bindParam(':tipo', $dados['tipo']);
+
+    return $stmt->execute();
+
     }
+
 
     public function atualizar(){
         $senha_hash = password_hash($this->senha, PASSWORD_DEFAULT);
@@ -39,7 +39,7 @@ class Usuario {
         $stmt->bindParam(':senha', $this->senha_hash, PDO::PARAM_STR);
         $stmt->bindParam(':telefone', $this->telefone, PDO::PARAM_STR);
         $stmt->bindParam(':cpf', $this->cpf, PDO::PARAM_STR);
-        $stmt->bindParam(':id', $this->id, PDO::PARAM_INT);
+        $stmt->bindParam(':id_usuarios', $this->id, PDO::PARAM_INT);
 
           if($stmt->execute()){
             return true;
@@ -50,9 +50,9 @@ class Usuario {
     }
 
     public function excluir(){
-        $sql = "DELETE FROM usuarios WHERE id = :id";
+        $sql = "DELETE FROM usuarios WHERE id_usuarios = :id_usuarios";
         $stmt = $this->bd->prepare($sql);
-        $stmt->bindParam(':id', $this->id, PDO::PARAM_INT);
+        $stmt->bindParam(':id_usuarios', $this->id_usuarios, PDO::PARAM_INT);
 
         if($stmt->execute()){
             return true;

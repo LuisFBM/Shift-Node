@@ -14,7 +14,7 @@ class Database {
             $dsn = "mysql:host=$this->host;port=$this->port;dbname=$this->banco";
             $this->con = new PDO($dsn, $this->usuario, $this->senha);
             $this->con->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-           // echo "✅ Conectado na porta $this->port!";
+           
             return $this->con;
         } catch (PDOException $e) {
             echo "❌ Erro: " . $e->getMessage();
