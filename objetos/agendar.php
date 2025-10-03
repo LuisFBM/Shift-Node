@@ -27,8 +27,8 @@ Class agendamento {
     }
 
 
-    public function lerUsuario($nome){
-        $nome = "%" . $nome . "%";
+    public function lerAgendamentos($id_agendamento){
+        $nome = "%" . $id_agendamento . "%";
         $sql = "SELECT * FROM agendamentos WHERE id_agendamento LIKE :id_agendamento";
         $resultado = $this->bd->prepare($sql);
         $resultado->bindParam(':id_agendamento', $id_agendamento);
@@ -45,6 +45,22 @@ Class agendamento {
         }
     }
 
+    public function agendar(){
+        $sql = 'INSERT INTO agendamentos (id_cliente, id_veiculo, data_agedamento, id_orcamento, id_atendente, id_mecanico, tipo_manutencao, id_status, observacoes) 
+                VALUES (:id_cliente, :id_veiculo, :data_agedamento, :id_orcamento, :id_atendente, ;id_mecanico, ;tipo_manutencao, ;id_status, ;observacoes)';
+
+        $stmt = $this->bd->prepare($sql);
+        $stmt->bindParam(':data_agedamento', $this->data_agedamento, PDO::PARAM_STR);
+        $stmt->bindParam(':id_orcamento', $this->id_orcamento, PDO::PARAM_STR);
+        $stmt->bindParam(':hora_inicio', $this->hora_inicio, PDO::PARAM_STR);
+        $stmt->bindParam(':hora_fim', $this->hora_fim, PDO::PARAM_STR);
+        $stmt->bindParam(':tipo_manutencao', $this->tipo_manutencao, PDO::PARAM_STR);
+        $stmt->bindParam(':id_status', $this->id_status, PDO::PARAM_STR);
+        $stmt->bindParam(':observações', $this->observações, PDO::PARAM_STR);
+
+        return $stmt->execute();
+    }
+
     public function atualizar(){
     
         $sql = "UPDATE agendametno SET data_agedamento = :data_agedamento, id_orcamento = :id_orcamento, id_orcamento = :hora_inicio, hora_fim = :hora_fim, 
@@ -54,10 +70,10 @@ Class agendamento {
         $stmt->bindParam(':id_orcamento', $this->id_orcamento, PDO::PARAM_STR);
         $stmt->bindParam(':hora_inicio', $this->hora_inicio, PDO::PARAM_STR);
         $stmt->bindParam(':hora_fim', $this->hora_fim, PDO::PARAM_STR);
-        $stmt->bindParam(':', $this->, PDO::PARAM_STR);
-        $stmt->bindParam(':', $this->, PDO::PARAM_STR);
-        $stmt->bindParam(':', $this->, PDO::PARAM_STR);
-        $stmt->bindParam(':', $this->, PDO::PARAM_STR);
+        $stmt->bindParam(':tipo_manutencao', $this->tipo_manutencao, PDO::PARAM_STR);
+        $stmt->bindParam(':id_status', $this->id_status, PDO::PARAM_STR);
+        $stmt->bindParam(':observações', $this->observações, PDO::PARAM_STR);
+
         $stmt->bindParam(':id_agendamento', $this->id, PDO::PARAM_INT);
 
         if($stmt->execute()){

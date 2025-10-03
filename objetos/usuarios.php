@@ -1,5 +1,8 @@
 <?php
 class Usuarios {
+
+    public $id_usuario;
+
     public $nome;
     public $email;
     public $senha;
@@ -11,19 +14,17 @@ class Usuarios {
         $this->bd = $bd;
     }
 
-    public function cadastrar($dados) {
+    public function cadastrar() {
 
-    $sql = "INSERT INTO usuarios (nome, email, senha, telefone, cpf, tipo) 
-            VALUES (:nome, :email, :senha, :telefone, :cpf, :tipo)";
+    $sql = 'INSERT INTO usuarios (nome, email, senha, telefone, cpf, tipo) VALUES (:nome, :email, :senha, :telefone, :cpf, :tipo)';
 
-    $stmt = $this->conn->prepare($sql);
-    $stmt->bindParam(':nome', $dados['nome']);
-    $stmt->bindParam(':email', $dados['email']);
-    $senhaHash = password_hash($dados['senha'], PASSWORD_DEFAULT);
-    $stmt->bindParam(':senha', $senhaHash);
-    $stmt->bindParam(':telefone', $dados['telefone']);
-    $stmt->bindParam(':cpf', $dados['cpf']);
-    $stmt->bindParam(':tipo', $dados['tipo']);
+    $stmt = $this->bd->prepare($sql);
+    $stmt->bindParam(':nome', $this->nome, PDO::PARAM_STR);
+    $stmt->bindParam(':email', $this->email, PDO::PARAM_STR);
+    $stmt->bindParam(':senha' , $this->senha, PDO::PARAM_STR);
+    $stmt->bindParam(':telefone', $this->telefone, PDO::PARAM_STR);
+    $stmt->bindParam(':cpf', $this->cpf, PDO::PARAM_STR);
+    $stmt->bindParam(':tipo', $this->tipo, PDO::PARAM_STR);
 
     return $stmt->execute();
 

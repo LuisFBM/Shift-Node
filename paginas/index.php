@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -15,7 +17,7 @@
           <nav>
               <a href="index.php" class="logo"><img src="../img/shiftnode.png" alt="logo"></a>
           <ul>
-            <li><a href="Agendar.php">Agendamentos</a></li>
+            <li><a href="agendamento.php">Agendamentos</a></li>
             <li><a href="Serviços.php">Serviços</a></li>
             <li><a href="QuemSomos.php">Quem Somos</a></li>
             <li><a href="Contatos.php">Contatos</a></li>

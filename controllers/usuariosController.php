@@ -24,7 +24,7 @@ class usuariosController {
         $this->usuarios->cpf = $dados['cpf'];
         $this->usuarios->tipo = $dados['tipo'];
 
-        if($this->usuarios->cadastrar()){
+        if($this->usuarios->cadastrar($dados)){
             header("Location: ../paginas/index.php");
             exit();
         }
@@ -61,6 +61,9 @@ class usuariosController {
 
         $this->usuarios->login();
 }
+
+
+
 } 
 
 ?>

@@ -1,0 +1,50 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+
+.corpo{
+    display: flex;
+    gap: 20px;
+}
+
+/* agendar serviços */
+
+.agendar-serv{
+    flex: 1;
+    border: 1px solid #ccc;
+    padding: 15px;
+    border-radius: 8px;
+}
+
+
+/* data */
+
+.data {
+
+}
+
+/* agendamentos */
+
+.agendamentos{
+    flex: 1;
+    border: 1px solid #ccc;
+    padding: 15px;
+    border-radius: 8px;
+}
+
+.fundo-agend {
+    background: #1a2a6c;
+    color: #fff; padding: 10px;
+    border-radius: 6px;
+    margin-bottom: 10px;
+}
+
+.fundo-nenhum {
+    background: #eee;
+    padding: 10px;
+    border-radius: 6px;
+}
+
+
+
