@@ -64,26 +64,27 @@
       A empresa se destaca pelo atendimento ágil, transparente e confiável, fornecendo orçamentos claros e orientações técnicas que permitem ao cliente entender a real condição do seu carro.
     </p>
 
+    <div class="imagens">
 
-    <div class="img1">
-    <img src="img/atendimento.jpg" alt="atendimento">
+        <img src="../img/atendimento.jpg" alt="atendimento">
+        <img src="../img/confiavel.jpeg" alt="confiança">
+        <img src="../img/ferramentas.png" alt="ferramentas">
+        <img src="../img/manutencao.jpg" alt="manutencao">
+
     </div>
 
-    <div class="img2">
-    <img src="img/confiavel.jpeg" alt="confiança">
-    </div>
-
-    <div class="img3">
-    <img src="img/ferramentas.png" alt="ferramentas">
-    </div>
-    
-    <div class="img4">
-    <img src="img/manutencao.jpg" alt="manutencao">
-    </div>
     
   </section>
 
-  
+
+    <div class="card" style="width: 20rem;">
+        <img src="../img/fluido%20veiculo.png" class="card-img-top" alt="fluido veiculo">
+        <div class="card-body">
+            <h2>Verificar fluídos do veículo.</h2>
+            <p class="card-text">estacione em local plano com o motor frio, abra o capô e identifique os reservatórios de fluidos como o óleo do motor (com vareta), fluido de arrefecimento (reservatório transparente) e fluido de freio (reservatório próximo ao cilindro mestre). Verifique se o nível de cada fluido está entre as marcas de mínimo e máximo.Se o nível estiver baixo, adicione o tipo de fluido recomendado pelo fabricante do veículo e repita a medição para evitar excessos.</p>
+        </div>
+    </div>
+
 
 </main>
 

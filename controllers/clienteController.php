@@ -1,13 +1,13 @@
 <?php
 
-include '../banco/database.php';
-include '../objetos/veiculo.php';
-include_once "../objetos/usuarios.php"
+include_once '../banco/database.php';
+include_once '../objetos/veiculo.php';
+include_once "../objetos/usuarios.php";
 
 
 public function validarCadastro($cliente) {
 
-    if ($_SERVER['REQUEST_METHOD'] === 'POST' && $tipo = $_POST['tipo'];)
+    if ($_SERVER['REQUEST_METHOD'] === 'POST' && $tipo = $_POST['tipo']) {
 
     $sql = 'INSERT INTO clientes (id_usuario, observacoes) VALUES (:id_usuario, :observacoes)';
     $stmt = $this->bd->prepare($sql);
@@ -16,9 +16,7 @@ public function validarCadastro($cliente) {
 
     }
 
-public function validarVeiculo($veiculo){
-
-}
+    }
 
 
 ?>

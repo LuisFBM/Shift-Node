@@ -1,4 +1,4 @@
-/* Títulos Opens Sanss */
+/* Títulos Opens Sans */
 @import url("https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Open+Sans:wght@400;700&display=swap");
 
 /* Texto Roboto */
@@ -127,3 +127,30 @@ ul li {
   line-height: 1.6;
   font-family: "Lato", sans-serif;
 }
+
+/* Imagens do Quem Somos */
+
+.imagens {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 25px;
+    justify-items: center;
+    margin-top: 40px;
+}
+
+.imagens img {
+    width: 100%;
+    max-width: 300px;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.imagens img:hover {
+    transform: translateY(-6px) scale(1.03);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.45);
+    cursor: pointer;
+}
+

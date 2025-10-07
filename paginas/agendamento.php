@@ -1,9 +1,27 @@
 <?php
 
-include_once "../controllers/agendamentoController.php";
-include_once "../objetos/veiculo.php";
+include_once '../controllers/agendamentoController.php';
+include_once '../controllers/usuariosController.php';
+include_once '../objetos/servico.php';
+
+$agendamentoController = new agendamentoController();
+$usuariosController = new usuariosController();
 
 
+$agendamento = $agendamentoController->listarAgendamentos();
+
+
+$db = new Database();
+$conn = $db->conectar();
+
+
+if($_SERVER['REQUEST_METHOD'] === "POST"){
+    $controller = new agendamentoController();
+
+    if(isset($_POST['cadastrar'])){
+        $controller->cadastrarAgendamentos($_POST['agendamento']);
+    }
+}
 
 ?>
 
@@ -61,7 +79,7 @@ include_once "../objetos/veiculo.php";
             </select><br><br>
 
             <label for="veiculo">Veículo:</label><br>
-            <input type="text" id="veiculo" name="veiculo" placeholder="Ex: Puma Gtb" required><br><br>
+            <input type="text" id="veiculo" name="veiculo" placeholder="Nome do Veículo" required><br><br>
 
             <label for="obs">Observações:</label><br>
             <textarea id="obs" name="obs" rows="4" cols="50" placeholder="Observações..."></textarea><br><br>
@@ -78,9 +96,6 @@ include_once "../objetos/veiculo.php";
 
         </div>
 
-        <div class="fundo-nenhum">
-           <? if () ?>
-        </div>
     </div>
 
 </div>

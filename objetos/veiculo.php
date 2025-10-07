@@ -3,7 +3,6 @@
 class Veiculo {
 
     public $id_veiculo;
-
     public $nome;
     public $marca;
     public $modelo;
@@ -43,7 +42,8 @@ class Veiculo {
         $stmt->bindParam(':modelo', $this->modelo, PDO::PARAM_STR);
         $stmt->bindParam(':placa', $this->placa, PDO::PARAM_STR);
         $stmt->bindParam(':ano', $this->ano, PDO::PARAM_STR);
-        $stmt->bindParam(':id_veiculo', $this->id, PDO::PARAM_INT);
+
+        $stmt->bindParam(':id_veiculo', $this->id_veiculo, PDO::PARAM_INT);
 
         if ($stmt->execute()) {
             return true;
@@ -64,7 +64,7 @@ class Veiculo {
         }
     }
 
-    }
+
 
 }
 
