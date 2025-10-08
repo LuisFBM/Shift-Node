@@ -59,15 +59,20 @@
 
     <br>
 
-    <p>
+    <p class="info">
       A 4 Nitros – É uma oficina especializada em manutenção preventiva e corretiva básica, com foco na segurança e desempenho dos veículos.
       A empresa se destaca pelo atendimento ágil, transparente e confiável, fornecendo orçamentos claros e orientações técnicas que permitem ao cliente entender a real condição do seu carro.
     </p>
 
-    <div class="imagens">
+    <div class="topo">
 
         <img src="../img/atendimento.jpg" alt="atendimento">
         <img src="../img/confiavel.jpeg" alt="confiança">
+
+    </div>
+
+    <div class="topo" id="baixo">
+
         <img src="../img/ferramentas.png" alt="ferramentas">
         <img src="../img/manutencao.jpg" alt="manutencao">
 

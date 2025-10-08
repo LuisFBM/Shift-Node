@@ -122,35 +122,35 @@ ul li {
   margin-bottom: 20px;
 }
 
-.quem-somos p {
+.info {
   max-width: 700px;
-  line-height: 1.6;
-  font-family: "Lato", sans-serif;
+  line-height: 1.7;
+  font-size: 200px;
+  text-size-adjust: 100px;
+  font-family: "Roboto", sans-serif;
 }
 
 /* Imagens do Quem Somos */
 
-.imagens {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 25px;
-    justify-items: center;
-    margin-top: 40px;
+.topo {
+    display: flex;
+    top: 50%;
+    justify-content: flex-end;
 }
 
-.imagens img {
+.topo img {
+    margin: 20px;
     width: 100%;
-    max-width: 300px;
-    height: 200px;
-    object-fit: cover;
-    border-radius: 12px;
+    max-width: 200px;
+    height: 50px;
+    border-radius: 10px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition: transform 0.3s ease, box-shadow 0.3s;
+
 }
 
-.imagens img:hover {
-    transform: translateY(-6px) scale(1.03);
+.topo img:hover {
+    transform: translateY(-6px) scale(1.02);
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.45);
     cursor: pointer;
 }
-
