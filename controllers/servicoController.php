@@ -4,6 +4,7 @@ include_once 'configs/database.php';
 include_once 'servico.php';
 
 class servicoController{
+
     private $bd;
     private $servico;
 
@@ -14,19 +15,18 @@ class servicoController{
     }
 
     public function index(){
-        return $this->servico->lerTodos();
+        return $this->servicos->lerTodos();
     }
 
     public function listarServicos(){
-        return $this->servico->lerServicos();
+        return $this->servicos->lerServicos();
     }
 
     public function cadastrarServico($dados){
-        $this->servico->nomeServico = $dados['nome'];
-        $this->servico->descricao = $dados['descricao'];
-        $this->servico->preco = $dados['preco'];
+        $this->servicos->nome = $dados['nome'];
+        $this->servicos->descricao = $dados['descricao'];
 
-        if($this->servico->cadastrarSer()){
+        if($this->servicos->cadastrarSer()){
             header("Location: index.php");
             exit();
         }
@@ -34,9 +34,9 @@ class servicoController{
     }
 
     public function atualizarServico($dados){
-        $this->servico->nomeServico = $dados['nomeServico'];
-        $this->servico->descricao = $dados['descricao'];
-        $this->servico->preco = $dados['preco'];
+        $this->servicos->nome = $dados['nome'];
+        $this->servicos->descricao = $dados['descricao'];
+
 
         if($this->servico->atualizar()){
             header("Location: index.php");
@@ -46,10 +46,10 @@ class servicoController{
         return false;
     }
 
-    public function excluirServico($idServico){
-        $this->servico->idServico = $idServico;
+    public function excluirServico($id_servico){
+        $this->servicos->id_servico = $id_servico;
 
-        if($this->servico->excluir()){
+        if($this->servicos->excluir()){
             header("Location: index.php");
             exit();
         }

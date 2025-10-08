@@ -4,9 +4,6 @@ class Veiculo {
 
     public $id_veiculo;
     public $nome;
-    public $marca;
-    public $modelo;
-    public $placa;
     public $ano;
     public $bd;
 
@@ -18,12 +15,11 @@ class Veiculo {
 
     public function cadastrar(){
         
-        $sql = "INSERT INTO veiculo (nome, marca, modelo, placa, ano) VALUES (:nome, :marca, :modelo, :placa, :ano)";
+        $sql = "INSERT INTO veiculos (nome, ano, id_cliente) VALUES (:nome, :ano, :id_cliente)";
         $stmt = $this->bd->prepare($sql);
+
+        $stmt->bindParam(':id_cliente', $this->id_cliente, PDO::PARAM_INT);
         $stmt->bindParam(':nome', $this->nome, PDO::PARAM_STR);
-        $stmt->bindParam(':marca', $this->marca, PDO::PARAM_STR);
-        $stmt->bindParam(':modelo', $this->modelo, PDO::PARAM_STR);
-        $stmt->bindParam(':placa', $this->placa, PDO::PARAM_STR);
         $stmt->bindParam(':ano', $this->ano, PDO::PARAM_STR);
 
         if($stmt->execute()){
@@ -35,12 +31,9 @@ class Veiculo {
 
     public function atualizar(){
 
-        $sql = "UPDATE veiculo SET nome = :nome, marca = :marca, modelo = :modelo, placa = :plca, ano = :ano WHERE id_veiculo = :id_veiculo";
+        $sql = "UPDATE veiculo SET nome = :nome, ano = :ano WHERE id_veiculo = :id_veiculo";
         $stmt = $this->bd->prepare($sql);
         $stmt->bindParam(':nome', $this->nome, PDO::PARAM_STR);
-        $stmt->bindParam(':marca', $this->marca, PDO::PARAM_STR);
-        $stmt->bindParam(':modelo', $this->modelo, PDO::PARAM_STR);
-        $stmt->bindParam(':placa', $this->placa, PDO::PARAM_STR);
         $stmt->bindParam(':ano', $this->ano, PDO::PARAM_STR);
 
         $stmt->bindParam(':id_veiculo', $this->id_veiculo, PDO::PARAM_INT);

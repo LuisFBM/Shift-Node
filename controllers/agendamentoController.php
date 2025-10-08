@@ -1,50 +1,61 @@
 <?php
-
 include_once '../banco/database.php';
 include_once '../objetos/agendamentos.php';
 
-Class AgendamentoController {
+session_start();
+
+class agendamentoController {
 
     private $bd;
     private $agendamentos;
-    private $usuarios;
 
     public function __construct() {
         $banco = new Database();
         $this->bd = $banco->conectar();
-        $this->agendamentos = new agendamento($this->bd);
+        $this->agendamentos = new agendamentos($this->bd);
     }
 
-    function cadastrarAgendamentos($dados) {
-        $this->agendamentos->numero_agendamento = $dados['numero_agendamento'];
-        $this->agendamentos->id_cliente = $dados['id_cliente'];
-        $this->agendamentos->id_veiculo = $dados['id_veiculo'];
-        $this->agendamentos->id_orcamento = $dados['id_orcamento'];
-
-
-        if($this->usuarios->cadastrar()){
-            header("Location: ../paginas/agendamento.php");
-            exit();
-        }
-
-        return false;
-
-    }
-
-    function listarAgendamentos() {
+    public function index() {
         return $this->agendamentos->lerTodos();
     }
 
-    function excluirAgendamentos($id_agendamento) {
-        $this->agendamentos->id_agendamento = $id_agendamento;
+    public function cadastrarAgenda($dados) {
 
-        if($this->usuarios->excluir()){
+        $this->agendamentos->id_agendamento = $dados['id_agendamento'];
+        $this->agendamentos->id_cliente = $dados['usuario'];
+        $this->agendamentos->id_veiculo = $dados['id_veiculo'];
+
+
+        if ($this->agendamentos->cadastrarAgendamento()) {
             header("Location: ../paginas/agendamento.php");
             exit();
         }
+        return false;
     }
 
+    public function atualizar($dados) {
 
+        $this->agendamentos->id_agendamento = $dados['id_agendamento'];
+        $this->agendamentos->id_cliente = $dados['id_cliente'];
+        $this->agendamentos->id_veiculo = $dados['id_veiculo'];
+
+
+        if ($this->agendamentos->atualizar()) {
+            header("Location: ../paginas/agendamento.php");
+            exit();
+        }
+        return false;
+    }
+
+    public function excluirAgendamento($idAgendamento) {
+
+        $this->agendamentos->id_agendamento = $idAgendamento;
+
+        if ($this->agendamentos->excluir()) {
+            header("Location: ../paginas/agendamento.php");
+        }
+    }
 }
+
 
 ?>

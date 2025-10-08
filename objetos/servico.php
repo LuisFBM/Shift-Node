@@ -2,10 +2,9 @@
 <?php
 
 Class servico{
-    public $idServico;
-    public $nomeServico;
+    public $id_servico;
+    public $nome;
     public $descricao;
-    public $preco;
     public $bd;
 
     public function __construct($bd){
@@ -13,7 +12,7 @@ Class servico{
     }
 
     public function lerTodos(){
-        $sql = "SELECT * FROM servico";
+        $sql = "SELECT * FROM servicos";
         $resultado = $this->bd->query($sql);
         $resultado->execute();
 
@@ -21,29 +20,28 @@ Class servico{
     }
 
     public function lerServicos(){
-        $sql = "SELECT idServico, nomeServico FROM servico";
+        $sql = "SELECT id_servico, nome FROM servicos";
         $resultado = $this->bd->query($sql);
         $resultado->execute();
 
         return $resultado->fetchALL(PDO::FETCH_ASSOC);
     }
 
-    public function lerServico($nomeServico){
-        $nomeServico = "%" . $nomeServico . "%";
-        $sql = "SELECT * FROM servico WHERE nomeServico LIKE :nomeServico";
+    public function lerServico($nome){
+        $nome = "%" . $nome . "%";
+        $sql = "SELECT * FROM servicos WHERE nome LIKE :nome";
         $resultado = $this->bd->prepare($sql);
-        $resultado->bindParam(':nomeServico' , $nomeServico);
+        $resultado->bindParam(':nome' , $nome);
         $resultado->execute();
 
         return $resultado->fetchALL(PDO::FETCH_OBJ);
     }
 
     public function cadastrarSer(){
-        $sql = "INSERT INTO servico(nomeServico, descricao, preco) VALUES (:nomeServico, :descricao, :preco)";
+        $sql = "INSERT INTO servicos(nome, descricao) VALUES (:nomeServico, :descricao)";
         $stmt = $this->bd->prepare($sql);
-        $stmt->bindParam(':nomeServico', $this->nomeServico, PDO::PARAM_STR);
+        $stmt->bindParam(':nomeS', $this->nome, PDO::PARAM_STR);
         $stmt->bindParam(':descricao', $this->descricao, PDO::PARAM_STR);
-        $stmt->bindParam(':preco', $this->preco);
 
         if($stmt->execute()){
             return true;
@@ -53,10 +51,10 @@ Class servico{
     }
 
     public function atualizar(){
-        $sql = "UPDATE servico SET nomeServico = :nomeServico, preco = :preco WHERE idServico = :idServico";
+        $sql = "UPDATE servicos SET nome = :nome WHERE id_servico = :id_servico";
         $stmt = $this->bd->prepare($sql);
-        $stmt->bindParam(':nomeServico', $this->nomeServico, PDO::PARAM_STR);
-        $stmt->bindParam(':preco', $this->preco);
+        $stmt->bindParam(':nome', $this->nome, PDO::PARAM_STR);
+        $stmt->bindParam(':descricao', $this->descricao, PDO::PARAM_STR);
 
         if ($stmt->execute()){
             return true;
@@ -66,9 +64,9 @@ Class servico{
     }
 
     public function excluir(){
-        $sql = "DELETE FROM servico WHERE idServico = :idServico";
+        $sql = "DELETE FROM servicos WHERE id_servico = :id_servico";
         $stmt = $this->bd->prepare($sql);
-        $stmt->bindParam(':idServico', $this->idServico, PDO::PARAM_INT);
+        $stmt->bindParam(':id_servico', $this->id_servico, PDO::PARAM_INT);
 
         if ($stmt->execute()){
             return true;

@@ -124,33 +124,31 @@ ul li {
 
 .info {
   max-width: 700px;
-  line-height: 1.7;
-  font-size: 200px;
-  text-size-adjust: 100px;
+  line-height: 1.6;
   font-family: "Roboto", sans-serif;
 }
 
 /* Imagens do Quem Somos */
 
 .topo {
-    display: flex;
-    top: 50%;
-    justify-content: flex-end;
+  display: flex;
+  top: 100%;
+  justify-content: flex-end;
 }
 
 .topo img {
-    margin: 20px;
-    width: 100%;
-    max-width: 200px;
-    height: 50px;
-    border-radius: 10px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-    transition: transform 0.3s ease, box-shadow 0.3s;
+  margin: 10px;
 
+  width: 200%;
+  max-width: 400px;
+  height: 200px;
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  transition: transform 0.3s ease, box-shadow 0.3s;
 }
 
 .topo img:hover {
-    transform: translateY(-6px) scale(1.02);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.45);
-    cursor: pointer;
+  transform: translateY(-6px) scale(1.02);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.45);
+  cursor: pointer;
 }
