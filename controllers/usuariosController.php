@@ -22,7 +22,7 @@ class usuariosController {
         $this->usuarios->senha = password_hash($dados['senha'], PASSWORD_DEFAULT);
         $this->usuarios->telefone = $dados['telefone'];
         $this->usuarios->cpf = $dados['cpf'];
-        $this->usuarios->tipo = $dados['tipo'];
+        $this->usuarios->formacao = $dados['formacao'];
 
         if($this->usuarios->cadastrar($dados)){
             header("Location: ../paginas/index.php");
@@ -32,12 +32,12 @@ class usuariosController {
     }
 
     public function atualizarUsuarios($dados){
-        $this->usuarios->nome = $usuarios['nome']; 
-        $this->usuarios->email = $usuarios['email'];
-        $this-> usuarios->senha = password_hash($usuarios['senha'], PASSWORD_DEFAULT);
-        $this->usuarios->telefone = $usuarios['telefone'];
-        $this->usuarios->cpf = $usuarios['cpf'];
-        $this->usuarios->tipo = $usuarios['tipo'];
+        $this->usuarios->nome = $dados['nome']; 
+        $this->usuarios->email = $dados['email'];
+        $this-> usuarios->senha = password_hash($dados['senha'], PASSWORD_DEFAULT);
+        $this->usuarios->telefone = $dados['telefone'];
+        $this->usuarios->cpf = $dados['cpf'];
+        $this->usuarios->formacao = $dados['formacao'];
 
         if($this->usuarios->atualizar()){
             header("Location: index.php");

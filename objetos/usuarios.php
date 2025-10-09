@@ -8,7 +8,7 @@ class Usuarios {
     public $senha;
     public $telefone;
     public $cpf;
-    public $tipo;
+    public $formacao;
 
     public function __construct($bd) {
         $this->bd = $bd;
@@ -16,7 +16,7 @@ class Usuarios {
 
     public function cadastrar() {
 
-    $sql = 'INSERT INTO usuarios (nome, email, senha, telefone, cpf, tipo) VALUES (:nome, :email, :senha, :telefone, :cpf, :tipo)';
+    $sql = 'INSERT INTO usuarios (nome, email, senha, telefone, cpf, formacao) VALUES (:nome, :email, :senha, :telefone, :cpf, :formacao)';
 
     $stmt = $this->bd->prepare($sql);
     $stmt->bindParam(':nome', $this->nome, PDO::PARAM_STR);
@@ -24,7 +24,7 @@ class Usuarios {
     $stmt->bindParam(':senha' , $this->senha, PDO::PARAM_STR);
     $stmt->bindParam(':telefone', $this->telefone, PDO::PARAM_STR);
     $stmt->bindParam(':cpf', $this->cpf, PDO::PARAM_STR);
-    $stmt->bindParam(':tipo', $this->tipo, PDO::PARAM_STR);
+    $stmt->bindParam(':formacao', $this->formacao, PDO::PARAM_STR);
 
     return $stmt->execute();
 
@@ -33,13 +33,15 @@ class Usuarios {
 
     public function atualizar(){
         $senha_hash = password_hash($this->senha, PASSWORD_DEFAULT);
-        $sql = "UPDATE usuarios SET nome = :nome, email = :email, senha = :senha, telefone = :telefone, cpf = :cpf, tipo = :tipo WHERE id = :id";
+        $sql = "UPDATE usuarios SET nome = :nome, email = :email, senha = :senha, telefone = :telefone, cpf = :cpf, formacao = :formacao WHERE id = :id";
         $stmt = $this->bd->prepare($sql);
         $stmt->bindParam(':nome', $this->nome, PDO::PARAM_STR);
         $stmt->bindParam(':email', $this->email, PDO::PARAM_STR);
         $stmt->bindParam(':senha', $this->senha_hash, PDO::PARAM_STR);
         $stmt->bindParam(':telefone', $this->telefone, PDO::PARAM_STR);
         $stmt->bindParam(':cpf', $this->cpf, PDO::PARAM_STR);
+        $stmt->bindParam(':formacao', $this->formacao, PDO::PARAM_STR);
+
         $stmt->bindParam(':id_usuarios', $this->id, PDO::PARAM_INT);
 
           if($stmt->execute()){

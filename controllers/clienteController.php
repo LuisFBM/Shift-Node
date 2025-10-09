@@ -2,7 +2,7 @@
 
 include_once '../banco/database.php';
 include_once '../objetos/veiculo.php';
-include_once "../objetos/usuarios.php";
+include_once "../objetos/cliente.php";
 
 
 public function validarCadastro($cliente) {

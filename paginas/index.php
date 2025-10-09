@@ -12,7 +12,6 @@
 
 </head>
 <body>
-
         <div class="hero">
           <nav>
               <a href="index.php" class="logo"><img src="../img/shiftnode.png" alt="logo"></a>
@@ -31,6 +30,7 @@
           </div>
           
           </nav>
+          
         </div>
 
 <main>
@@ -78,17 +78,7 @@
 
     </div>
 
-    
   </section>
-
-
-    <div class="card" style="width: 20rem;">
-        <img src="../img/fluido%20veiculo.png" class="card-img-top" alt="fluido veiculo">
-        <div class="card-body">
-            <h2>Verificar fluídos do veículo.</h2>
-            <p class="card-text">estacione em local plano com o motor frio, abra o capô e identifique os reservatórios de fluidos como o óleo do motor (com vareta), fluido de arrefecimento (reservatório transparente) e fluido de freio (reservatório próximo ao cilindro mestre). Verifique se o nível de cada fluido está entre as marcas de mínimo e máximo.Se o nível estiver baixo, adicione o tipo de fluido recomendado pelo fabricante do veículo e repita a medição para evitar excessos.</p>
-        </div>
-    </div>
 
 
 </main>

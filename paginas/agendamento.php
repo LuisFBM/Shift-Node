@@ -28,6 +28,19 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
 </head>
 <body>
 
+        <div class="hero">
+          <nav>
+              <a href="index.php" class="logo"><img src="../img/shiftnode.png" alt="logo"></a>
+          <ul>
+            <li><a href="agendamento.php">Agendamentos</a></li>
+            <li><a href="Serviços.php">Serviços</a></li>
+            <li><a href="QuemSomos.php">Quem Somos</a></li>
+            <li><a href="Contatos.php">Contatos</a></li>
+          </ul>
+          
+          </nav>
+        </div>
+
 <h1>Agendar</h1>
 
 <div class="corpo">
@@ -41,7 +54,7 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
 
             <div class="servicos">
                 <label for="servico">Tipo de Serviço:</label><br>
-                <select id="servico" name="servico" required>
+                <select id="servico" name="tipo_servico" required>
                     <option value="">Selecione o Serviço</option>
                     <option value="nivel_fluido">Verificar nível de fluídos</option>
                     <option value="troca_oleo">Trocar óleo do motor e filtro</option>
@@ -55,8 +68,8 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
 
             <div class="data">
                 <label for="data">Data:</label><br>
-                <input type="date" id="data" name="data" required><br><br>
-            </div>
+                <input type="date" id="data" name="data_agendamento" required>
+            </div><br>
 
             <label for="hora">Horário:</label><br>
             <select id="hora" name="hora" required>
@@ -73,7 +86,7 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
             <input type="text" id="veiculo" name="id_veiculo" placeholder="Nome do Veículo" required><br><br>
 
             <label for="obs">Observações:</label><br>
-            <textarea id="obs" name="obs" rows="4" cols="100" placeholder="Observações..."></textarea><br><br>
+            <textarea id="obs" name="observacoes" rows="4" cols="100" placeholder="Observações..."></textarea>
 
             <button type="submit">Confirmar Agendamento</button>
         </form>

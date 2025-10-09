@@ -1,6 +1,62 @@
+/* Títulos Opens Sans */
+@import url("https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Open+Sans:wght@400;700&display=swap");
+
+/* Texto Roboto */
+@import url("https://fonts.googleapis.com/css2?family=Alan+Sans:wght@300..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap");
+
+/* Links Alan Sans */
+@import url("https://fonts.googleapis.com/css2?family=Alan+Sans:wght@300..900&display=swap");
+
 * {
     padding: 0;
     margin: 0;
+    box-sizing: border-box;
+}
+
+/* navbar */
+
+.hero {
+  height: 4.3vw;
+  width: 100%;
+  background: linear-gradient(to right, #061f40, #6155f5);
+}
+
+nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding: 10px 5%;
+}
+
+.logo img {
+  max-height: 70px;
+  width: auto;
+}
+
+button {
+  padding: 8px 20px;
+  font-size: 0.9rem;
+}
+
+nav ul li {
+  font-family: "Alan Sans", sans-serif;
+  list-style-type: none;
+  display: inline-block;
+  padding: 8px 20px;
+}
+
+nav ul li a {
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+
+nav ul li a:hover {
+  color: lightblue;
+  transition: 0.3s;
 }
 
 .corpo{
@@ -17,12 +73,6 @@
     border-radius: 8px;
 }
 
-
-/* data */
-
-.data {
-
-}
 
 /* agendamentos */
 

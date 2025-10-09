@@ -1,6 +1,8 @@
 <?php
 include_once '../banco/database.php';
 include_once '../objetos/agendamentos.php';
+include_once '../objetos/cliente.php';
+include_once '../objetos/veiculo.php';
 
 session_start();
 
@@ -12,7 +14,7 @@ class agendamentoController {
     public function __construct() {
         $banco = new Database();
         $this->bd = $banco->conectar();
-        $this->agendamentos = new agendamentos($this->bd);
+        $this->agendamentos = new agendamento($this->bd);
     }
 
     public function index() {
@@ -21,9 +23,10 @@ class agendamentoController {
 
     public function cadastrarAgenda($dados) {
 
-        $this->agendamentos->id_agendamento = $dados['id_agendamento'];
-        $this->agendamentos->id_cliente = $dados['usuario'];
         $this->agendamentos->id_veiculo = $dados['id_veiculo'];
+        $this->agendamentos->hora = $dados['hora'];
+        $this->agendamentos->tipo_servico = $dados['tipo_servico'];
+        $this->agendamentos->observacoes = $dados['observacoes'];
 
 
         if ($this->agendamentos->cadastrarAgendamento()) {
@@ -35,9 +38,10 @@ class agendamentoController {
 
     public function atualizar($dados) {
 
-        $this->agendamentos->id_agendamento = $dados['id_agendamento'];
-        $this->agendamentos->id_cliente = $dados['id_cliente'];
         $this->agendamentos->id_veiculo = $dados['id_veiculo'];
+        $this->agendamentos->hora = $dados['hora'];
+        $this->agendamentos->tipo_servico = $dados['tipo_servico'];
+        $this->agendamentos->observacoes = $dados['observacoes'];
 
 
         if ($this->agendamentos->atualizar()) {
