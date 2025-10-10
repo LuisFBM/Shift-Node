@@ -12,8 +12,6 @@ if($_SERVER['REQUEST_METHOD'] === "POST") {
 
 ?>
 
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -43,15 +41,6 @@ if($_SERVER['REQUEST_METHOD'] === "POST") {
 
         <button>Entrar</button>
     </form>
-
-    <?php
-    if(isset($_SESSION['erro'])) {
-        echo $_SESSION['erro'];
-    } elseif(isset($_SESSION['erros'])) {
-        echo $_SESSION['erros'];
-    }
-    ?>
-
     <p>Clique aqui para cadastrar <a href="cadastroUsuario.php">Cadastrar</a></p>
 
     </body>

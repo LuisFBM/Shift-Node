@@ -1,10 +1,10 @@
 <?php
 include_once '../controllers/agendamentoController.php';
-include_once '../controllers/usuariosController.php';
+include_once '../controllers/clienteController.php';
 include_once '../banco/database.php';
 
 $agendamentoController = new agendamentoController();
-$usuariosController = new usuariosController();
+$clienteController = new clienteController();
 
 $agendamentos = $agendamentoController->index(); 
 
@@ -41,13 +41,11 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
           </nav>
         </div>
 
-<h1>Agendar</h1>
-
 <div class="corpo">
 
     <!-- Formulário de Agendamento -->
-    <div class="agendar-serv">
-        <h2>Agendar Serviço</h2><br>
+    <div class="agendar-servi">
+        <h1>Agendar Serviço</h1><br>
 
         <form action="" method="post">
             <input type="hidden" name="cadastrar" value="1">
@@ -67,7 +65,7 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
             </div>
 
             <div class="data">
-                <label for="data">Data:</label><br>
+                <label for="data_agendamento">Data:</label><br>
                 <input type="date" id="data" name="data_agendamento" required>
             </div><br>
 
@@ -86,7 +84,7 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
             <input type="text" id="veiculo" name="id_veiculo" placeholder="Nome do Veículo" required><br><br>
 
             <label for="obs">Observações:</label><br>
-            <textarea id="obs" name="observacoes" rows="4" cols="100" placeholder="Observações..."></textarea>
+            <textarea id="obs" name="observacoes" rows="4" cols="100" placeholder="Observações..."></textarea><br><br>
 
             <button type="submit">Confirmar Agendamento</button>
         </form>
@@ -106,7 +104,8 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
                             <strong>Hora:</strong> <?= htmlspecialchars($item['hora'] ?? '') ?><br>
                             <strong>Serviço:</strong> <?= htmlspecialchars($item['servico'] ?? '') ?><br>
                             <strong>Veículo:</strong> <?= htmlspecialchars($item['id_veiculo'] ?? '') ?><br>
-                            <a href="../controllers/agendamentoController.php?excluir=<?= $item['id_agendamento'] ?>">Excluir</a>
+                            <a href="atualizarAgendamento.php?alterar=<?= $logado->id_agendamento ?>">Editar</a>
+                            <a href="agendamento.php?excluir=<?= $logado->id_agendamento ?>">Excluir</a>
                         </li>
                     <?php endforeach; ?>
                 </ul>

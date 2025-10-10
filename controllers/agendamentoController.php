@@ -1,10 +1,8 @@
 <?php
 include_once '../banco/database.php';
-include_once '../objetos/agendamentos.php';
+include_once '../objetos/agendar.php';
 include_once '../objetos/cliente.php';
 include_once '../objetos/veiculo.php';
-
-session_start();
 
 class agendamentoController {
 
@@ -24,6 +22,8 @@ class agendamentoController {
     public function cadastrarAgenda($dados) {
 
         $this->agendamentos->id_veiculo = $dados['id_veiculo'];
+        $this->agendamento->id_cliente = $_SESSION['id_cliente'];
+        $this->agendamentos->data_agendamento = $dados['data_agendamento'];
         $this->agendamentos->hora = $dados['hora'];
         $this->agendamentos->tipo_servico = $dados['tipo_servico'];
         $this->agendamentos->observacoes = $dados['observacoes'];
@@ -39,6 +39,7 @@ class agendamentoController {
     public function atualizar($dados) {
 
         $this->agendamentos->id_veiculo = $dados['id_veiculo'];
+        $this->agendamentos->data_agendamento = $dados['data_agendamento'];
         $this->agendamentos->hora = $dados['hora'];
         $this->agendamentos->tipo_servico = $dados['tipo_servico'];
         $this->agendamentos->observacoes = $dados['observacoes'];

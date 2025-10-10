@@ -13,7 +13,7 @@ Class Cliente {
 
     public function cadastrar() {
 
-    $sql = 'INSERT INTO usuarios (nome, email, senha, telefone, cpf) VALUES (:nome, :email, :senha, :telefone, :cpf)';
+    $sql = 'INSERT INTO cliente (nome, email, senha, telefone, cpf) VALUES (:nome, :email, :senha, :telefone, :cpf)';
 
     $stmt = $this->bd->prepare($sql);
     $stmt->bindParam(':nome', $this->nome, PDO::PARAM_STR);
@@ -29,7 +29,7 @@ Class Cliente {
 
     public function atualizar(){
         $senha_hash = password_hash($this->senha, PASSWORD_DEFAULT);
-        $sql = "UPDATE usuarios SET nome = :nome, email = :email, senha = :senha, telefone = :telefone, cpf = :cpf, WHERE id_cliente = :id_cliente";
+        $sql = "UPDATE cliente SET nome = :nome, email = :email, senha = :senha, telefone = :telefone, cpf = :cpf, WHERE id_cliente = :id_cliente";
         $stmt = $this->bd->prepare($sql);
         $stmt->bindParam(':nome', $this->nome, PDO::PARAM_STR);
         $stmt->bindParam(':email', $this->email, PDO::PARAM_STR);
@@ -38,7 +38,7 @@ Class Cliente {
         $stmt->bindParam(':cpf', $this->cpf, PDO::PARAM_STR);
   
 
-        $stmt->bindParam(':id_usuarios', $this->id, PDO::PARAM_INT);
+        $stmt->bindParam(':id_cliente', $this->id, PDO::PARAM_INT);
 
           if($stmt->execute()){
             return true;
@@ -49,9 +49,9 @@ Class Cliente {
     }
 
     public function excluir(){
-        $sql = "DELETE FROM usuarios WHERE id_usuarios = :id_usuarios";
+        $sql = "DELETE FROM cliente WHERE id_cliente = :id_cliente";
         $stmt = $this->bd->prepare($sql);
-        $stmt->bindParam(':id_usuarios', $this->id_usuarios, PDO::PARAM_INT);
+        $stmt->bindParam(':id_cliente', $this->id_cliente, PDO::PARAM_INT);
 
         if($stmt->execute()){
             return true;

@@ -1,4 +1,19 @@
+<?php
+include_once "configs/database.php";
+include_once "objetos/usuarios.php";
+include "controllers/usuariosController.php";
 
+include_once "objetos/clientes.php";
+
+
+include_once "session.php";
+
+$controller = new usuariosController();
+$usuarios = $controller->index();
+global $alunos;
+$u = null;
+
+?>
 
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -12,6 +27,11 @@
 
 </head>
 <body>
+
+        <?php
+            include 'topo.php';
+        ?>
+
         <div class="hero">
           <nav>
               <a href="index.php" class="logo"><img src="../img/shiftnode.png" alt="logo"></a>
@@ -24,7 +44,7 @@
 
           <div class="cadastro">
 
-            <a href="cadastro.php">Cadastre-se</a>
+            <a href="cadastroFunc.php">Cadastre-se</a>
             <a href="login.php">Login</a>
 
           </div>

@@ -1,15 +1,15 @@
 <?php
 
-include_once "../controllers/usuariosController.php";
+include_once "../controllers/clienteController.php.php";
 
 
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $usuarioController = new usuariosController();
+    $clienteController = new clienteController();
 
-    if ($usuarioController->cadastrarUsuarios($_POST)) {
+    if ($clienteController->cadastrarCliente($_POST)) {
 
-        echo "Usuário cadastrado com sucesso!";
+        echo "Cliente cadastrado com sucesso!";
 
     } else {
 
@@ -38,33 +38,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <title>Cadastro</title>
 </head>
 <body>
-    <h1>Cadastre-se</h1>
-    <form action="cadastro.php" method="POST">
+    <h1>Cadastre-se Aqui !!</h1>
+    <form action="cadastroFunc.php" method="POST">
 
-         <label for="nome">Nome:</label><br><br>
+         <label for="nome">Nome:</label>
         <input type="text" name="nome" placeholder="Nome Completo" required><br><br>
 
-         <label for="email">Email:</label><br><br>
+         <label for="email">Email:</label>
         <input type="email" name="email" placeholder="Email" required>
 
-        <br><br> <label for="senha">Senha:</label><br><br>
+        <br><br> <label for="senha">Senha:</label>
         <input type="password" name="senha" placeholder="Senha" required>
 
-        <br><br> <label for="telefone">Telefone:</label><br><br>
+        <br><br> <label for="telefone">Telefone:</label>
         <input type="text" name="telefone" placeholder="Telefone" required>
 
-        <br><br><label for="cpf">CPF:</label><br><br>
+        <br><br><label for="cpf">CPF:</label>
         <input type="text" name="cpf" placeholder="CPF" required>
 
-        <br><br><label for="tipo">Tipos de usuários:</label>
-        <select name="tipo" required>
-            <option value="CLIENTE">Cliente</option>
-            <option value="ATENDENTE">Atendente</option>
-            <option value="MECANICO">Mecânico</option>
-            <option value="ADMIN">Admin</option>
-        </select>
-
-        <br><br>
 
         <button type="submit">Registrar</button>
     </form>

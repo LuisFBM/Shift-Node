@@ -1,7 +1,6 @@
 <?php
 
 class Veiculo {
-
     public $id_veiculo;
     public $nome;
     public $ano;

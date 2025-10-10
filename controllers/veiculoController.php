@@ -18,13 +18,19 @@ class veiculoController {
         return $this->veiculo->lerTodosPorCliente($id_cliente);
     }
 
+    public function cadastrarVeiculo() {
+        $this->veiculo->nome = $_POST['nome'];
+        $this->veiculo->ano = $_POST['ano'];
+    }
     public function pesquisarVeiculo($nome) {
         $id_cliente = $_SESSION['usuario_id'];
+        $this->veiculo->nome = $nome;
         return $this->veiculo->pesquisarPorNome($termo, $id_cliente);
     }
 
     public function alterarVeiculo($id_veiculo){
-      
+      $this->veiculo->nome = $_POST['nome'];
+      $this->veiculo->ano = $_POST['ano'];
     }
 
     public function excluirVeiculo($idVeiculo) {

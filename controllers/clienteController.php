@@ -1,22 +1,69 @@
 <?php
 
 include_once '../banco/database.php';
-include_once '../objetos/veiculo.php';
-include_once "../objetos/cliente.php";
+include_once '../objetos/cliente.php';
 
+class clienteController {
 
-public function validarCadastro($cliente) {
+    private $bd;
+    private clientes;
+ 
 
-    if ($_SERVER['REQUEST_METHOD'] === 'POST' && $tipo = $_POST['tipo']) {
-
-    $sql = 'INSERT INTO clientes (id_usuario, observacoes) VALUES (:id_usuario, :observacoes)';
-    $stmt = $this->bd->prepare($sql);
-    $stmt->bindParam(':id_usuario', $cliente, PDO::PARAM_INT);
-    $stmt->bindParam(':observacoes', $tipo, PDO::PARAM_INT);
-
+    public function __construct() {
+        $banco = new Database();
+        $this->bd = $banco->conectar();
+        $this->clientes = new Clientes($this->bd);
     }
 
+
+    public function cadastrarCliente($dados){
+        $this->clientes->nome = $dados['nome'];
+        $this->clientes->email = $dados['email'];
+        $this->clientes->senha = password_hash($dados['senha'], PASSWORD_DEFAULT);
+        $this->clientes->telefone = $dados['telefone'];
+        $this->clientes->cpf = $dados['cpf'];
+
+
+        if($this->clientes->cadastrar($dados)){
+            header("Location: ../paginas/index.php");
+            exit();
+        }
+        return false;
     }
 
+    public function atualizarCliente($dados){
+        $this->clientes->nome = $dados['nome'];
+        $this->clientes->email = $dados['email'];
+        $this-> clientes->senha = password_hash($dados['senha'], PASSWORD_DEFAULT);
+        $this->clientes->telefone = $dados['telefone'];
+        $this->clientes->cpf = $dados['cpf'];
+
+
+        if($this->clientes->atualizar()){
+            header("Location: index.php");
+            exit();
+        }
+        return false;
+    }
+
+    public function excluirCliente($id){
+        $this->usuarios->id = $id;
+
+        if($this->clientes->excluir()){
+            header("Location: login.php");
+            exit();
+        }
+    }
+
+    public function login($email, $senha){
+        $this->clientes->email = $email;
+        $this->clientes->senha = $senha;
+
+        $this->clientes->login();
+}
+
+
+
+} 
 
 ?>
