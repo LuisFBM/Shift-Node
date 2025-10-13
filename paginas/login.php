@@ -1,17 +1,29 @@
 <?php
+include_once '../controllers/usuariosController.php';
 
-include_once "../controllers/usuariosController.php";
-session_start();
+if($_SERVER['REQUEST_METHOD'] === 'POST'){
+    if(isset($_POST['usuario']['email']) && isset($_POST['usuario']['senha'])){
 
-if($_SERVER['REQUEST_METHOD'] === "POST") {
-    if(isset($_POST['email']) && isset($_POST['senha'])) {
-        $controller = new usuariosController();
-        $controller->login($_POST['email'], $_POST['senha']);
+        $controller = new usuarioController();
+        $resultado = $controller->login($_POST['usuario']['email'], $_POST['usuario']['senha']);
+        
+        if($resultado['sucesso']){
+            switch($resultado['tipo']){
+                case 'ADMIN':
+                    header('Location: index.php');
+                    break;
+                case 'CLIENTE':
+                    header('Location: index.php');
+                    break;
+              
+            }
+            exit();
+        } else {
+            $erro = $resultado['mensagem'];
+        }
     }
 }
-
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -41,7 +53,7 @@ if($_SERVER['REQUEST_METHOD'] === "POST") {
 
         <button>Entrar</button>
     </form>
-    <p>Clique aqui para cadastrar <a href="cadastroUsuario.php">Cadastrar</a></p>
+    <p>Clique aqui para cadastrar <a href="cadastro.php">Cadastrar</a></p>
 
     </body>
     </html>

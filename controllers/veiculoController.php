@@ -1,41 +1,43 @@
 <?php
 include_once '../banco/database.php';
-include_once '../objetos/veiculos.php';
-session_start();
+include_once '../objetos/veiculo.php';
+
 
 class veiculoController {
     private $bd;
     private $veiculo;
 
-    public function __construct(){
+    public function __construct() {
         $banco = new Database();
         $this->bd = $banco->conectar();
-        $this->veiculo = new veiculos($this->bd);
+        $this->veiculo = new Veiculo($this->bd);
     }
 
     public function indexVeiculo() {
-        $id_cliente = $_SESSION['usuario_id'];
+        $id_cliente = $_SESSION['usuarios']->id_usuario ?? null;
+        if (!$id_cliente) return [];
         return $this->veiculo->lerTodosPorCliente($id_cliente);
     }
 
-    public function cadastrarVeiculo() {
-        $this->veiculo->nome = $_POST['nome'];
-        $this->veiculo->ano = $_POST['ano'];
-    }
-    public function pesquisarVeiculo($nome) {
-        $id_cliente = $_SESSION['usuario_id'];
-        $this->veiculo->nome = $nome;
-        return $this->veiculo->pesquisarPorNome($termo, $id_cliente);
-    }
+    public function cadastrarVeiculo($dados) {
+    $this->veiculo->nome = $dados['nome']; 
+    $this->veiculo->ano = $dados['ano'];
+    $this->veiculo->id_cliente = $dados['id_cliente']; 
 
-    public function alterarVeiculo($id_veiculo){
-      $this->veiculo->nome = $_POST['nome'];
-      $this->veiculo->ano = $_POST['ano'];
+    if ($this->veiculo->cadastrar()) {  
+        return $this->veiculo->id; 
+    } else {
+        echo "Erro ao cadastrar veículo!";
+        return false;
     }
+}
+
+
 
     public function excluirVeiculo($idVeiculo) {
         $this->veiculo->id_veiculo = $idVeiculo;
         return $this->veiculo->excluir();
     }
-}
+
+    }
 ?>

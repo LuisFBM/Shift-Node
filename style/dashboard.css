@@ -1,18 +1,20 @@
-/* Títulos Opens Sans */
-@import url("https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Open+Sans:wght@400;700&display=swap");
-
-/* Texto Roboto */
-@import url("https://fonts.googleapis.com/css2?family=Alan+Sans:wght@300..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap");
-
-/* Links Alan Sans */
-@import url("https://fonts.googleapis.com/css2?family=Alan+Sans:wght@300..900&display=swap");
-
 * {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
 }
 
+body {
+  font-family: "Roboto", sans-serif;
+  margin: 0;
+  background: #f4f4f4;
+}
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
 
 .hero {
   height: 4.3vw;
@@ -89,7 +91,7 @@ nav ul li a:hover {
 
 .fundo {
   position: relative;
-  background: url("../img/fundo.png") no-repeat center center;
+  background: url("../img/admin.jpg") no-repeat center center;
   background-size: cover;
   height: 100vh;
   display: flex;
@@ -122,91 +124,86 @@ ul li {
   font-family: "Roboto", sans-serif;
 }
 
-
-/* Quem Somos */
-#quem-somos {
-  background: linear-gradient(70deg, #061f40, #6155f5);
-  color: #fff;
-  padding: 80px 40px;
+/* Dashboard */
+.main-content {
+  max-width: 1200px;
+  margin: 40px auto;
+  padding: 0 20px;
 }
 
-#quem-somos h1 {
-  font-family: "Open Sans", sans-serif;
-  font-size: 3.5rem;
-  margin-bottom: 20px;
-}
-
-.info {
-  max-width: 700px;
-  line-height: 1.6;
-  font-size: large;
-  font-family: "Roboto", sans-serif;
-}
-
-/* Imagens do Quem Somos */
-.topo {
-  display: flex;
-  justify-content: flex-end;
+.cards-dashboard {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 20px;
-  margin-top: 10px;
-  position: relative;
+  margin-top: 30px;
 }
 
-.topo img {
-  width: 400px;
-  height: auto;
-  border-radius: 10px;
-  transition: 0.3s;
-}
-
-
-.topo img:hover {
-  transform: scale(1.05);
-}
-
-/* Cards de Serviços */
-#servicos {
-  padding: 60px 10%;
-  text-align: center;
-}
-
-#servicos h2 {
-  font-family: "Open Sans", sans-serif;
-  margin-bottom: 30px;
-  color: #061f40;
-}
-
-.card-container {
+.cards-dashboard .card {
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
+  align-items: center;
   justify-content: center;
-  gap: 20px;
-}
-
-.card {
-  background: #fff;
-  border-radius: 10px;
-  padding: 20px;
-  width: 280px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  transition: 0.3s;
-}
-
-.card:hover {
-  transform: translateY(-5px);
-}
-
-.card i {
-  font-size: 2rem;
-  color: #6155f5;
-  margin-bottom: 10px;
-}
-
-/* Rodapé */
-footer {
-  background-color: linear-gradient(70deg, #061f40, #6155f5);
   color: #fff;
-  text-align: center;
   padding: 20px;
-  font-size: 0.9rem;
+  border-radius: 10px;
+  text-align: center;
+  transition: 0.3s;
+  text-decoration: none;
+}
+
+.cards-dashboard .card i {
+  margin-bottom: 10px;
+  font-size: 2rem;
+}
+
+.cards-dashboard .card p {
+  font-size: 1.5rem;
+  margin: 5px 0 0;
+}
+
+/* Cores dos cards */
+.card-blue {
+  background: #3a7bd5;
+}
+.card-purple {
+  background: #6a1b9a;
+}
+.card-orange {
+  background: #ff9800;
+}
+.card-green {
+  background: #4caf50;
+}
+
+.cards-dashboard .card:hover {
+  opacity: 0.9;
+}
+
+/* Últimos Agendamentos */
+.section-card {
+  background: #fff;
+  padding: 20px;
+  margin-top: 40px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.section-card h2 {
+  margin-bottom: 15px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+table th,
+table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+table th {
+  background: #061f40;
+  color: #fff;
 }

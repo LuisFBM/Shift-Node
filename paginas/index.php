@@ -1,17 +1,18 @@
 <?php
-include_once "configs/database.php";
-include_once "objetos/usuarios.php";
-include "controllers/usuariosController.php";
 
-include_once "objetos/clientes.php";
+session_start();
 
+include_once "../banco/database.php";
+include_once "../objetos/usuarios.php";
+include_once "../controllers/usuariosController.php";
 
-include_once "session.php";
-
-$controller = new usuariosController();
-$usuarios = $controller->index();
-global $alunos;
-$u = null;
+if (isset($_SESSION['usuarios']) && $_SESSION['usuarios']->tipo === 'CLIENTE') {
+    header('Location: index.php');
+    exit();
+} elseif (isset($_SESSION['usuarios']) && $_SESSION['usuarios']->tipo === 'ADMIN') {
+    header('Location: dashboard.php');
+    exit();
+}
 
 ?>
 
@@ -28,24 +29,34 @@ $u = null;
 </head>
 <body>
 
-        <?php
-            include 'topo.php';
-        ?>
-
         <div class="hero">
           <nav>
               <a href="index.php" class="logo"><img src="../img/shiftnode.png" alt="logo"></a>
           <ul>
             <li><a href="agendamento.php">Agendamentos</a></li>
-            <li><a href="Serviços.php">Serviços</a></li>
-            <li><a href="QuemSomos.php">Quem Somos</a></li>
-            <li><a href="Contatos.php">Contatos</a></li>
-          </ul>
+            <li><a href="#servicos">Serviços</a></li>
+            <li><a href="#quem-somos">Quem Somos</a></li>
+            <li><a href="ontatos.php">Contatos</a></li>
+          </ul><br>
 
-          <div class="cadastro">
-
-            <a href="cadastroFunc.php">Cadastre-se</a>
-            <a href="login.php">Login</a>
+          <div class="user">
+            <?php if (isset($_SESSION['usuarios'])): ?>
+                <ul>
+                    <li>
+                        <a href="#"><i class="fa fa-user"></i> <?php echo htmlspecialchars($_SESSION['usuarios']->nome); ?> <i class="fa fa-caret-down"></i></a>
+                        <ul>
+                            <?php if ($_SESSION['usuarios']->tipo === 'ADMIN'): ?>
+                                <li><a href="dashboard.php">Dashboard</a></li>
+                            <?php endif; ?>
+                            <li><a href="perfil.php">Perfil</a></li>
+                            <li><a href="logout.php">Sair</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            <?php else: ?>
+                <a class="login" href="login.php" class="btn btn-primary">Login</a>
+                <a class="cadastro" href="cadastro.php">Cadastre-se</a>
+            <?php endif; ?>
 
           </div>
           
@@ -70,36 +81,130 @@ $u = null;
   </section>
 
   <!-- Quem Somos -->
-  <section class="quem-somos">
-    <h3>Especialistas em manutenções gerais, e cuidados com seu Automóvel</h3>
+  <section id="quem-somos">
 
-    <br>
+    <div class="justificativa">
 
     <h1 class="titulo">Quem Somos</h1>
 
+    <h3>Especialistas em manutenções gerais, e cuidados com seu Automóvel</h3>              
+
     <br>
 
-    <p class="info">
+    <div class="info">
+
+    <p>
+
       A 4 Nitros – É uma oficina especializada em manutenção preventiva e corretiva básica, com foco na segurança e desempenho dos veículos.
       A empresa se destaca pelo atendimento ágil, transparente e confiável, fornecendo orçamentos claros e orientações técnicas que permitem ao cliente entender a real condição do seu carro.
+      Com uma equipe de profissionais experientes e dedicados, a 4 Nitros oferece serviços de alta qualidade, utilizando ferramentas modernas e peças de reposição confiáveis para garantir a satisfação e segurança dos seus clientes.
+      Nossa missão é proporcionar tranquilidade e confiança aos motoristas, cuidando do seu veículo como se fosse nosso.
+      
     </p>
 
-    <div class="topo">
 
+    </div>
+
+    <div class="topo">
         <img src="../img/atendimento.jpg" alt="atendimento">
         <img src="../img/confiavel.jpeg" alt="confiança">
-
     </div>
 
     <div class="topo" id="baixo">
-
         <img src="../img/ferramentas.png" alt="ferramentas">
         <img src="../img/manutencao.jpg" alt="manutencao">
-
     </div>
 
+    </div>
   </section>
 
+<!-- Serviços -->
+<section id="servicos" style="background: #f8f9fa;">
+
+  <div class="container">
+
+    <h2 class="text-center mb-5" style="color:#061f40; font-size: 2.5rem; font-weight: bold;">Nossos Serviços</h2>
+    <img src="../img/engrenagem.png" alt="imagem dos serviços"><br><br>
+
+    <div class="row justify-content-center g-4">
+
+      <!-- 1 -->
+      <div class="col-md-4">
+        <div class="card h-100 shadow-sm">
+          <img src="../img/fluido_veiculo.png" class="card-img-top" alt="Verificar nível de fluídos">
+          <div class="card-body">
+            <h5 class="card-title">Verificar nível de fluídos</h5>
+            <p class="card-text">Checagem completa de todos os fluidos do veículo para garantir funcionamento seguro.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2 -->
+      <div class="col-md-4">
+        <div class="card h-100 shadow-sm">
+          <img src="../img/óleo.jpg" class="card-img-top" alt="Trocar óleo do motor e filtro">
+          <div class="card-body">
+            <h5 class="card-title">Trocar óleo do motor e filtro</h5>
+            <p class="card-text">Manutenção rápida para manter o motor protegido e lubrificado.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3 -->
+      <div class="col-md-4">
+        <div class="card h-100 shadow-sm">
+          <img src="../img/fluido_freio.png" class="card-img-top" alt="Trocar fluído de freio">
+          <div class="card-body">
+            <h5 class="card-title">Trocar fluído de freio</h5>
+            <p class="card-text">Substituição do fluído de freio para garantir segurança e eficiência na frenagem.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 4 -->
+      <div class="col-md-4">
+        <div class="card h-100 shadow-sm">
+          <img src="../img/arrefecimento.png" class="card-img-top" alt="Trocar fluído de arrefecimento">
+          <div class="card-body">
+            <h5 class="card-title">Trocar fluído de arrefecimento</h5>
+            <p class="card-text">Manutenção do sistema de refrigeração para evitar superaquecimento do motor.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 5 -->
+      <div class="col-md-4">
+        <div class="card h-100 shadow-sm">
+          <img src="../img/completa.png" class="card-img-top" alt="Revisão completa de freios">
+          <div class="card-body">
+            <h5 class="card-title">Revisão completa de freios</h5>
+            <p class="card-text">Verificação detalhada de pastilhas, discos, tambores e sistema hidráulico de freios.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 6 -->
+      <div class="col-md-4">
+        <div class="card h-100 shadow-sm">
+          <img src="../img/pastilha.jpg" class="card-img-top" alt="Verificar pastilhas de freio">
+          <div class="card-body">
+            <h5 class="card-title">Verificar pastilhas de freio</h5>
+            <p class="card-text">Checagem do desgaste das pastilhas para manter a frenagem eficiente e segura.</p>
+          </div>
+        </div>
+      </div>
+
+</section>
+
+  <!-- Rodapé -->
+  <footer class="py-4" style="background:#061f40; color:#fff; text-align:center;">
+    <p>&copy; 2025 4 Nitros. Todos os direitos reservados.</p>
+    <p>
+      <a href="#" style="color:#caf0f8; margin:0 10px;">Facebook</a> |
+      <a href="#" style="color:#caf0f8; margin:0 10px;">Instagram</a> |
+      <a href="#" style="color:#caf0f8; margin:0 10px;">LinkedIn</a>
+    </p>
+  </footer>
 
 </main>
 

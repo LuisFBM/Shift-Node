@@ -1,63 +1,48 @@
 <?php
-
 class Veiculo {
     public $id_veiculo;
+    public $id_cliente;
     public $nome;
     public $ano;
-    public $bd;
+    private $bd;
 
-
-       public function __construct($bd){
+    public function __construct($bd) {
         $this->bd = $bd; 
     }
 
-
-    public function cadastrar(){
-        
-        $sql = "INSERT INTO veiculos (nome, ano, id_cliente) VALUES (:nome, :ano, :id_cliente)";
+    public function cadastrar() {
+        $sql = "INSERT INTO veiculos (id_cliente, nome, ano) VALUES (:id_cliente, :nome, :ano)";
         $stmt = $this->bd->prepare($sql);
 
         $stmt->bindParam(':id_cliente', $this->id_cliente, PDO::PARAM_INT);
         $stmt->bindParam(':nome', $this->nome, PDO::PARAM_STR);
         $stmt->bindParam(':ano', $this->ano, PDO::PARAM_STR);
 
-        if($stmt->execute()){
-            return true;
-        } else {
-            return false;
-        }
+        return $stmt->execute();
     }
 
-    public function atualizar(){
-
-        $sql = "UPDATE veiculo SET nome = :nome, ano = :ano WHERE id_veiculo = :id_veiculo";
+    public function lerTodosPorCliente($id_cliente) {
+        $sql = "SELECT * FROM veiculos WHERE id_cliente = :id_cliente";
         $stmt = $this->bd->prepare($sql);
-        $stmt->bindParam(':nome', $this->nome, PDO::PARAM_STR);
-        $stmt->bindParam(':ano', $this->ano, PDO::PARAM_STR);
-
-        $stmt->bindParam(':id_veiculo', $this->id_veiculo, PDO::PARAM_INT);
-
-        if ($stmt->execute()) {
-            return true;
-        } else {
-            return false;
-        }
-
+        $stmt->bindParam(':id_cliente', $id_cliente, PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
-           public function excluir(){
-        $sql = "DELETE FROM veiculo WHERE id_veiculo = :id_veiculo";
+
+    public function atualizar() {
+        $sql = "UPDATE veiculos SET nome = :nome, ano = :ano WHERE id_veiculo = :id_veiculo";
+        $stmt = $this->bd->prepare($sql);
+        $stmt->bindParam(':nome', $this->nome);
+        $stmt->bindParam(':ano', $this->ano);
+        $stmt->bindParam(':id_veiculo', $this->id_veiculo, PDO::PARAM_INT);
+        return $stmt->execute();
+    }
+
+    public function excluir() {
+        $sql = "DELETE FROM veiculos WHERE id_veiculo = :id_veiculo";
         $stmt = $this->bd->prepare($sql);
         $stmt->bindParam(':id_veiculo', $this->id_veiculo, PDO::PARAM_INT);
-
-        if($stmt->execute()){
-            return true;
-        } else {
-            return false;
-        }
+        return $stmt->execute();
     }
-
-
-
 }
-
 ?>

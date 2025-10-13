@@ -1,15 +1,15 @@
 <?php
 
-include_once "../controllers/clienteController.php.php";
+include_once "../controllers/usuariosController.php";
 
 
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $clienteController = new clienteController();
+    $usuarioController = new usuariosController();
 
-    if ($clienteController->cadastrarCliente($_POST)) {
+    if ($usuarioController->cadastrarUsuarios($_POST)) {
 
-        echo "Cliente cadastrado com sucesso!";
+        echo "Funcionario cadastrado com sucesso!";
 
     } else {
 
@@ -38,13 +38,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <title>Cadastro</title>
 </head>
 <body>
-    <h1>Cadastre-se Aqui !!</h1>
-    <form action="cadastroFunc.php" method="POST">
+    <h1>Cadastre-se</h1>
+    <form action="cadastro.php" method="POST">
 
-         <label for="nome">Nome:</label>
+        <label for="nome">Nome:</label>
         <input type="text" name="nome" placeholder="Nome Completo" required><br><br>
 
-         <label for="email">Email:</label>
+        <label for="email">Email:</label>
         <input type="email" name="email" placeholder="Email" required>
 
         <br><br> <label for="senha">Senha:</label>
@@ -56,6 +56,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <br><br><label for="cpf">CPF:</label>
         <input type="text" name="cpf" placeholder="CPF" required>
 
+        <label for="Tipo:"></label>
+        <select name="tipo" id="tipo_user">
+            <option value="cliente">Cliente</option>
+            <option value="atendente">Atendente</option>
+            <option value="mecanico">Mecânico</option>
+            <option value="admin">Administrador</option>
+        </select>
 
         <button type="submit">Registrar</button>
     </form>

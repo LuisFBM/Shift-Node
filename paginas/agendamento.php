@@ -1,19 +1,49 @@
 <?php
+session_start(); 
+
 include_once '../controllers/agendamentoController.php';
-include_once '../controllers/clienteController.php';
+include_once '../controllers/usuariosController.php';
+include_once '../controllers/veiculoController.php';
 include_once '../banco/database.php';
 
+$id_cliente = $_SESSION['id_cliente'] ?? null;
+
 $agendamentoController = new agendamentoController();
-$clienteController = new clienteController();
+$usuarioController = new usuariosController();
+$veiculoController = new veiculoController();
 
 $agendamentos = $agendamentoController->index(); 
 
 
-if ($_SERVER['REQUEST_METHOD'] === "POST") {
-    $controller = new agendamentoController();
+if ($_SERVER['REQUEST_METHOD'] === "POST" && isset($_POST['cadastrar'])) {
+    // Verifica se o usuário é cliente
+    
+    if ($id_cliente) {
 
-    if (isset($_POST['cadastrar'])) {
-        $controller->cadastrarAgenda($_POST); 
+        // Dados do veículo vindos do formulário
+        $veiculo_nome = $_POST['veiculo_nome'];
+        $veiculo_ano = $_POST['veiculo_ano'];
+
+        // Cadastra o veículo e obtém o ID
+        $id_veiculo = $veiculoController->cadastrarVeiculo([
+            'nome' => $veiculo_nome,
+            'ano' => $veiculo_ano,
+            'id_cliente' => $id_cliente
+        ]);
+
+        // Dados do agendamento vindos do formulário
+        $data_agendamento = $_POST['data_agendamento'];
+        $hora = $_POST['hora'];
+        $tipo_servico = $_POST['tipo_servico'];
+
+        // Cadastra o agendamento
+        $agendamentoController->cadastrarAgenda([
+            'id_cliente' => $id_cliente,
+            'id_veiculo' => $id_veiculo,
+            'data_agendamento' => $data_agendamento,
+            'hora' => $hora,
+            'tipo_servico' => $tipo_servico
+        ]);
     }
 }
 ?>
@@ -80,13 +110,25 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
                 <option value="15:40">15:40</option>
             </select><br><br>
 
-            <label for="veiculo">Veículo:</label><br>
-            <input type="text" id="veiculo" name="id_veiculo" placeholder="Nome do Veículo" required><br><br>
 
+            <div class="veiculo">
+
+            <h2>Área do Veiculo</h2><br>
+
+            <label for="veiculo_nome">Nome:</label>
+            <input type="text" id="veiculo_nome" name="veiculo_nome" required><br><br>
+
+            <label for="veiculo_ano">Ano:</label>
+            <input type="number" id="veiculo_ano" name="veiculo_ano" required><br><br>
+
+            </div>
+           
+                
             <label for="obs">Observações:</label><br>
             <textarea id="obs" name="observacoes" rows="4" cols="100" placeholder="Observações..."></textarea><br><br>
 
-            <button type="submit">Confirmar Agendamento</button>
+            <button type="submit">Confirmar Agendamento</button><br><br>
+
         </form>
     </div>
 
@@ -95,23 +137,9 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
         <h2>Meus Agendamentos</h2><br>
 
         <div class="fundo-agend">
-            <?php if (!empty($agendamentos)) : ?>
-                <ul>
-                    <?php foreach ($agendamentos as $item): ?>
-                        <li>
-                            <strong>Nº:</strong> <?= htmlspecialchars($item['numero_agendamento']) ?><br>
-                            <strong>Data:</strong> <?= htmlspecialchars($item['data'] ?? '') ?><br>
-                            <strong>Hora:</strong> <?= htmlspecialchars($item['hora'] ?? '') ?><br>
-                            <strong>Serviço:</strong> <?= htmlspecialchars($item['servico'] ?? '') ?><br>
-                            <strong>Veículo:</strong> <?= htmlspecialchars($item['id_veiculo'] ?? '') ?><br>
-                            <a href="atualizarAgendamento.php?alterar=<?= $logado->id_agendamento ?>">Editar</a>
-                            <a href="agendamento.php?excluir=<?= $logado->id_agendamento ?>">Excluir</a>
-                        </li>
-                    <?php endforeach; ?>
-                </ul>
-            <?php else: ?>
-                <p>Nenhum agendamento encontrado.</p>
-            <?php endif; ?>
+
+
+           
         </div>
     </div>
 

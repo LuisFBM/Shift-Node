@@ -1,6 +1,6 @@
 <?php
 
-Class agendamento {
+Class agendar {
     public $id_agendamento;
 
     public $id_cliente;

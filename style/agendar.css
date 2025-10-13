@@ -8,9 +8,9 @@
 @import url("https://fonts.googleapis.com/css2?family=Alan+Sans:wght@300..900&display=swap");
 
 * {
-    padding: 0;
-    margin: 0;
-    box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
 }
 
 /* navbar */
@@ -30,7 +30,7 @@ nav {
 }
 
 .logo img {
-  max-height: 70px;
+  max-height: 80px;
   width: auto;
 }
 
@@ -61,35 +61,44 @@ nav ul li a:hover {
 
 /* agendar serviços */
 
-.agendar-serv{
-    flex: 1;
-    border: 1px solid #ccc;
-    padding: 15px;
-    border-radius: 8px;
+.agendar-serv {
+  flex: 1;
+  border: 1px solid #ccc;
+  padding: 15px;
+  border-radius: 8px;
 }
-
 
 /* agendamentos */
 
-.agendamentos{
-    flex: 1;
-    border: 1px solid #ccc;
-    padding: 15px;
-    border-radius: 8px;
+.agendamentos {
+  flex: 1;
+  border: 1px solid #ccc;
+  padding: 15px;
+  border-radius: 8px;
 }
 
 .fundo-agend {
-    background: #1a2a6c;
-    color: #fff; padding: 10px;
-    border-radius: 6px;
-    margin-bottom: 10px;
+  background: #1a2a6c;
+  color: #fff;
+  padding: 10px;
+  border-radius: 6px;
+  margin-bottom: 10px;
 }
 
 .fundo-nenhum {
-    background: #eee;
-    padding: 10px;
-    border-radius: 6px;
+  background: #eee;
+  padding: 10px;
+  border-radius: 6px;
 }
 
-
-
+/* formulário */
+.veiculo {
+  margin-bottom: 10px;
+  width: 100%;
+  padding: 8px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+  font-family: "Roboto", sans-serif;
+  color: #333;
+}

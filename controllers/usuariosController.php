@@ -55,12 +55,42 @@ class usuariosController {
         }
     }
 
-    public function login($email, $senha){
+       public function login($email, $senha){
         $this->usuarios->email = $email;
         $this->usuarios->senha = $senha;
-
-        $this->usuarios->login();
-}
+        
+        // Busca usuário e pega o id_cliente junto
+        $resultado = $this->usuarios->login();
+        
+        if($resultado){
+            session_start();
+            
+            $_SESSION['usuario_id'] = $resultado['id'];
+            $_SESSION['usuario_nome'] = $resultado['nome'];
+            $_SESSION['usuario_tipo'] = $resultado['tipo'];
+            
+            // Salva id_cliente se for cliente
+            if($resultado['tipo'] == 'CLIENTE' && isset($resultado['id_cliente'])){
+                $_SESSION['cliente_id'] = $resultado['id_cliente'];
+            }
+            
+            // Permissões simples
+            if($resultado['tipo'] == 'ADMIN'){
+                $_SESSION['pode_tudo'] = true;
+            } else {
+                $_SESSION['pode_tudo'] = false;
+            }
+            
+            // Redireciona
+            if($resultado['tipo'] == 'ADMIN'){
+                header("Location: ../paginas/index.php");
+            } else {
+                header("Location: ../paginas/index.php");
+            }
+            exit();
+        }
+        return false;
+    }
 
 
 
