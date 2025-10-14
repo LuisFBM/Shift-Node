@@ -64,6 +64,16 @@ class Usuarios {
         }
     }
 
+    public function buscarPorEmail($email) {
+        $sql = "SELECT * FROM usuarios WHERE email = :email";
+        $stmt = $this->bd->prepare($sql);
+        $stmt->bindParam(':email', $email, PDO::PARAM_STR);
+        $stmt->execute();
+
+        return $stmt->fetch(PDO::FETCH_OBJ);
+    
+    }
+
     public function login(){
         $sql = "SELECT * FROM usuarios WHERE email = :email";
         $stmt = $this->bd->prepare($sql);
@@ -84,6 +94,7 @@ class Usuarios {
             }
         } 
     }
-    
+ 
+
 }
 ?>

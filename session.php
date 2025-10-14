@@ -2,8 +2,8 @@
 
 session_start();
 
-if(!isset($_SESSION["cliente"])){
-    header("Location: loginCli.php");
+if(!isset($_SESSION["usuarios"])){
+    header("Location: login.php");
     exit;
 }
 

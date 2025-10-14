@@ -12,6 +12,7 @@ body {
   justify-content: center;
   align-items: center;
   height: 100vh;
+  background: #f5f7fa;
 }
 
 /* FORM CONTAINER */
@@ -21,7 +22,7 @@ body {
   width: 90%;
   max-width: 380px;
   border-radius: 1rem;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
   text-align: center;
 }
 

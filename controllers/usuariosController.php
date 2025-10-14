@@ -55,61 +55,27 @@ class usuariosController {
         }
     }
 
-       public function login($email, $senha){
-        $this->usuarios->email = $email;
-        $this->usuarios->senha = $senha;
-        
-      
-        $resultado = $this->usuarios->login();
-
-         $usuario = $this->usuario->buscarPorEmail($email);
-
-        if ($usuario && password_verify($senha, $usuario->senha)) {
-            // Login OK → inicia sessão e salva dados
-            $_SESSION['id_usuario'] = $usuario->id_usuario;
-            $_SESSION['nome'] = $usuario->nome;
-
-            header("Location: ../index.php");
-            exit();
-        } else {
-            //echo "<p style='color:red;'>E-mail ou senha inválidos.</p>";
-        }
-
+    public function login($email, $senha) {
+    $usuario = $this->usuarios->buscarPorEmail($email);
+    if ($usuario && password_verify($senha, $usuario->senha)) {
+        $_SESSION['usuarios'] = [
+            'id' => $usuario->id_usuario,
+            'nome' => $usuario->nome,
+            'email' => $usuario->email,
+            'tipo' => $usuario->tipo
+        ];
+        header("Location: index.php");
+        exit();
+    } else {
+        echo "<p style='color:red;'>E-mail ou senha inválidos.</p>";
+    }
     
-        
-        /*
-        if($resultado){
-            session_start();
-            
-            $_SESSION['usuario_id'] = $resultado['id'];
-            $_SESSION['usuario_nome'] = $resultado['nome'];
-            $_SESSION['usuario_tipo'] = $resultado['tipo'];
-            
-            // Salva id_cliente se for cliente
-            if($resultado['tipo'] == 'CLIENTE' && isset($resultado['id_cliente'])){
-                $_SESSION['cliente_id'] = $resultado['id_cliente'];
-            }
-            
-            // Permissões simples
-            if($resultado['tipo'] == 'ADMIN'){
-                $_SESSION['pode_tudo'] = true;
-            } else {
-                $_SESSION['pode_tudo'] = false;
-            }
-            
-            // Redireciona
-            if($resultado['tipo'] == 'ADMIN'){
-                header("Location: ../paginas/index.php");
-            } else {
-                header("Location: ../paginas/index.php");
-            }
-            exit();
-        }
-        return false;*/
     }
 
 
+    
 
-} 
+}
+
 
 ?>

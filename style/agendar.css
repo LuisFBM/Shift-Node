@@ -1,11 +1,8 @@
-/* Títulos Opens Sans */
+/* ======================= */
+/* FONTES E RESET */
+/* ======================= */
 @import url("https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Open+Sans:wght@400;700&display=swap");
-
-/* Texto Roboto */
 @import url("https://fonts.googleapis.com/css2?family=Alan+Sans:wght@300..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap");
-
-/* Links Alan Sans */
-@import url("https://fonts.googleapis.com/css2?family=Alan+Sans:wght@300..900&display=swap");
 
 * {
   padding: 0;
@@ -13,9 +10,12 @@
   box-sizing: border-box;
 }
 
-/* navbar */
+/* ======================= */
+/* NAVBAR */
+/* ======================= */
 .hero {
   height: 4.3vw;
+  min-height: 60px;
   width: 100%;
   background: linear-gradient(to right, #061f40, #6155f5);
 }
@@ -34,16 +34,16 @@ nav {
   width: auto;
 }
 
-button {
-  padding: 8px 20px;
-  font-size: 0.9rem;
+nav ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  align-items: center;
 }
 
 nav ul li {
   font-family: "Alan Sans", sans-serif;
   list-style-type: none;
-  display: inline-block;
-  padding: 8px 20px;
 }
 
 nav ul li a {
@@ -58,22 +58,7 @@ nav ul li a:hover {
   transition: 0.3s;
 }
 
-.login {
-  background-color: white;
-  color: #6155f5;
-  border-radius: 5px;
-  cursor: pointer;
-  text-decoration: none;
-  font-family: "Alan Sans", sans-serif;
-  padding: 8px 20px;
-}
-
-.login:hover {
-  background-color: #6155f5;
-  color: white;
-  transition: 0.3s;
-}
-
+.login,
 .cadastro {
   background-color: white;
   color: #6155f5;
@@ -84,53 +69,172 @@ nav ul li a:hover {
   padding: 8px 20px;
 }
 
+.login:hover,
 .cadastro:hover {
   background-color: #6155f5;
   color: white;
   transition: 0.3s;
 }
 
+/* ======================= */
+/* CORPO DO CONTEÚDO */
+/* ======================= */
+.corpo {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2rem;
+  padding: 40px 5%;
+  font-family: "Roboto", sans-serif;
+}
 
-/* agendar serviços */
-
-.agendar-serv {
+/* ======================= */
+/* AGENDAR SERVIÇO */
+/* ======================= */
+.agendar-servi {
   flex: 1;
+  min-width: 320px;
+  max-width: 600px;
+  background-color: #fff;
   border: 1px solid #ccc;
-  padding: 15px;
-  border-radius: 8px;
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
 }
 
-/* agendamentos */
-
-.agendamentos {
-  flex: 1;
-  border: 1px solid #ccc;
-  padding: 15px;
-  border-radius: 8px;
+.agendar-servi h1 {
+  font-family: "Open Sans", sans-serif;
+  font-size: 1.7rem;
+  text-align: center;
+  margin-bottom: 15px;
 }
 
-.fundo-agend {
-  background: #1a2a6c;
-  color: #fff;
-  padding: 10px;
-  border-radius: 6px;
-  margin-bottom: 10px;
+/* Labels e Inputs */
+.agendar-servi label {
+  font-weight: bold;
+  display: block;
+  margin-bottom: 4px;
+  color: #222;
 }
 
-.fundo-nenhum {
-  background: #eee;
-  padding: 10px;
-  border-radius: 6px;
-}
-
-/* formulário */
-.veiculo {
-  margin-bottom: 10px;
+.agendar-servi select,
+.agendar-servi input,
+.agendar-servi textarea {
   width: 100%;
-  padding: 8px;
-  border-radius: 6px;
+  padding: 10px;
   border: 1px solid #ccc;
+  border-radius: 6px;
   font-size: 1rem;
   font-family: "Roboto", sans-serif;
   color: #333;
+  background-color: #f9f9f9;
+  margin-bottom: 15px;
+}
+
+.agendar-servi select:focus,
+.agendar-servi input:focus,
+.agendar-servi textarea:focus {
+  outline: none;
+  border-color: #6155f5;
+  background-color: #fff;
+}
+
+/* Botão */
+.agendar-servi button {
+  width: 100%;
+  background: linear-gradient(to right, #061f40, #6155f5);
+  color: white;
+  padding: 12px;
+  font-size: 1rem;
+  font-family: "Alan Sans", sans-serif;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.agendar-servi button:hover {
+  background: #0b2f66;
+}
+
+/* ======================= */
+/* MEUS AGENDAMENTOS */
+/* ======================= */
+.agendamentos {
+  flex: 1;
+  min-width: 320px;
+  max-width: 450px;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+}
+
+.agendamentos h2 {
+  font-family: "Open Sans", sans-serif;
+  font-size: 1.5rem;
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+.fundo-agend {
+  background: linear-gradient(to right, #061f40, #6155f5);
+  color: #fff;
+  padding: 15px;
+  border-radius: 8px;
+  margin-bottom: 12px;
+}
+
+.fundo-agend p {
+  margin-bottom: 6px;
+}
+
+.fundo-nenhum {
+  background: #f3f3f3;
+  color: #333;
+  padding: 12px;
+  border-radius: 8px;
+  text-align: center;
+}
+
+/* ======================= */
+/* RESPONSIVIDADE */
+/* ======================= */
+@media (max-width: 992px) {
+  .corpo {
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+  }
+
+  .agendar-servi,
+  .agendamentos {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 600px) {
+  nav ul {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  nav {
+    flex-direction: column;
+  }
+
+  .hero {
+    height: auto;
+  }
+
+  .agendar-servi h1,
+  .agendamentos h2 {
+    font-size: 1.4rem;
+  }
+
+  .agendar-servi button {
+    font-size: 0.95rem;
+  }
 }

@@ -26,45 +26,53 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cadastro</title>
+    <link rel="stylesheet" href="../style/cadastro.css">
 </head>
-<body>
+<body
 
-    <h1>cadastro-se</h1>
+    <div class="form-container">
 
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <title>Cadastro</title>
-</head>
-<body>
-    <h1>Cadastre-se</h1>
-    <form action="cadastro.php" method="POST">
+      <form class="form" action="cadastro.php" method="POST">
+      <h1 class="form-title">Cadastro de Usuário</h1>
 
-        <label for="nome">Nome:</label>
-        <input type="text" name="nome" placeholder="Nome Completo" required><br><br>
+      <div class="input-container">
+          <input type="text" name="nome" placeholder="Nome Completo" required>
+      </div>
 
-        <label for="email">Email:</label>
-        <input type="email" name="email" placeholder="Email" required>
+      <div class="input-container">
+          <input type="email" name="email" placeholder="Email" required>
+      </div>
 
-        <br><br> <label for="senha">Senha:</label>
-        <input type="password" name="senha" placeholder="Senha" required>
+      <div class="input-container">
+          <input type="password" name="senha" placeholder="Senha" required>
+      </div>
 
-        <br><br> <label for="telefone">Telefone:</label>
-        <input type="text" name="telefone" placeholder="Telefone" required>
+      <div class="input-container">
+          <input type="text" name="telefone" placeholder="Telefone" required>
+      </div>
 
-        <br><br><label for="cpf">CPF:</label>
-        <input type="text" name="cpf" placeholder="CPF" required>
+      <div class="input-container">
+          <input type="text" name="cpf" placeholder="CPF" required>
+      </div>
 
-        <label for="Tipo:"></label>
-        <select name="tipo" id="tipo_user">
-            <option value="cliente">Cliente</option>
-            <option value="atendente">Atendente</option>
-            <option value="mecanico">Mecânico</option>
-            <option value="admin">Administrador</option>
-        </select>
+      <div class="input-container">
+          <select name="tipo" required style="width:100%;padding:0.9rem;border:1px solid #ccc;border-radius:0.6rem;font-size:0.95rem;">
+              <option value="">Selecione o tipo de usuário</option>
+              <option value="cliente">Cliente</option>
+              <option value="atendente">Atendente</option>
+              <option value="mecanico">Mecânico</option>
+              <option value="admin">Administrador</option>
+          </select>
+      </div><br>
 
-        <button type="submit">Registrar</button>
+      <button type="submit" class="submit">Registrar</button>
+
+      <p class="signup-link">Já possui conta? <a href="login.php">Entrar</a></p>
+
     </form>
+
+
+    </div>
+
 </body>
 </html>

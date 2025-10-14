@@ -6,12 +6,14 @@ include_once "../banco/database.php";
 include_once "../objetos/usuarios.php";
 include_once "../controllers/usuariosController.php";
 
-if (isset($_SESSION['usuarios']) && $_SESSION['usuarios']->tipo === 'CLIENTE') {
-    header('Location: index.php');
-    exit();
-} elseif (isset($_SESSION['usuarios']) && $_SESSION['usuarios']->tipo === 'ADMIN') {
-    header('Location: dashboard.php');
-    exit();
+if (isset($_SESSION['usuarios'])) {
+    if ($_SESSION['usuarios']['tipo'] === 'CLIENTE') {
+        header('Location: index.php');
+        exit();
+    } elseif ($_SESSION['usuarios']['tipo'] === 'ADMIN') {
+        header('Location: dashboard.php');
+        exit();
+    }
 }
 
 ?>
@@ -29,40 +31,30 @@ if (isset($_SESSION['usuarios']) && $_SESSION['usuarios']->tipo === 'CLIENTE') {
 </head>
 <body>
 
-        <div class="hero">
-          <nav>
-              <a href="index.php" class="logo"><img src="../img/shiftnode.png" alt="logo"></a>
-          <ul>
-            <li><a href="agendamento.php">Agendamentos</a></li>
-            <li><a href="#servicos">Serviços</a></li>
-            <li><a href="#quem-somos">Quem Somos</a></li>
-            <li><a href="contatos.php">Contatos</a></li>
-          </ul><br>
+<div class="hero">
+  <nav>
+    <a href="index.php" class="logo">
+      <img src="../img/shiftnode.png" alt="logo">
+    </a>
+    <ul>
+      <li><a href="agendamento.php">Agendamentos</a></li>
+      <li><a href="#servicos">Serviços</a></li>
+      <li><a href="#quem-somos">Quem Somos</a></li>
+      <li><a href="contatos.php">Contatos</a></li>
+    </ul>
 
-          <div class="user">
-            <?php if (isset($_SESSION['usuarios'])): ?>
-                <ul>
-                    <li>
-                        <a href="#"><i class="fa fa-user"></i> <?php echo htmlspecialchars($_SESSION['usuarios']->nome); ?> <i class="fa fa-caret-down"></i></a>
-                        <ul>
-                            <?php if ($_SESSION['usuarios']->tipo === 'ADMIN'): ?>
-                                <li><a href="dashboard.php">Dashboard</a></li>
-                            <?php endif; ?>
-                            <li><a href="perfil.php">Perfil</a></li>
-                            <li><a href="logout.php">Sair</a></li>
-                        </ul>
-                    </li>
-                </ul>
-            <?php else: ?>
-                <a class="login" href="login.php" class="btn btn-primary">Login</a>
-                <a class="cadastro" href="cadastro.php">Cadastre-se</a>
-            <?php endif; ?>
-
-          </div>
-          
-          </nav>
-          
-        </div>
+    <!-- Área de login -->
+    <div class="user-area">
+      <?php if (isset($_SESSION['usuarios'])): ?>
+        <span style="color: #fff;">Olá, <?= htmlspecialchars($_SESSION['usuarios']['nome']); ?>!</span>
+        <a style="color: red;" href="logout.php">Sair</a>
+      <?php else: ?>
+        <a href="login.php" class="login">Login</a>
+        <a href="cadastro.php" class="cadastro">Cadastrar</a>
+      <?php endif; ?>
+    </div>
+  </nav>
+</div>
 
 <main>
 

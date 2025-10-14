@@ -1,29 +1,21 @@
 <?php
+session_start();
 include_once '../controllers/usuariosController.php';
+$erro = null;
 
-if($_SERVER['REQUEST_METHOD'] === 'POST'){
-    if(isset($_POST['usuario']['email']) && isset($_POST['usuario']['senha'])){
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $email = trim($_POST['usuarios']['email'] ?? '');
+    $senha = trim($_POST['usuarios']['senha'] ?? '');
 
-        $controller = new usuarioController();
-        $resultado = $controller->login($_POST['usuario']['email'], $_POST['usuario']['senha']);
-        
-        if($resultado['sucesso']){
-            switch($resultado['tipo']){
-                case 'ADMIN':
-                    header('Location: index.php');
-                    break;
-                case 'CLIENTE':
-                    header('Location: index.php');
-                    break;
-              
-            }
-            exit();
-        } else {
-            $erro = $resultado['mensagem'];
-        }
+    if (!empty($email) && !empty($senha)) {
+        $controller = new usuariosController();
+        $controller->login($email, $senha); 
+    } else {
+        $erro = "Preencha todos os campos.";
     }
 }
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -36,25 +28,28 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 
 <body>
 
-    <form class="form">
-       <p class="form-title">Sign in to your account</p>
-        <div class="input-container">
-          <input type="email" placeholder="Enter email">
-          <span>
-          </span>
-      </div>
-      <div class="input-container">
-          <input type="password" placeholder="Enter password">
-        </div>
-         <button type="submit" class="submit">
-        Sign in
-      </button>
+     <form class="form" method="POST" action="">
+        <p class="form-title">Entrar na sua conta</p>
 
-      <p class="signup-link">
-        No account?
-        <a href="">Sign up</a>
-      </p>
-   </form>
+        <?php if (isset($erro)) : ?>
+            <div class="erro-msg"><?= htmlspecialchars($erro) ?></div>
+        <?php endif; ?>
+
+        <div class="input-container">
+            <input type="email" name="usuarios[email]" placeholder="Digite seu e-mail" required>
+        </div>
+
+        <div class="input-container">
+            <input type="password" name="usuarios[senha]" placeholder="Digite sua senha" required>
+        </div>
+
+        <button type="submit" class="submit">Entrar</button>
+
+        <p class="signup-link">
+            Não tem conta?
+            <a href="cadastro.php">Cadastre-se</a>
+        </p>
+    </form>
    
 </body>
 
