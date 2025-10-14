@@ -58,6 +58,38 @@ nav ul li a:hover {
   transition: 0.3s;
 }
 
+.login {
+  background-color: white;
+  color: #6155f5;
+  border-radius: 5px;
+  cursor: pointer;
+  text-decoration: none;
+  font-family: "Alan Sans", sans-serif;
+  padding: 8px 20px;
+}
+
+.login:hover {
+  background-color: #6155f5;
+  color: white;
+  transition: 0.3s;
+}
+
+.cadastro {
+  background-color: white;
+  color: #6155f5;
+  border-radius: 5px;
+  cursor: pointer;
+  text-decoration: none;
+  font-family: "Alan Sans", sans-serif;
+  padding: 8px 20px;
+}
+
+.cadastro:hover {
+  background-color: #6155f5;
+  color: white;
+  transition: 0.3s;
+}
+
 
 /* agendar serviços */
 

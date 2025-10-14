@@ -26,37 +26,36 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../style/login.css">
     <title></title>
 </head>
+
 <body>
 
-    <h1>Login</h1>
+    <form class="form">
+       <p class="form-title">Sign in to your account</p>
+        <div class="input-container">
+          <input type="email" placeholder="Enter email">
+          <span>
+          </span>
+      </div>
+      <div class="input-container">
+          <input type="password" placeholder="Enter password">
+        </div>
+         <button type="submit" class="submit">
+        Sign in
+      </button>
 
-    <!DOCTYPE html>
-    <html lang="pr-BR">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Tela de login</title>
-    </head>
-    <body>
-
-    <form method="POST" action="login.php">
-        <label for="Nome">E-mail de login</label>
-        <input type="text" name="email" id="email" required>
-
-        <label for="senha">Senha</label>
-        <input type="password" name="senha" id="senha" required>
-
-        <button>Entrar</button>
-    </form>
-    <p>Clique aqui para cadastrar <a href="cadastro.php">Cadastrar</a></p>
-
-    </body>
-    </html>
-    
+      <p class="signup-link">
+        No account?
+        <a href="">Sign up</a>
+      </p>
+   </form>
+   
 </body>
+
 </html>

@@ -58,17 +58,39 @@ if ($_SERVER['REQUEST_METHOD'] === "POST" && isset($_POST['cadastrar'])) {
 </head>
 <body>
 
-        <div class="hero">
+            <div class="hero">
           <nav>
               <a href="index.php" class="logo"><img src="../img/shiftnode.png" alt="logo"></a>
           <ul>
             <li><a href="agendamento.php">Agendamentos</a></li>
-            <li><a href="Serviços.php">Serviços</a></li>
-            <li><a href="QuemSomos.php">Quem Somos</a></li>
-            <li><a href="Contatos.php">Contatos</a></li>
-          </ul>
+            <li><a href="index.php#servicos">Serviços</a></li>
+            <li><a href="index.php#quem-somos">Quem Somos</a></li>
+            <li><a href="contatos.php">Contatos</a></li>
+          </ul><br>
+
+          <div class="user">
+            <?php if (isset($_SESSION['usuarios'])): ?>
+                <ul>
+                    <li>
+                        <a href="#"><i class="fa fa-user"></i> <?php echo htmlspecialchars($_SESSION['usuarios']->nome); ?> <i class="fa fa-caret-down"></i></a>
+                        <ul>
+                            <?php if ($_SESSION['usuarios']->tipo === 'ADMIN'): ?>
+                                <li><a href="dashboard.php">Dashboard</a></li>
+                            <?php endif; ?>
+                            <li><a href="perfil.php">Perfil</a></li>
+                            <li><a href="logout.php">Sair</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            <?php else: ?>
+                <a class="login" href="login.php" class="btn btn-primary">Login</a>
+                <a class="cadastro" href="cadastro.php">Cadastre-se</a>
+            <?php endif; ?>
+
+          </div>
           
           </nav>
+          
         </div>
 
 <div class="corpo">

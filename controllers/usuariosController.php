@@ -59,9 +59,25 @@ class usuariosController {
         $this->usuarios->email = $email;
         $this->usuarios->senha = $senha;
         
-        // Busca usuário e pega o id_cliente junto
+      
         $resultado = $this->usuarios->login();
+
+         $usuario = $this->usuario->buscarPorEmail($email);
+
+        if ($usuario && password_verify($senha, $usuario->senha)) {
+            // Login OK → inicia sessão e salva dados
+            $_SESSION['id_usuario'] = $usuario->id_usuario;
+            $_SESSION['nome'] = $usuario->nome;
+
+            header("Location: ../index.php");
+            exit();
+        } else {
+            //echo "<p style='color:red;'>E-mail ou senha inválidos.</p>";
+        }
+
+    
         
+        /*
         if($resultado){
             session_start();
             
@@ -89,7 +105,7 @@ class usuariosController {
             }
             exit();
         }
-        return false;
+        return false;*/
     }
 
 

@@ -10,13 +10,13 @@
 </head>
 <body>
 
-<div class="hero">
+   <div class="hero">
           <nav>
               <a href="index.php" class="logo"><img src="../img/shiftnode.png" alt="logo"></a>
           <ul>
             <li><a href="agendamento.php">Agendamentos</a></li>
-            <li><a href="#servicos">Serviços</a></li>
-            <li><a href="#quem-somos">Quem Somos</a></li>
+            <li><a href="index.php#servicos">Serviços</a></li>
+            <li><a href="index.php#quem-somos">Quem Somos</a></li>
             <li><a href="contatos.php">Contatos</a></li>
           </ul><br>
 
@@ -42,8 +42,6 @@
           </div>
           
           </nav>
-          
-        </div>
 
   <section class="contatos">
     <h1>Entre em Contato</h1>

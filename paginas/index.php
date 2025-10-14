@@ -36,7 +36,7 @@ if (isset($_SESSION['usuarios']) && $_SESSION['usuarios']->tipo === 'CLIENTE') {
             <li><a href="agendamento.php">Agendamentos</a></li>
             <li><a href="#servicos">Serviços</a></li>
             <li><a href="#quem-somos">Quem Somos</a></li>
-            <li><a href="ontatos.php">Contatos</a></li>
+            <li><a href="contatos.php">Contatos</a></li>
           </ul><br>
 
           <div class="user">
