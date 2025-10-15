@@ -15,7 +15,7 @@
     <a href="dashboard.php" class="logo"><img src="../img/shiftnode.png" alt="logo"></a>
     <ul>
   
-      <li><a href="listaAgendamentos.php">Agendamentos</a></li>
+      <li><a href="listAgenda.php">Agendamentos</a></li>
       <li><a href="cadServicos.php">Serviços</a></li>
       <li><a href="cadHorarios.php">Horários</a></li>
     </ul>

@@ -7,7 +7,16 @@
 </head>
 <body>
 
+<form action="cadHorario.php" method="post">
+    <p class="form-title">Adicione o Horário</p>
 
-    
+    <div class="input-container">
+        <input type="horario" name="horarios" placeholder="Digite seu horario disponivel" required>
+    </div>
+
+    <button type="submit" class="submit">Cadastrar</button>
+
+</form>
+
 </body>
 </html>

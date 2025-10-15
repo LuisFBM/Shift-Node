@@ -6,10 +6,10 @@ include_once '../controllers/usuariosController.php';
 include_once '../controllers/veiculoController.php';
 include_once '../banco/database.php';
 
-$id_cliente = $_SESSION['id_cliente'] ?? null;
+$id = $_SESSION['id'] ?? null;
 
 $agendamentoController = new agendamentoController();
-$usuarioController = new usuariosController();
+$usuariosController = new usuariosController();
 $veiculoController = new veiculoController();
 
 $agendamentos = $agendamentoController->index(); 
@@ -17,8 +17,8 @@ $agendamentos = $agendamentoController->index();
 
 if ($_SERVER['REQUEST_METHOD'] === "POST" && isset($_POST['cadastrar'])) {
     // Verifica se o usuário é cliente
-    
-    if ($id_cliente) {
+
+    if ($id) {
 
         // Dados do veículo vindos do formulário
         $veiculo_nome = $_POST['veiculo_nome'];
@@ -28,7 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] === "POST" && isset($_POST['cadastrar'])) {
         $id_veiculo = $veiculoController->cadastrarVeiculo([
             'nome' => $veiculo_nome,
             'ano' => $veiculo_ano,
-            'id_cliente' => $id_cliente
+            'id' => $id
         ]);
 
         // Dados do agendamento vindos do formulário
@@ -38,7 +38,7 @@ if ($_SERVER['REQUEST_METHOD'] === "POST" && isset($_POST['cadastrar'])) {
 
         // Cadastra o agendamento
         $agendamentoController->cadastrarAgenda([
-            'id_cliente' => $id_cliente,
+            'id' => $id,
             'id_veiculo' => $id_veiculo,
             'data_agendamento' => $data_agendamento,
             'hora' => $hora,
@@ -74,7 +74,7 @@ if ($_SERVER['REQUEST_METHOD'] === "POST" && isset($_POST['cadastrar'])) {
     <div class="user-area">
       <?php if (isset($_SESSION['usuarios'])): ?>
         <span style="color: #fff;">Olá, <?= htmlspecialchars($_SESSION['usuarios']['nome']); ?>!</span>
-        <a style="color: red; href="logout.php">Sair</a>
+        <a style="color: red; href="href="../logout.php">Sair</a>
       <?php else: ?>
         <a href="login.php" class="login">Login</a>
         <a href="cadastro.php" class="cadastro">Cadastrar</a>
@@ -141,6 +141,8 @@ if ($_SERVER['REQUEST_METHOD'] === "POST" && isset($_POST['cadastrar'])) {
 
             <button type="submit">Confirmar Agendamento</button><br><br>
 
+            <?php var_dump(); ?>
+
         </form>
     </div>
 
@@ -158,8 +160,9 @@ if ($_SERVER['REQUEST_METHOD'] === "POST" && isset($_POST['cadastrar'])) {
             <td>Observações:</td>
         </tr>
 
-        <?php if($usuarios) : ?>
-            <?php foreach($usuarios as $logados) : ?>
+        <?php
+        if (!empty($agendamentos)) : ?>
+                <?php foreach($agendamentos as $logados) : ?>
 
                 <tr>
                     <td><?= $logados->tipo_servico ?></td>

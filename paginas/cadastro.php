@@ -58,10 +58,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       <div class="input-container">
           <select name="tipo" required style="width:100%;padding:0.9rem;border:1px solid #ccc;border-radius:0.6rem;font-size:0.95rem;">
               <option value="">Selecione o tipo de usuário</option>
-              <option value="cliente">Cliente</option>
-              <option value="atendente">Atendente</option>
-              <option value="mecanico">Mecânico</option>
-              <option value="admin">Administrador</option>
+              <option value="CLIENTE">Cliente</option>
+              <option value="ATENDENTE">Atendente</option>
+              <option value="MECANICO">Mecânico</option>
+              <option value="ADMIN">Administrador</option>
           </select>
       </div><br>
 

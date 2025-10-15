@@ -26,7 +26,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <title></title>
 </head>
 
-<body>
+<body class="fundo">
 
      <form class="form" method="POST" action="">
         <p class="form-title">Entrar na sua conta</p>
@@ -50,6 +50,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <a href="cadastro.php">Cadastre-se</a>
         </p>
     </form>
+
    
 </body>
 

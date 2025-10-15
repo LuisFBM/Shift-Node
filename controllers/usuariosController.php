@@ -22,7 +22,6 @@ class usuariosController {
         $this->usuarios->senha = password_hash($dados['senha'], PASSWORD_DEFAULT);
         $this->usuarios->telefone = $dados['telefone'];
         $this->usuarios->cpf = $dados['cpf'];
-        $this->usuarios->formacao = $dados['formacao'];
 
         if($this->usuarios->cadastrar($dados)){
             header("Location: ../paginas/index.php");
@@ -37,7 +36,6 @@ class usuariosController {
         $this-> usuarios->senha = password_hash($dados['senha'], PASSWORD_DEFAULT);
         $this->usuarios->telefone = $dados['telefone'];
         $this->usuarios->cpf = $dados['cpf'];
-        $this->usuarios->formacao = $dados['formacao'];
 
         if($this->usuarios->atualizar()){
             header("Location: index.php");
@@ -64,7 +62,12 @@ class usuariosController {
             'email' => $usuario->email,
             'tipo' => $usuario->tipo
         ];
-        header("Location: index.php");
+        if ($usuario->tipo === 'admin') {
+            header("Location: ../paginas/dashboard.php");
+        } else {
+            header("Location: ../paginas/index.php");
+        }
+
         exit();
     } else {
         echo "<p style='color:red;'>E-mail ou senha inválidos.</p>";

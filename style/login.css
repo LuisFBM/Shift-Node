@@ -14,6 +14,28 @@ body {
   height: 100vh;
 }
 
+/* Fundo */
+
+.fundo {
+  position: relative;
+  background: url("../img/fundo.png") no-repeat center center;
+  background-size: cover;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  padding-left: 60px;
+  overflow: hidden;
+}
+
+.fundo::before {
+  /*  content: ""; deixa o fundo escuro */
+  position: absolute;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  z-index: 1;
+}
+
+
 /* FORM CONTAINER */
 .form {
   background-color: #ededed;

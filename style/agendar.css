@@ -1,6 +1,4 @@
-/* ======================= */
-/* FONTES E RESET */
-/* ======================= */
+/* FONTES */
 @import url("https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Open+Sans:wght@400;700&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Alan+Sans:wght@300..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap");
 
@@ -10,9 +8,9 @@
   box-sizing: border-box;
 }
 
-/* ======================= */
+
 /* NAVBAR */
-/* ======================= */
+
 .hero {
   height: 4.3vw;
   min-height: 60px;
@@ -76,9 +74,9 @@ nav ul li a:hover {
   transition: 0.3s;
 }
 
-/* ======================= */
+
 /* CORPO DO CONTEÚDO */
-/* ======================= */
+
 .corpo {
   display: flex;
   flex-wrap: wrap;
@@ -88,9 +86,9 @@ nav ul li a:hover {
   font-family: "Roboto", sans-serif;
 }
 
-/* ======================= */
+
 /* AGENDAR SERVIÇO */
-/* ======================= */
+
 .agendar-servi {
   flex: 1;
   min-width: 320px;
@@ -158,9 +156,9 @@ nav ul li a:hover {
   background: #0b2f66;
 }
 
-/* ======================= */
+
 /* MEUS AGENDAMENTOS */
-/* ======================= */
+
 .agendamentos {
   flex: 1;
   min-width: 320px;
@@ -199,42 +197,4 @@ nav ul li a:hover {
   text-align: center;
 }
 
-/* ======================= */
-/* RESPONSIVIDADE */
-/* ======================= */
-@media (max-width: 992px) {
-  .corpo {
-    flex-direction: column;
-    align-items: center;
-    gap: 2rem;
-  }
 
-  .agendar-servi,
-  .agendamentos {
-    max-width: 100%;
-  }
-}
-
-@media (max-width: 600px) {
-  nav ul {
-    flex-direction: column;
-    gap: 10px;
-  }
-
-  nav {
-    flex-direction: column;
-  }
-
-  .hero {
-    height: auto;
-  }
-
-  .agendar-servi h1,
-  .agendamentos h2 {
-    font-size: 1.4rem;
-  }
-
-  .agendar-servi button {
-    font-size: 0.95rem;
-  }
-}
