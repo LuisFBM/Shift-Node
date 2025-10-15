@@ -65,8 +65,8 @@ if ($_SERVER['REQUEST_METHOD'] === "POST" && isset($_POST['cadastrar'])) {
     </a>
     <ul>
       <li><a href="agendamento.php">Agendamentos</a></li>
-      <li><a href="#servicos">Serviços</a></li>
-      <li><a href="#quem-somos">Quem Somos</a></li>
+      <li><a href="index.php#servicos">Serviços</a></li>
+      <li><a href="index.php#quem-somos">Quem Somos</a></li>
       <li><a href="contatos.php">Contatos</a></li>
     </ul>
 
@@ -148,10 +148,38 @@ if ($_SERVER['REQUEST_METHOD'] === "POST" && isset($_POST['cadastrar'])) {
     <div class="agendamentos">
         <h2>Meus Agendamentos</h2><br>
 
-        <div class="fundo-agend">
+            <table>
+        <tr>
+            <td>Tipo do Serviço: </td>
+            <td>Data:</td>
+            <td>Horario:</td>
+            <td>Veiculo:</td>
+            <td>Ano:</td>
+            <td>Observações:</td>
+        </tr>
 
+        <?php if($usuarios) : ?>
+            <?php foreach($usuarios as $logados) : ?>
 
-           
+                <tr>
+                    <td><?= $logados->tipo_servico ?></td>
+                    <td><?= $logados->data_agendamento ?></td>
+                    <td><?= $logados->hora ?></td>
+                    <td><?= $logados->veiculo ?></td>
+                    <td><?= $logados->ano ?></td>
+                    <td><?= $logados->observacoes ?></td>
+
+                    <?php if($_SESSION['usuario']->id_usuarios == $logados->id_usuario) : ?>
+
+                        <td><a href="atualizarUsuario.php?alterar=<?= $logados->id_agendamento ?>">Editar</a></td>
+                        <td><a href="listaUsuario.php?excluir=<?= $logados->id_agendamento ?>">Excluir</a></td>
+
+                <?php endif; ?>
+                </tr>
+            <?php endforeach; ?>
+        <?php endif; ?>
+    </table>
+
         </div>
     </div>
 

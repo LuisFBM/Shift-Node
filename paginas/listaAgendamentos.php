@@ -37,9 +37,9 @@ Class ListaAgendamentos {
     }
 
     public function lerAgendamentosPorCliente($id_cliente){
-        $sql = 'SELECT * FROM agendamentos WHERE id_cliente = :id_cliente';
+        $sql = 'SELECT * FROM agendamentos WHERE id_usuarios = :id_usuarios';
         $stmt = $this->bd->prepare($sql);
-        $stmt->bindParam(':id_cliente', $id_cliente, PDO::PARAM_INT);
+        $stmt->bindParam(':id_usuarios', $id_usuarios, PDO::PARAM_INT);
         $stmt->execute();
 
         return $stmt->fetchAll(PDO::FETCH_OBJ);

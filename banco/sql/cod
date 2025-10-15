@@ -1,7 +1,10 @@
 CREATE DATABASE IF NOT EXISTS shift_node;
 USE shift_node;
-#select * from usuarios;
+#select * from agendamentos;
 #drop database shift_node;
+
+
+#talvez preciso adicionar na tavela usuarios o campo formacao caso não for cliente.
 
 CREATE TABLE usuarios (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -15,22 +18,14 @@ CREATE TABLE usuarios (
     data_cadastro TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
-CREATE TABLE clientes (
-    id_cliente INT AUTO_INCREMENT PRIMARY KEY,
-    nome VARCHAR(100) NOT NULL,
-    email VARCHAR(100) UNIQUE,
-    telefone VARCHAR(20),
-    cpf VARCHAR(14) UNIQUE,
-    data_cadastro TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
 CREATE TABLE veiculos (
     id_veiculo INT AUTO_INCREMENT PRIMARY KEY,
-    id_cliente INT NOT NULL,
+    id_usuario INT NOT NULL,
     nome VARCHAR(100),
     ano YEAR NOT NULL,
     data_cadastro TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (id_cliente)
-        REFERENCES clientes (id_cliente)
+    FOREIGN KEY (id_usuario)
+        REFERENCES usuarios (id)
         ON DELETE CASCADE
 );
 
@@ -44,14 +39,15 @@ CREATE TABLE servicos (
 
 CREATE TABLE agendamentos (
     id_agendamento INT AUTO_INCREMENT PRIMARY KEY,
-    id_cliente INT NOT NULL,
+    id_usuario INT NOT NULL,
     id_veiculo INT NOT NULL,
     data_agendamento DATE NOT NULL,
     hora TIME NOT NULL,
     observacoes VARCHAR(100),
+    tipo_servico ENUM('Verificar nível de fluídos', 'Trocar óleo do motor e filtro', 'Trocar fluído de freio', 'Trocar fluído de arrefecimento', 'Revisão completa de freios', 'Verificar pastilhas de freio', 'Trocar discos e tambores de freio'),
     data_criacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (id_cliente)
-        REFERENCES clientes (id_cliente),
+    FOREIGN KEY (id_usuario)
+        REFERENCES usuarios (id),
     FOREIGN KEY (id_veiculo)
         REFERENCES veiculos (id_veiculo)
 );
@@ -63,37 +59,7 @@ CREATE TABLE status_os (
 );
 
 
-CREATE TABLE ordens_servico (
-    id_os INT AUTO_INCREMENT PRIMARY KEY,
-    id_mecanico INT NOT NULL,
-    id_atendente INT NOT NULL,
-    id_cliente INT NOT NULL,
-    descricao TEXT NOT NULL,
-    status ENUM('PENDENTE', 'EM ANDAMENTO', 'CONCLUIDO', 'CANCELADO') DEFAULT 'PENDENTE',
-    data_abertura TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    data_fechamento TIMESTAMP NULL,
-    FOREIGN KEY (id_cliente)
-        REFERENCES clientes (id_cliente)
-);
-
--- Status OS
-INSERT INTO status_os (nome_status, descricao) VALUES
-('ABERTA', 'Ordem de serviço criada'),
-('EM_ANDAMENTO', 'Serviços em execução'),
-('CONCLUIDA', 'Todos os serviços finalizados'),
-('CANCELADA', 'Ordem de serviço cancelada');
-
 DELIMITER //
-
--- Gerar número único para orçamentos
-CREATE TRIGGER trg_numero_orcamento
-BEFORE INSERT ON orcamentos
-FOR EACH ROW
-BEGIN
-    IF NEW.numero_orcamento IS NULL THEN
-        SET NEW.numero_orcamento = CONCAT('ORC-', UNIX_TIMESTAMP());
-    END IF;
-END//
 
 -- Gerar número único para agendamentos
 CREATE TRIGGER trg_numero_agendamento
@@ -109,66 +75,7 @@ BEGIN
     END IF;
 END//
 
--- Gerar número único para ordens de serviço
-CREATE TRIGGER trg_numero_os
-BEFORE INSERT ON ordens_servico
-FOR EACH ROW
-BEGIN
-    IF NEW.numero_os IS NULL THEN
-        SET NEW.numero_os = CONCAT('OS-', UNIX_TIMESTAMP());
-    END IF;
-END//
-
--- Registrar histórico quando OS for concluída
-CREATE TRIGGER trg_historico_os_concluida
-AFTER UPDATE ON ordens_servico
-FOR EACH ROW
-BEGIN
-    IF NEW.id_status = 3 AND OLD.id_status != 3 THEN
-        INSERT INTO historico_servicos (
-            id_cliente, id_veiculo, id_servico, id_os,
-            descricao, id_mecanico, valor_pago, km_veiculo, origem
-        )
-        SELECT 
-            NEW.id_cliente, NEW.id_veiculo, osi.id_servico, NEW.id_os,
-            s.nome, osi.id_mecanico, osi.valor_total, NEW.km_atual, 'ORDEM_SERVICO'
-        FROM ordem_servico_itens osi
-        JOIN servicos s ON osi.id_servico = s.id_servico
-        WHERE osi.id_os = NEW.id_os;
-
-        UPDATE ordens_servico 
-        SET data_fechamento = CURRENT_TIMESTAMP
-        WHERE id_os = NEW.id_os AND data_fechamento IS NULL;
-    END IF;
-END//
-
 DELIMITER ;
-
-
--- Cadastrar cliente
-DELIMITER //
-
-CREATE PROCEDURE sp_cadastrar_cliente (
-    IN p_nome VARCHAR(100),
-    IN p_email VARCHAR(100),
-    IN p_senha VARCHAR(255),
-    IN p_telefone VARCHAR(20),
-    IN p_cpf VARCHAR(14),
-    IN p_data_nascimento DATE
-)
-BEGIN
-    DECLARE v_id_usuario INT;
-
-    INSERT INTO usuarios (nome, email, senha, telefone, cpf, tipo)
-    VALUES (p_nome, p_email, p_senha, p_telefone, p_cpf, 'CLIENTE');
-    SET v_id_usuario = LAST_INSERT_ID();
-
-    INSERT INTO clientes (id, data_nascimento)
-    VALUES (v_id_usuario, p_data_nascimento);
-END//
-
-DELIMITER ;
-
 
 -- Criar Orçamento
 DELIMITER //
@@ -214,30 +121,6 @@ BEGIN
     SET valor_total = v_total,
         valor_final = v_total
     WHERE id_orcamento = v_id_orcamento;
-END//
-
-DELIMITER ;
-
-
--- Agendar Serviços
-DELIMITER //
-
-CREATE PROCEDURE sp_agendar_servico (
-    IN p_id_cliente INT,
-    IN p_id_veiculo INT,
-    IN p_id_orcamento INT,
-    IN p_data DATE,
-    IN p_hora TIME,
-    IN p_id_mecanico INT
-)
-BEGIN
-    INSERT INTO agendamentos (
-        id_cliente, id_veiculo, id_orcamento, id_mecanico,
-        data_agendamento, hora_inicio, hora_fim
-    ) VALUES (
-        p_id_cliente, p_id_veiculo, p_id_orcamento, p_id_mecanico,
-        p_data, p_hora, ADDTIME(p_hora, '01:00:00')
-    );
 END//
 
 DELIMITER ;
