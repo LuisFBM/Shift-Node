@@ -7,44 +7,31 @@ include_once '../controllers/veiculoController.php';
 include_once '../banco/database.php';
 
 $id = $_SESSION['id'] ?? null;
+$id_veiculo = $_SESSION['id_veiculo'] ?? null;
 
 $agendamentoController = new agendamentoController();
 $usuariosController = new usuariosController();
 $veiculoController = new veiculoController();
 
-$agendamentos = $agendamentoController->index(); 
+$agendamentos = $agendamentoController->index();
 
 
 if ($_SERVER['REQUEST_METHOD'] === "POST" && isset($_POST['cadastrar'])) {
-    // Verifica se o usuário é cliente
-
-    if ($id) {
-
-        // Dados do veículo vindos do formulário
-        $veiculo_nome = $_POST['veiculo_nome'];
-        $veiculo_ano = $_POST['veiculo_ano'];
-
-        // Cadastra o veículo e obtém o ID
-        $id_veiculo = $veiculoController->cadastrarVeiculo([
-            'nome' => $veiculo_nome,
-            'ano' => $veiculo_ano,
-            'id' => $id
-        ]);
-
-        // Dados do agendamento vindos do formulário
-        $data_agendamento = $_POST['data_agendamento'];
-        $hora = $_POST['hora'];
-        $tipo_servico = $_POST['tipo_servico'];
-
-        // Cadastra o agendamento
-        $agendamentoController->cadastrarAgenda([
-            'id' => $id,
-            'id_veiculo' => $id_veiculo,
-            'data_agendamento' => $data_agendamento,
-            'hora' => $hora,
-            'tipo_servico' => $tipo_servico
-        ]);
+    // Garante que o usuário esteja logado
+    if (!isset($_SESSION['usuarios'])) {
+        header('Location: login.php');
+        exit;
     }
+
+    $id = $_SESSION['usuarios']['id'];
+
+    $data_agendamento = $_POST['data_agendamento'];
+    $hora = $_POST['hora'];
+    $data_agendamento = $_POST['data_agendamento'];
+    $hora = $_POST['hora'];
+
+    $agendamentoController->cadastrarAgenda($id, $data_agendamento, $id_veiculo, $hora);
+
 }
 ?>
 
@@ -139,9 +126,11 @@ if ($_SERVER['REQUEST_METHOD'] === "POST" && isset($_POST['cadastrar'])) {
             <label for="obs">Observações:</label><br>
             <textarea id="obs" name="observacoes" rows="4" cols="100" placeholder="Observações..."></textarea><br><br>
 
+            <!-- pega o id do usuario com esse input invisivel -->
+            <input type="hidden" name="id" value="<?= htmlspecialchars($id, ENT_QUOTES, 'UTF-8') ?>">
+
             <button type="submit">Confirmar Agendamento</button><br><br>
 
-            <?php var_dump(); ?>
 
         </form>
     </div>
@@ -172,7 +161,7 @@ if ($_SERVER['REQUEST_METHOD'] === "POST" && isset($_POST['cadastrar'])) {
                     <td><?= $logados->ano ?></td>
                     <td><?= $logados->observacoes ?></td>
 
-                    <?php if($_SESSION['usuario']->id_usuarios == $logados->id_usuario) : ?>
+                    <?php if($_SESSION['usuario']->id == $logados->id) : ?>
 
                         <td><a href="atualizarUsuario.php?alterar=<?= $logados->id_agendamento ?>">Editar</a></td>
                         <td><a href="listaUsuario.php?excluir=<?= $logados->id_agendamento ?>">Excluir</a></td>

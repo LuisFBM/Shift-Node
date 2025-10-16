@@ -22,24 +22,31 @@ class agendamentoController {
 
     public function cadastrarAgenda($dados) {
 
-         if(session_status() === PHP_SESSION_NONE){
-                session_start();
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
         }
 
-        $this->agendamentos->id_cliente = $_SESSION['usuarios']->id;
-    
-        $this->agendamentos->id_veiculo = $dados['id_veiculo'];
-        $this->agendamentos->data_agendamento = $dados['data_agendamento'];
-        $this->agendamentos->hora = $dados['hora'];
-        $this->agendamentos->tipo_servico = $dados['tipo_servico'];
-        $this->agendamentos->observacoes = $dados['observacoes'];
-
-
-        if ($this->agendamentos->cadastrarAgendamento()) {
-            header("Location: ../paginas/agendamento.php");
+        // Garante que o usuário esteja logado
+        if (!isset($_SESSION['usuarios'])) {
+            header("Location: ../paginas/login.php");
             exit();
         }
-        return false;
+
+        // Atribui os dados do agendamento
+        $this->agendamentos->id_cliente= $_SESSION['usuarios']['id'];
+        $this->agendamentos->id_veiculo= $dados['id_veiculo'];
+        $this->agendamentos->data_agendamento= $dados['data_agendamento'];
+        $this->agendamentos->hora= $dados['hora'];
+        $this->agendamentos->tipo_servico= $dados['tipo_servico'];
+        $this->agendamentos->observacoes= $dados['observacoes'];
+
+        if ($this->agendamentos->cadastrarAgendamento()) {
+            header("Location: ../paginas/agendamento.php?sucesso=1");
+            exit();
+        } else {
+            header("Location: ../paginas/agendamento.php?erro=1");
+            exit();
+        }
     }
 
     public function atualizar($dados) {

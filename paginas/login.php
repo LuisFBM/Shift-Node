@@ -1,15 +1,14 @@
 <?php
 session_start();
 include_once '../controllers/usuariosController.php';
-$erro = null;
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $email = trim($_POST['usuarios']['email'] ?? '');
-    $senha = trim($_POST['usuarios']['senha'] ?? '');
+    $email = ($_POST['usuarios']['email'] ?? '');
+    $senha = ($_POST['usuarios']['senha'] ?? '');
 
     if (!empty($email) && !empty($senha)) {
         $controller = new usuariosController();
-        $controller->login($email, $senha); 
+        $controller->login($email, $senha);
     } else {
         $erro = "Preencha todos os campos.";
     }

@@ -80,6 +80,43 @@ nav ul li a:hover {
   transition: 0.3s;
 }
 
+
+/* Área do usuário */
+
+.user-area {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.user-area span {
+    font-weight: 500;
+    color: #111;
+}
+
+.user-area a {
+    text-decoration: none;
+    color: #4f46e5;
+    font-weight: 500;
+}
+
+.btn-login,
+.btn-cadastro,
+.btn-logout {
+    background-color: #4f46e5;
+    color: #fff;
+    padding: 6px 14px;
+    border-radius: 6px;
+    transition: background 0.3s;
+}
+
+.btn-login:hover,
+.btn-cadastro:hover,
+.btn-logout:hover {
+    background-color: #3730a3;
+}
+
+
 /* Contato */
 
 body {

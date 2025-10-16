@@ -1,3 +1,23 @@
+<?php
+
+include_once "../banco/database.php";
+include_once "../objetos/usuarios.php";
+include_once "../controllers/usuariosController.php";
+include_once "../session.php";
+
+if (isset($_SESSION['usuarios'])) {
+    if ($_SESSION['usuarios']['tipo'] === 'CLIENTE') {
+        header('Location: index.php');
+        exit();
+    } elseif ($_SESSION['usuarios']['tipo'] === 'ADMIN') {
+        header('Location: dashboard.php');
+        exit();
+    }
+}
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -10,38 +30,30 @@
 </head>
 <body>
 
-   <div class="hero">
-          <nav>
-              <a href="index.php" class="logo"><img src="../img/shiftnode.png" alt="logo"></a>
-          <ul>
+<div class="hero">
+    <nav>
+        <a href="index.php" class="logo">
+            <img src="../img/shiftnode.png" alt="logo">
+        </a>
+        <ul>
             <li><a href="agendamento.php">Agendamentos</a></li>
-            <li><a href="index.php#servicos">Serviços</a></li>
-            <li><a href="index.php#quem-somos">Quem Somos</a></li>
+            <li><a href="#servicos">Serviços</a></li>
+            <li><a href="#quem-somos">Quem Somos</a></li>
             <li><a href="contatos.php">Contatos</a></li>
-          </ul><br>
+        </ul>
 
-          <div class="user">
+        <!-- Área de login -->
+        <div class="user-area">
             <?php if (isset($_SESSION['usuarios'])): ?>
-                <ul>
-                    <li>
-                        <a href="#"><i class="fa fa-user"></i> <?php echo htmlspecialchars($_SESSION['usuarios']->nome); ?> <i class="fa fa-caret-down"></i></a>
-                        <ul>
-                            <?php if ($_SESSION['usuarios']->tipo === 'ADMIN'): ?>
-                                <li><a href="dashboard.php">Dashboard</a></li>
-                            <?php endif; ?>
-                            <li><a href="perfil.php">Perfil</a></li>
-                            <li><a href="logout.php">Sair</a></li>
-                        </ul>
-                    </li>
-                </ul>
+                <span style="color: #fff;">Olá, <?= htmlspecialchars($_SESSION['usuarios']['nome']); ?>!</span>
+                <a style="color: red;" href="../logout.php">Sair</a>
             <?php else: ?>
-                <a class="login" href="login.php" class="btn btn-primary">Login</a>
-                <a class="cadastro" href="cadastro.php">Cadastre-se</a>
+                <a href="login.php" class="login">Login</a>
+                <a href="cadastro.php" class="cadastro">Cadastrar</a>
             <?php endif; ?>
-
-          </div>
-          
-          </nav>
+        </div>
+    </nav>
+</div>
 
   <section class="contatos">
     <h1>Entre em Contato</h1>

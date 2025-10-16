@@ -35,12 +35,12 @@ Class agendar {
     }
 
     public function cadastrarAgendamento() {
-        $sql = "INSERT INTO agendamentos (id_cliente, id_veiculo, data_agendamento, hora, tipo_servico, observacoes)
-            VALUES (:id_cliente, :id_veiculo, :data_agendamento, :hora, :tipo_servico, :observacoes)";
+        $sql = "INSERT INTO agendamentos (id, id_veiculo, data_agendamento, hora, tipo_servico, observacoes)
+            VALUES (:id, :id_veiculo, :data_agendamento, :hora, :tipo_servico, :observacoes)";
 
         $stmt = $this->bd->prepare($sql);
 
-        $stmt->bindParam(':id_cliente', $this->id_cliente);
+        $stmt->bindParam(':id', $this->id);
         $stmt->bindParam(':id_veiculo', $this->id_veiculo);
         $stmt->bindParam(':data_agendamento', $this->data_agendamento);
         $stmt->bindParam(':hora', $this->hora);

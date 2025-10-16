@@ -2,7 +2,7 @@
 class Usuarios
 {
 
-    public $id_usuario;
+    public $id;
 
     public $nome;
     public $email;
@@ -46,7 +46,7 @@ class Usuarios
         $stmt->bindParam(':cpf', $this->cpf, PDO::PARAM_STR);
         $stmt->bindParam(':tipo', $this->tipo, PDO::PARAM_STR);
 
-        $stmt->bindParam(':id_usuarios', $this->id_usuario, PDO::PARAM_INT);
+        $stmt->bindParam(':id', $this->id, PDO::PARAM_INT);
 
         if ($stmt->execute()) {
             return true;
@@ -58,9 +58,9 @@ class Usuarios
 
     public function excluir()
     {
-        $sql = "DELETE FROM usuarios WHERE id_usuarios = :id_usuarios";
+        $sql = "DELETE FROM usuarios WHERE id = :id_usuarios";
         $stmt = $this->bd->prepare($sql);
-        $stmt->bindParam(':id_usuarios', $this->id_usuarios, PDO::PARAM_INT);
+        $stmt->bindParam(':id', $this->id, PDO::PARAM_INT);
 
         if ($stmt->execute()) {
             return true;
@@ -80,7 +80,7 @@ class Usuarios
 
     }
 
-    public function login(){
+    public function login($senha, $email){
         $sql = "SELECT * FROM usuarios WHERE email = :email";
         $stmt = $this->bd->prepare($sql);
         $stmt->bindParam(':email', $this->email, PDO::PARAM_STR);
@@ -88,33 +88,25 @@ class Usuarios
 
         $resultado = $stmt->fetch(PDO::FETCH_OBJ);
 
-        if ($resultado) {
-            if (password_verify($this->senha, $resultado->senha)) {
-                session_start();
 
-                // Armazena dados essenciais do usuário
-                $_SESSION['usuarios'] = [
-                    'id' => $resultado->id_usuario,
-                    'nome' => $resultado->nome,
-                    'email' => $resultado->email,
-                    'tipo' => $resultado->tipo // <-- adiciona o tipo (admin ou usuario)
-                ];
+        if ($resultado && password_verify($senha, $resultado->senha)) {
+            session_start();
 
-                // Redirecionamento conforme o tipo
-                if ($resultado->tipo === 'admin') {
-                    header("Location: paginas/dashboard.php");
-                } else {
-                    header("Location: paginas/index.php");
-                }
+            // Armazena os dados do usuário na sessão
+            $_SESSION['usuario_id'] = $resultado->id;
+            $_SESSION['usuario_email'] = $resultado->email;
+            $_SESSION['usuario_tipo'] = $resultado->tipo;
 
-                exit();
+            // Redireciona conforme o tipo de usuário (cliente/admin)
+            if ($resultado->tipo === 'ADMIN') {
+                header('Location: ../paginas/dashboard.php');
             } else {
-                header("Location: login.php?erro=senha");
-                exit();
+                header('Location: ../paginas/index.php');
             }
+            exit;
         } else {
-            header("Location: login.php?erro=email");
-            exit();
+            header('Location: ../paginas/login.php?erro=1');
+            exit;
         }
     }
 

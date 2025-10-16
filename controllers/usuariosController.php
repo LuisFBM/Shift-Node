@@ -54,25 +54,31 @@ class usuariosController {
     }
 
     public function login($email, $senha) {
-    $usuario = $this->usuarios->buscarPorEmail($email);
-    if ($usuario && password_verify($senha, $usuario->senha)) {
-        $_SESSION['usuarios'] = [
-            'id' => $usuario->id_usuario,
-            'nome' => $usuario->nome,
-            'email' => $usuario->email,
-            'tipo' => $usuario->tipo
-        ];
-        if ($usuario->tipo === 'admin') {
-            header("Location: ../paginas/dashboard.php");
-        } else {
-            header("Location: ../paginas/index.php");
-        }
+        // Busca o usuário no banco
+        $usuario = $this->usuarios->buscarPorEmail($email);
 
-        exit();
-    } else {
-        echo "<p style='color:red;'>E-mail ou senha inválidos.</p>";
-    }
-    
+        if ($usuario && password_verify($senha, $usuario->senha)) {
+            session_start();
+
+            // Armazena os dados essenciais do usuário
+            $_SESSION['usuarios'] = [
+                'id' => $usuario->id_usuario,
+                'nome' => $usuario->nome,
+                'email' => $usuario->email,
+                'tipo' => strtoupper($usuario->tipo) // garante maiúsculas
+            ];
+
+            // Redireciona conforme o tipo
+            if ($_SESSION['usuarios']['tipo'] === 'ADMIN') {
+                header("Location: ../paginas/dashboard.php");
+            } else {
+                header("Location: ../paginas/index.php");
+            }
+            exit;
+        } else {
+            header("Location: ../paginas/login.php?erro=1");
+            exit;
+        }
     }
 
 
