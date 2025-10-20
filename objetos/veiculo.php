@@ -10,7 +10,7 @@ class Veiculo {
         $this->bd = $bd; 
     }
 
-    public function cadastrar() {
+ public function cadastrar() {
         $sql = "INSERT INTO veiculos (id_usuario, nome, ano) VALUES (:id_usuario, :nome, :ano)";
         $stmt = $this->bd->prepare($sql);
         $stmt->bindParam(':id_usuario', $this->id_usuario, PDO::PARAM_INT);

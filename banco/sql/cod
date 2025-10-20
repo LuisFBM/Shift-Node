@@ -1,8 +1,8 @@
 CREATE DATABASE IF NOT EXISTS shift_node;
 USE shift_node;
-#select * from agendamentos;
-#drop database shift_node;
+#DROP DATABASE shift_node;
 
+-- Tabela de usuários
 CREATE TABLE usuarios (
     id INT AUTO_INCREMENT PRIMARY KEY,
     nome VARCHAR(100) NOT NULL,
@@ -15,6 +15,7 @@ CREATE TABLE usuarios (
     data_cadastro TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
+-- Tabela de veículos
 CREATE TABLE veiculos (
     id_veiculo INT AUTO_INCREMENT PRIMARY KEY,
     id_usuario INT NOT NULL,
@@ -26,6 +27,7 @@ CREATE TABLE veiculos (
         ON DELETE CASCADE
 );
 
+-- Tabela de serviços
 CREATE TABLE servicos (
     id_servico INT AUTO_INCREMENT PRIMARY KEY,
     nome VARCHAR(100) NOT NULL,
@@ -33,7 +35,7 @@ CREATE TABLE servicos (
     data_cadastro TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
-
+-- Tabela de agendamentos (atualizada para admin)
 CREATE TABLE agendamentos (
     id_agendamento INT AUTO_INCREMENT PRIMARY KEY,
     id_usuario INT NOT NULL,
@@ -42,6 +44,7 @@ CREATE TABLE agendamentos (
     hora TIME NOT NULL,
     observacoes VARCHAR(100),
     tipo_servico ENUM('Verificar nível de fluídos', 'Trocar óleo do motor e filtro', 'Trocar fluído de freio', 'Trocar fluído de arrefecimento', 'Revisão completa de freios', 'Verificar pastilhas de freio', 'Trocar discos e tambores de freio'),
+    status ENUM('PENDENTE', 'CONFIRMADO', 'CANCELADO', 'CONCLUIDO') DEFAULT 'PENDENTE',
     data_criacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (id_usuario)
         REFERENCES usuarios (id),
@@ -49,75 +52,78 @@ CREATE TABLE agendamentos (
         REFERENCES veiculos (id_veiculo)
 );
 
-CREATE TABLE status_os (
-    id_status INT AUTO_INCREMENT PRIMARY KEY,
-    nome_status VARCHAR(20) NOT NULL UNIQUE,
-    descricao VARCHAR(100)
+-- Tabela de horários disponíveis (para o admin gerenciar)
+CREATE TABLE horarios_disponiveis (
+    id_horario INT AUTO_INCREMENT PRIMARY KEY,
+    data_disponivel DATE NOT NULL,
+    hora_inicio TIME NOT NULL,
+    hora_fim TIME NOT NULL,
+    disponivel BOOLEAN DEFAULT TRUE,
+    data_cadastro TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    UNIQUE KEY unique_horario (data_disponivel, hora_inicio)
 );
 
-
+-- ========================================
+-- PROCEDURE 1: Listar agendamentos com filtros (para o admin)
+-- ========================================
 DELIMITER //
-
--- Gerar número único para agendamentos
-CREATE TRIGGER trg_numero_agendamento
-BEFORE INSERT ON agendamentos
-FOR EACH ROW
-BEGIN
-    IF NEW.numero_agendamento IS NULL THEN
-        SET NEW.numero_agendamento = CONCAT('AGD-', UNIX_TIMESTAMP());
-    END IF;
-    
-    IF NEW.hora_fim IS NULL THEN
-        SET NEW.hora_fim = ADDTIME(NEW.hora_inicio, '01:00:00');
-    END IF;
-END//
-
-DELIMITER ;
-
--- Criar Orçamento
-DELIMITER //
-
-CREATE PROCEDURE sp_criar_orcamento (
-    IN p_id_cliente INT,
-    IN p_id_veiculo INT,
-    IN p_id_atendente INT,
-    IN p_servicos JSON
+CREATE PROCEDURE sp_listar_agendamentos_admin(
+    IN p_status VARCHAR(20),
+    IN p_data_inicio DATE,
+    IN p_data_fim DATE
 )
 BEGIN
-    DECLARE v_id_orcamento INT;
-    DECLARE v_total DECIMAL(10,2) DEFAULT 0;
-    DECLARE i INT DEFAULT 0;
-    DECLARE v_count INT;
-    DECLARE v_servico_id INT;
-    DECLARE v_quantidade INT;
-    DECLARE v_valor_unitario DECIMAL(10,2);
-
-    INSERT INTO orcamentos (id_cliente, id_veiculo, id_atendente, data_orcamento)
-    VALUES (p_id_cliente, p_id_veiculo, p_id_atendente, CURDATE());
-    SET v_id_orcamento = LAST_INSERT_ID();
-
-    SELECT JSON_LENGTH(p_servicos) INTO v_count;
-
-    WHILE i < v_count DO
-        SET v_servico_id = JSON_UNQUOTE(JSON_EXTRACT(p_servicos, CONCAT('$[', i, '].id_servico')));
-        SET v_quantidade = JSON_UNQUOTE(JSON_EXTRACT(p_servicos, CONCAT('$[', i, '].quantidade')));
-
-        SELECT valor_base INTO v_valor_unitario
-        FROM servicos
-        WHERE id_servico = v_servico_id;
-
-        INSERT INTO orcamento_itens (id_orcamento, id_servico, quantidade, valor_unitario)
-        VALUES (v_id_orcamento, v_servico_id, v_quantidade, v_valor_unitario);
-
-        SET v_total = v_total + (v_quantidade * v_valor_unitario);
-
-        SET i = i + 1;
-    END WHILE;
-
-    UPDATE orcamentos
-    SET valor_total = v_total,
-        valor_final = v_total
-    WHERE id_orcamento = v_id_orcamento;
+    -- Retorna todos os agendamentos com informações do cliente e veículo
+    -- Permite filtrar por status e período de datas
+    SELECT 
+        a.id_agendamento,
+        a.data_agendamento,
+        a.hora,
+        a.status,
+        a.tipo_servico,
+        a.observacoes,
+        u.nome AS cliente_nome,
+        u.telefone AS cliente_telefone,
+        u.email AS cliente_email,
+        v.nome AS veiculo_nome,
+        v.ano AS veiculo_ano,
+        a.data_criacao
+    FROM agendamentos a
+    INNER JOIN usuarios u ON a.id_usuario = u.id
+    INNER JOIN veiculos v ON a.id_veiculo = v.id_veiculo
+    WHERE 
+        (p_status IS NULL OR a.status = p_status)
+        AND (p_data_inicio IS NULL OR a.data_agendamento >= p_data_inicio)
+        AND (p_data_fim IS NULL OR a.data_agendamento <= p_data_fim)
+    ORDER BY a.data_agendamento DESC, a.hora DESC;
 END//
+DELIMITER ;
 
+-- ========================================
+-- PROCEDURE 2: Gerenciar status de agendamento (confirmar/cancelar)
+-- ========================================
+DELIMITER //
+CREATE PROCEDURE sp_atualizar_status_agendamento(
+    IN p_id_agendamento INT,
+    IN p_novo_status ENUM('PENDENTE', 'CONFIRMADO', 'CANCELADO', 'CONCLUIDO')
+)
+BEGIN
+    -- Atualiza o status de um agendamento específico
+    -- Verifica se o agendamento existe antes de atualizar
+    DECLARE v_existe INT;
+    
+    SELECT COUNT(*) INTO v_existe 
+    FROM agendamentos 
+    WHERE id_agendamento = p_id_agendamento;
+    
+    IF v_existe > 0 THEN
+        UPDATE agendamentos 
+        SET status = p_novo_status
+        WHERE id_agendamento = p_id_agendamento;
+        
+        SELECT 'SUCCESS' AS resultado, 'Status atualizado com sucesso' AS mensagem;
+    ELSE
+        SELECT 'ERROR' AS resultado, 'Agendamento não encontrado' AS mensagem;
+    END IF;
+END//
 DELIMITER ;

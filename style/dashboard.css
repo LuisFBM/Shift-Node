@@ -1,128 +1,120 @@
+@import url("https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Open+Sans:wght@400;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Alan+Sans:wght@300..900&display=swap");
+
+/* Reset básico */
 * {
-  padding: 0;
   margin: 0;
+  padding: 0;
   box-sizing: border-box;
 }
 
+/* Body dashboard */
 body {
   font-family: "Roboto", sans-serif;
-  margin: 0;
-  background: #f4f4f4;
+  background-color: #f8f9fa;
+  color: #061f40;
 }
 
-* {
-  padding: 0;
-  margin: 0;
-  box-sizing: border-box;
-}
-
-.hero {
-  height: 4.3vw;
-  width: 100%;
+/* Navbar dashboard */
+.navbar {
   background: linear-gradient(to right, #061f40, #6155f5);
 }
 
-nav {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 10px;
-  padding: 10px 5%;
-}
-
-.logo img {
-  max-height: 80px;
-  width: auto;
-}
-
-nav ul li {
+.navbar .nav-link {
   font-family: "Alan Sans", sans-serif;
-  list-style-type: none;
-  display: inline-block;
-  padding: 8px 20px;
-}
-
-nav ul li a {
-  color: white;
-  text-decoration: none;
-  font-weight: bold;
-  font-size: 1.1rem;
-}
-
-nav ul li a:hover {
-  color: lightblue;
-  transition: 0.3s;
-}
-
-.login {
-  background-color: white;
-  color: #6155f5;
-  border-radius: 5px;
-  cursor: pointer;
-  text-decoration: none;
-  font-family: "Alan Sans", sans-serif;
-  padding: 8px 20px;
-}
-
-.login:hover {
-  background-color: #6155f5;
-  color: white;
-  transition: 0.3s;
-}
-
-.cadastro {
-  background-color: white;
-  color: #6155f5;
-  border-radius: 5px;
-  cursor: pointer;
-  text-decoration: none;
-  font-family: "Alan Sans", sans-serif;
-  padding: 8px 20px;
-}
-
-.cadastro:hover {
-  background-color: #6155f5;
-  color: white;
-  transition: 0.3s;
-}
-
-/* Fundo do Home */
-
-.fundo {
-  position: relative;
-  background: url("../img/admin.jpg") no-repeat center center;
-  background-size: cover;
-  height: 100vh;
-  display: flex;
-  align-items: center;
+  font-weight: 600;
   color: #fff;
-  padding-left: 60px;
+}
+
+.navbar .nav-link.active,
+.navbar .nav-link:hover {
+  color: #caf0f8;
+}
+
+/* Cards do painel resumo */
+.card {
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  transition: transform 0.3s ease;
+  text-align: center;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+}
+
+.card i {
+  font-size: 2rem;
+  margin-bottom: 10px;
+  color: #6155f5;
+}
+
+/* Tabelas */
+.table {
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   overflow: hidden;
 }
 
-.fundo::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background-color: rgba(0, 0, 0, 0.6);
-  z-index: 1;
+.table th {
+  background-color: #061f40;
+  color: #fff;
+  font-family: "Alan Sans", sans-serif;
 }
 
-.fundo-content {
-  position: relative;
-  z-index: 2;
-  font-family: "Roboto", sans-serif;
+.table td,
+.table th {
+  padding: 12px;
+  text-align: center;
 }
 
-ul li {
-  font-family: "Roboto", sans-serif;
-  font-size: 1.4rem;
+/* Botões */
+.btn-confirm {
+  background-color: #4f46e5;
+  color: #fff;
+  border-radius: 6px;
+  transition: 0.3s;
 }
 
-.fundo-content {
-  font-family: "Roboto", sans-serif;
+.btn-confirm:hover {
+  background-color: #3730a3;
 }
 
-/* Dashboard */
+.btn-cancel {
+  background-color: #dc3545;
+  color: #fff;
+  border-radius: 6px;
+  transition: 0.3s;
+}
 
+.btn-cancel:hover {
+  background-color: #a71d2a;
+}
+
+.btn-add {
+  background-color: #6155f5;
+  color: #fff;
+  border-radius: 6px;
+  transition: 0.3s;
+}
+
+.btn-add:hover {
+  background-color: #4f46e5;
+}
+
+/* Formulários */
+.form-control {
+  border-radius: 8px;
+  padding: 8px 12px;
+}
+
+/* Cards pequenos dentro do conteúdo */
+.card-small {
+  border-radius: 10px;
+  background-color: #fff;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  padding: 15px;
+  margin-bottom: 20px;
+}

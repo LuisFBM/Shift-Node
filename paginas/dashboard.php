@@ -4,34 +4,36 @@ include_once "../banco/database.php";
 include_once "../objetos/usuarios.php";
 include_once "../controllers/usuariosController.php";
 
-// Redireciona se já estiver logado
-if (isset($_SESSION['usuarios'])) {
-    $tipo = strtoupper($_SESSION['usuarios']->tipo);
-}
-?>
+// Redireciona se não estiver logado ou não for admin
 
+
+// Você pode carregar dados resumidos aqui para o painel inicial
+// Exemplo: total de agendamentos, horários livres, agendamentos pendentes
+?>
 
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Dashboard Inicial</title>
-<link rel="stylesheet" href="../style/dashboard.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Admin - Shift Node</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../style/index.css">
+    <link rel="stylesheet" href="../style/dashboard.css"> <!-- CSS específico do dashboard -->
 </head>
 <body>
 
-<!-- Navbar -->
+<!-- Navbar Dashboard -->
 <div class="hero">
     <nav>
-        <a href="index.php" class="logo">
+        <a href="dashboard.php" class="logo">
             <img src="../img/shiftnode.png" alt="logo">
         </a>
         <ul>
-            <li><a href="agendamento.php">Agendamentos</a></li>
-            <li><a href="#servicos">Serviços</a></li>
-            <li><a href="#quem-somos">Quem Somos</a></li>
-            <li><a href="contatos.php">Contatos</a></li>
+            <li><a href="dashboard.php">Dashboard</a></li>
+            <li><a href="lista_agendamentos.php">Agendamentos</a></li>
+            <li><a href="cadastrar_horario.php">Horários</a></li>
         </ul>
 
         <!-- Área de login -->
@@ -47,28 +49,46 @@ if (isset($_SESSION['usuarios'])) {
     </nav>
 </div>
 
+<!-- Conteúdo principal -->
+<div class="container-fluid mt-4">
+    <!-- Painel Resumo -->
+    <div class="row mb-4">
+        <div class="col-md-3">
+            <div class="card shadow-sm text-center p-3">
+                <i class="fas fa-calendar-check fa-2x mb-2" style="color:#6155f5;"></i>
+                <h5>Total de Agendamentos</h5>
+                <p class="fs-4">0</p> <!-- Substituir pelo total real -->
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card shadow-sm text-center p-3">
+                <i class="fas fa-clock fa-2x mb-2" style="color:#6155f5;"></i>
+                <h5>Horários Livres</h5>
+                <p class="fs-4">0</p>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card shadow-sm text-center p-3">
+                <i class="fas fa-check-circle fa-2x mb-2" style="color:#6155f5;"></i>
+                <h5>Agendamentos Confirmados</h5>
+                <p class="fs-4">0</p>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card shadow-sm text-center p-3">
+                <i class="fas fa-times-circle fa-2x mb-2" style="color:#6155f5;"></i>
+                <h5>Agendamentos Cancelados</h5>
+                <p class="fs-4">0</p>
+            </div>
+        </div>
+    </div>
 
-<!-- Fundo com imagem -->
- <section class="fundo">
-  <div class="fundo-content">
-    <h2>Benefícios do Dashboard</h2><br><br>
-    <ul>
-      <li>Informações Centralizadas</li>
-      <li>Monitoramento em Tempo Real</li>
-      <li>Gestão Simplificada de Serviços</li>
-      <li>Acesso Fácil a Agendamentos</li>
-      <li>Decisões Mais Rápidas e Precisas</li>
-    </ul>
-  </div>
-</section>
+    <!-- Área de conteúdo dinâmico -->
+    <div id="dashboard-content">
+        <p>Selecione uma opção no menu para gerenciar agendamentos ou horários.</p>
+    </div>
+</div>
 
-<!-- Conteúdo -->
-<main class="main-content">
-  <h1>Bem-vindo ao Dashboard</h1>
-
-
-
-</main>
-
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

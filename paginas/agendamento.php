@@ -80,7 +80,6 @@ $agendaCtrl = new agendamentoController();
 $agendamentos = $agendaCtrl->listarPorUsuario($_SESSION['usuarios']->id);
 ?>
 
-
 <!doctype html>
 <html lang="pt-br">
 <head>
@@ -93,19 +92,16 @@ $agendamentos = $agendaCtrl->listarPorUsuario($_SESSION['usuarios']->id);
 
 <div class="hero">
     <nav>
-        <a href="index.php" class="logo">
-            <img src="../img/shiftnode.png" alt="logo">
-        </a>
+        <a href="index.php" class="logo"><img src="../img/shiftnode.png" alt="logo"></a>
         <ul>
             <li><a href="agendamento.php">Agendamentos</a></li>
             <li><a href="index.php#servicos">Serviços</a></li>
             <li><a href="index.php#quem-somos">Quem Somos</a></li>
             <li><a href="contatos.php">Contatos</a></li>
         </ul>
-
         <div class="user-area">
-            <span style="color: #fff;">Olá, <?= htmlspecialchars($_SESSION['usuarios']->nome); ?>!</span>
-            <a style="color: red;" href="../logout.php">Sair</a>
+            <span style="color:#fff;">Olá, <?= htmlspecialchars($_SESSION['usuarios']->nome) ?>!</span>
+            <a style="color:red;" href="../logout.php">Sair</a>
         </div>
     </nav>
 </div>
@@ -115,25 +111,27 @@ $agendamentos = $agendaCtrl->listarPorUsuario($_SESSION['usuarios']->id);
     <div class="agendar-servi">
         <h1>Agendar Serviço</h1><br>
 
-        <?php if (!empty($mensagem)): ?>
-            <div style="padding:15px; margin-bottom:20px; border-radius:5px; background:<?= $tipo_mensagem === 'sucesso' ? '#d4edda' : '#f8d7da' ?>; color:<?= $tipo_mensagem === 'sucesso' ? '#155724' : '#721c24' ?>;">
-                <?= htmlspecialchars($mensagem) ?>
+        <?php if ($msg): ?>
+            <div style="padding:15px; margin-bottom:20px; border-radius:5px;
+                 background:<?= $tipo === 'sucesso' ? '#d4edda' : '#f8d7da' ?>;
+                 color:<?= $tipo === 'sucesso' ? '#155724' : '#721c24' ?>;">
+                <?= htmlspecialchars($msg) ?>
             </div>
         <?php endif; ?>
 
-        <form action="" method="post">
+        <form method="post">
             <input type="hidden" name="cadastrar" value="1">
 
             <label for="servico">Tipo de Serviço:</label><br>
             <select id="servico" name="tipo_servico" required>
                 <option value="">Selecione o Serviço</option>
-                <option value="Verificar nível de fluídos">Verificar nível de fluídos</option>
-                <option value="Trocar óleo do motor e filtro">Trocar óleo do motor e filtro</option>
-                <option value="Trocar fluído de freio">Trocar fluído de freio</option>
-                <option value="Trocar fluído de arrefecimento">Trocar fluído de arrefecimento</option>
-                <option value="Verificar pastilhas de freio">Verificar pastilhas de freio</option>
-                <option value="Revisão completa de freios">Revisão completa de freios</option>
-                <option value="Trocar discos e tambores de freio">Trocar discos e tambores de freio</option>
+                <option>Verificar nível de fluídos</option>
+                <option>Trocar óleo do motor e filtro</option>
+                <option>Trocar fluído de freio</option>
+                <option>Trocar fluído de arrefecimento</option>
+                <option>Verificar pastilhas de freio</option>
+                <option>Revisão completa de freios</option>
+                <option>Trocar discos e tambores de freio</option>
             </select><br><br>
 
             <label for="data_agendamento">Data:</label><br>
@@ -142,12 +140,8 @@ $agendamentos = $agendaCtrl->listarPorUsuario($_SESSION['usuarios']->id);
             <label for="hora">Horário:</label><br>
             <select id="hora" name="hora" required>
                 <option value="">Selecione o Horário</option>
-                <option value="08:00">08:00</option>
-                <option value="09:20">09:20</option>
-                <option value="10:40">10:40</option>
-                <option value="13:00">13:00</option>
-                <option value="14:20">14:20</option>
-                <option value="15:40">15:40</option>
+                <option>08:00</option><option>09:20</option><option>10:40</option>
+                <option>13:00</option><option>14:20</option><option>15:40</option>
             </select><br><br>
 
             <h2>Dados do Veículo</h2><br>
@@ -157,7 +151,7 @@ $agendamentos = $agendaCtrl->listarPorUsuario($_SESSION['usuarios']->id);
 
             <label for="veiculo_ano">Ano:</label>
             <input type="number" id="veiculo_ano" name="veiculo_ano" placeholder="Ex: 2015" min="1900" max="2025" required><br><br>
-           
+
             <label for="obs">Observações:</label><br>
             <textarea id="obs" name="observacoes" rows="4" placeholder="Observações..."></textarea><br><br>
 
@@ -165,52 +159,35 @@ $agendamentos = $agendaCtrl->listarPorUsuario($_SESSION['usuarios']->id);
         </form>
     </div>
 
+    <!-- SEÇÃO: MEUS AGENDAMENTOS -->
+    <div class="agendamentos">
+        <h2>Meus Agendamentos</h2><br>
 
-<!-- SEÇÃO: MEUS AGENDAMENTOS -->
-<div class="agendamentos">
-    <h2>Meus Agendamentos</h2><br>
-
-    <?php if (!empty($agendamentos)): ?>
-        <!-- Contêiner que agrupa todos os agendamentos do usuário -->
-        <div class="agendamentos-container">
-
-            <?php foreach($agendamentos as $agendamento): ?>
-                <!-- Card individual de cada agendamento -->
-                <div class="agendamento-card">
-
-                    <!-- Informações principais do agendamento -->
-                    <div class="agendamento-info">
-                        <h3><?= htmlspecialchars($agendamento->tipo_servico) ?></h3>
-                        <p><strong>Data:</strong> <?= date('d/m/Y', strtotime($agendamento->data_agendamento)) ?></p>
-                        <p><strong>Horário:</strong> <?= htmlspecialchars($agendamento->hora) ?></p>
-                        <p><strong>Veículo:</strong> <?= htmlspecialchars($agendamento->veiculo_nome) ?> (<?= htmlspecialchars($agendamento->veiculo_ano) ?>)</p>
-
-                        <!-- Exibe observações somente se existirem -->
-                        <?php if (!empty($agendamento->observacoes)): ?>
-                            <p><strong>Obs:</strong> <?= htmlspecialchars($agendamento->observacoes) ?></p>
-                        <?php endif; ?>
+        <?php if ($agendamentos): ?>
+            <div class="agendamentos-container">
+                <?php foreach ($agendamentos as $a): ?>
+                    <div class="agendamento-card">
+                        <div class="agendamento-info">
+                            <h3><?= htmlspecialchars($a->tipo_servico) ?></h3>
+                            <p><strong>Data:</strong> <?= date('d/m/Y', strtotime($a->data_agendamento)) ?></p>
+                            <p><strong>Horário:</strong> <?= htmlspecialchars($a->hora) ?></p>
+                            <p><strong>Veículo:</strong> <?= htmlspecialchars($a->veiculo_nome) ?> (<?= htmlspecialchars($a->veiculo_ano) ?>)</p>
+                            <?php if (!empty($a->observacoes)): ?>
+                                <p><strong>Obs:</strong> <?= htmlspecialchars($a->observacoes) ?></p>
+                            <?php endif; ?>
+                        </div>
+                        <div class="agendamento-acoes">
+                            <a href="editar_agendamento.php?id=<?= $a->id_agendamento ?>" class="btn-alterar"><img src="../img/Edit.png" alt="editar"></a>
+                            <a href="excluir_agendamento.php?id=<?= $a->id_agendamento ?>" class="btn-excluir" onclick="return confirm('Deseja realmente excluir?')"><img src="../img/Remove.png" alt=""></a>
+                        </div>
                     </div>
-
-                    <!-- Área dos botões de ação (Excluir, Editar, etc) -->
-                    <div class="agendamento-acoes">
-                        <!-- Botão ALTERAR leva a uma página de atualização -->
-                        <a href="editar_agendamento.php?id=<?= $agendamento->id_agendamento ?>" class="btn-alterar"><img src="../img/Edit.png" alt="editar"></a>
-
-                        <a href="excluir_agendamento.php?id=<?= $agendamento->id_agendamento ?>" class="btn-excluir" onclick="return confirm('Deseja realmente excluir?')"><img
-                                    src="../img/Remove.png" alt=""></a>
-                    </div>
-                </div>
-            <?php endforeach; ?>
-
-        </div>
-    <?php else: ?>
-        <!-- Caso o usuário ainda não tenha nenhum agendamento -->
-        <p>Você ainda não tem agendamentos.</p>
-    <?php endif; ?>
-</div>
-<!-- FIM DA SEÇÃO MEUS AGENDAMENTOS -->
+                <?php endforeach; ?>
+            </div>
+        <?php else: ?>
+            <p>Você ainda não tem agendamentos.</p>
+        <?php endif; ?>
+    </div>
 
 </div>
-
 </body>
 </html>

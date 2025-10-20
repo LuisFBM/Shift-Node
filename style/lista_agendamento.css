@@ -1,0 +1,171 @@
+/* === EXPLICAÇÃO: Estilos básicos da página === */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  font-family: Arial, sans-serif;
+  background: #f5f5f5; /* Fundo cinza claro */
+}
+
+/* === NAVBAR: Barra de navegação no topo === */
+.navbar {
+  background: linear-gradient(to right, #061f40, #6155f5); /* Gradiente azul */
+  padding: 20px;
+  color: white;
+  display: flex; /* Itens lado a lado */
+  justify-content: space-between; /* Espaço entre logo e links */
+  align-items: center;
+}
+.navbar a {
+  color: white;
+  text-decoration: none;
+  margin: 0 15px;
+  font-weight: bold;
+}
+.navbar a:hover {
+  color: lightblue;
+} /* Muda cor ao passar mouse */
+
+/* === CONTAINER: Limita largura do conteúdo === */
+.container {
+  max-width: 1200px; /* Não passa de 1200px */
+  margin: 30px auto; /* Centraliza */
+  padding: 20px;
+}
+
+/* === CABEÇALHO: Título da página === */
+.header {
+  background: white;
+  padding: 25px;
+  border-radius: 10px; /* Cantos arredondados */
+  margin-bottom: 20px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Sombra suave */
+}
+.header h1 {
+  color: #061f40;
+  font-size: 28px;
+}
+.header h1 i {
+  color: #6155f5; /* Ícone roxo */
+  margin-right: 10px;
+}
+
+/* === FILTROS: Área para buscar agendamentos === */
+.filtros {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  display: flex; /* Itens na horizontal */
+  gap: 15px; /* Espaço entre filtros */
+  flex-wrap: wrap; /* Quebra linha se necessário */
+}
+.filtros input,
+.filtros select {
+  padding: 10px;
+  border: 2px solid #ddd;
+  border-radius: 5px;
+  flex: 1; /* Cresce proporcionalmente */
+  min-width: 200px;
+}
+.filtros button {
+  padding: 10px 20px;
+  background: #6155f5;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer; /* Mãozinha ao passar mouse */
+  font-weight: bold;
+}
+.filtros button:hover {
+  background: #4a3fd1; /* Escurece ao passar mouse */
+}
+
+/* === TABELA: Lista de agendamentos === */
+.tabela-box {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  overflow-x: auto; /* Scroll horizontal em telas pequenas */
+}
+table {
+  width: 100%;
+  border-collapse: collapse; /* Remove espaços entre células */
+}
+/* Cabeçalho da tabela (thead) */
+thead {
+  background: linear-gradient(to right, #061f40, #6155f5);
+  color: white;
+}
+th {
+  padding: 15px;
+  text-align: left;
+  font-weight: bold;
+}
+/* Linhas da tabela (tbody) */
+td {
+  padding: 15px;
+  border-bottom: 1px solid #f0f0f0; /* Linha separadora */
+}
+tbody tr:hover {
+  background: #f8f9ff; /* Destaca linha ao passar mouse */
+}
+
+/* === BADGES: Etiquetas de status === */
+.badge {
+  padding: 5px 12px;
+  border-radius: 15px; /* Bem arredondado */
+  color: white;
+  font-size: 12px;
+  font-weight: bold;
+  text-transform: uppercase; /* MAIÚSCULA */
+}
+.badge-pendente {
+  background: #ffa500;
+} /* Laranja */
+.badge-confirmado {
+  background: #28a745;
+} /* Verde */
+.badge-cancelado {
+  background: #dc3545;
+} /* Vermelho */
+
+/* === BOTÕES DE AÇÃO: Confirmar, Cancelar, Ver === */
+.btn {
+  padding: 8px 12px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin: 0 5px;
+  color: white;
+  font-size: 14px;
+}
+.btn-confirmar {
+  background: #28a745;
+} /* Verde */
+.btn-cancelar {
+  background: #dc3545;
+} /* Vermelho */
+.btn-ver {
+  background: #17a2b8;
+} /* Azul claro */
+.btn:hover {
+  opacity: 0.8; /* Fica transparente ao passar mouse */
+  transform: scale(1.05); /* Aumenta levemente */
+}
+
+/* === ESTADO VAZIO: Quando não há dados === */
+.vazio {
+  text-align: center;
+  padding: 50px;
+  color: #999;
+}
+.vazio i {
+  font-size: 60px;
+  color: #ddd;
+  margin-bottom: 20px;
+}

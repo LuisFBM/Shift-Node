@@ -59,18 +59,31 @@ class usuariosController {
         $resultado = $this->usuarios->login();
 
         if ($resultado) {
-            // Login OK
+            // Login OK - armazena na sessão
             $_SESSION['usuarios'] = $resultado;
-            header('Location: index.php');
+        
+        // ===== VERIFICA TIPO DE USUÁRIO =====
+            $tipoUsuario = strtoupper($resultado->tipo);
+        
+        if ($tipoUsuario === 'ADMIN') {
+            // Redireciona para dashboard administrativo
+            header('Location: ../paginas/dashboard.php');
             exit();
         } else {
-            // Login FALHOU
-            $_SESSION['erro'] = 'Email ou senha incorretos';
-            header('Location: login.php');
+            // Redireciona para página inicial do cliente
+            header('Location: index.php');
             exit();
         }
+        
+        } else {
+            
+        // Login FALHOU
+        $_SESSION['erro'] = 'Email ou senha incorretos';
+        header('Location: login.php');
+        exit();
     }
-
+    
+    }
 
 }
 ?>

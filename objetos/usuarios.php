@@ -68,8 +68,7 @@ class Usuarios
         return $stmt->fetch(PDO::FETCH_OBJ);
     }
 
-    public function login()
-    {
+    public function login(){
         $sql = 'SELECT * FROM usuarios WHERE email = :email';
         $stmt = $this->bd->prepare($sql);
         $stmt->bindParam(':email', $this->email, PDO::PARAM_STR);

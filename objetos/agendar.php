@@ -75,5 +75,17 @@ class agendar {
         $stmt->bindParam(':id_agendamento', $this->id_agendamento, PDO::PARAM_INT);
         return $stmt->execute();
     }
+
+
+    public function cadastrarHorario() {
+        $sql = "INSERT INTO horarios (data, hora) VALUES (:data, :hora)";
+
+        $stmt = $this->bd->prepare($sql);
+        $stmt->bindParam(':data', $this->data);
+        $stmt->bindParam(':hora', $this->hora);
+
+        return $stmt->execute();
+    }
+
 }
 ?>
