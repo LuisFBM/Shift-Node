@@ -133,11 +133,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['atualizar'])) {
             <textarea id="obs" name="observacoes" rows="4" placeholder="Observações..."><?= htmlspecialchars($agendamento->observacoes) ?></textarea><br><br>
 
            <div class="botoes-acoes">
-
-            <button type="submit" class="btn-salvar">Salvar Alterações</button>
-            <a href="agendamento.php" class="btn-cancelar">Cancelar</a>
-
-            </div>
+                <button type="submit" class="btn-salvar">Salvar Alterações</button>
+               <a href="agendamento.php" class="btn-cancelar">Cancelar</a>
+           </div>
 
         </form>
         <?php endif; ?>

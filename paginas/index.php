@@ -6,16 +6,7 @@ include_once "../controllers/usuariosController.php";
 
 // Redireciona se já estiver logado
 if (isset($_SESSION['usuarios'])) {
-    $tipo = strtoupper($_SESSION['usuarios']->tipo); 
-    
-    if ($tipo === 'CLIENTE') {
-        header('Location: index.php');
-        exit();
-    } elseif ($tipo === 'ADMIN') {
-        // Admin pode redirecionar para dashboard se quiser
-        header('Location: dashboard.php');
-        exit();
-    }
+    $tipo = strtoupper($_SESSION['usuarios']->tipo);
 }
 ?>
 

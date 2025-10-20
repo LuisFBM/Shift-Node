@@ -3,293 +3,245 @@
 @import url("https://fonts.googleapis.com/css2?family=Alan+Sans:wght@300..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap");
 
 * {
-  padding: 0;
-  margin: 0;
-  box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
 }
 
 /* NAVBAR */
 
 .hero {
-  height: 4.3vw;
-  min-height: 60px;
-  width: 100%;
-  background: linear-gradient(to right, #061f40, #6155f5);
+    height: 4.3vw;
+    min-height: 60px;
+    width: 100%;
+    background: linear-gradient(to right, #061f40, #6155f5);
 }
 
 nav {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 10px;
-  padding: 10px 5%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding: 10px 5%;
 }
 
 .logo img {
-  max-height: 80px;
-  width: auto;
+    max-height: 80px;
+    width: auto;
 }
 
 nav ul {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 15px;
-  align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    align-items: center;
 }
 
 nav ul li {
-  font-family: "Alan Sans", sans-serif;
-  list-style-type: none;
+    font-family: "Alan Sans", sans-serif;
+    list-style-type: none;
 }
 
 nav ul li a {
-  color: white;
-  text-decoration: none;
-  font-weight: bold;
-  font-size: 1.1rem;
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1.1rem;
 }
 
 nav ul li a:hover {
-  color: lightblue;
-  transition: 0.3s;
+    color: lightblue;
+    transition: 0.3s;
 }
 
-.login,
-.cadastro {
-  background-color: white;
-  color: #6155f5;
-  border-radius: 5px;
-  cursor: pointer;
-  text-decoration: none;
-  font-family: "Alan Sans", sans-serif;
-  padding: 8px 20px;
+.login, .cadastro {
+    background-color: white;
+    color: #6155f5;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+    font-family: "Alan Sans", sans-serif;
+    padding: 8px 20px;
 }
 
-.login:hover,
-.cadastro:hover {
-  background-color: #6155f5;
-  color: white;
-  transition: 0.3s;
+.login:hover, .cadastro:hover {
+    background-color: #6155f5;
+    color: white;
+    transition: 0.3s;
 }
 
 /* CORPO DO CONTEÚDO */
 
 .corpo {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 2rem;
-  padding: 40px 5%;
-  font-family: "Roboto", sans-serif;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 2rem;
+    padding: 40px 5%;
+    font-family: "Roboto", sans-serif;
 }
 
 /* AGENDAR SERVIÇO */
 
 .agendar-servi {
-  flex: 1;
-  min-width: 320px;
-  max-width: 600px;
-  background-color: #fff;
-  border: 1px solid #ccc;
-  padding: 25px;
-  border-radius: 12px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+    flex: 1;
+    min-width: 320px;
+    max-width: 600px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
 }
 
 .agendar-servi h1 {
-  font-family: "Open Sans", sans-serif;
-  font-size: 1.7rem;
-  text-align: center;
-  margin-bottom: 15px;
+    font-family: "Open Sans", sans-serif;
+    font-size: 1.7rem;
+    text-align: center;
+    margin-bottom: 15px;
 }
 
 /* Labels e Inputs */
 .agendar-servi label {
-  font-weight: bold;
-  display: block;
-  margin-bottom: 4px;
-  color: #222;
+    font-weight: bold;
+    display: block;
+    margin-bottom: 4px;
+    color: #222;
 }
 
-.agendar-servi select,
-.agendar-servi input,
-.agendar-servi textarea {
-  width: 100%;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  font-size: 1rem;
-  font-family: "Roboto", sans-serif;
-  color: #333;
-  background-color: #f9f9f9;
-  margin-bottom: 15px;
+.agendar-servi select, .agendar-servi input, .agendar-servi textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-family: "Roboto", sans-serif;
+    color: #333;
+    background-color: #f9f9f9;
+    margin-bottom: 15px;
 }
 
-.agendar-servi select:focus,
-.agendar-servi input:focus,
-.agendar-servi textarea:focus {
-  outline: none;
-  border-color: #6155f5;
-  background-color: #fff;
+.agendar-servi select:focus, .agendar-servi input:focus, .agendar-servi textarea:focus {
+    outline: none;
+    border-color: #6155f5;
+    background-color: #fff;
 }
 
 /* Botão */
 .agendar-servi button {
-  width: 100%;
-  background: linear-gradient(to right, #061f40, #6155f5);
-  color: white;
-  padding: 12px;
-  font-size: 1rem;
-  font-family: "Alan Sans", sans-serif;
-  font-weight: 600;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: 0.3s;
+    width: 100%;
+    background: linear-gradient(to right, #061f40, #6155f5);
+    color: white;
+    padding: 12px;
+    font-size: 1rem;
+    font-family: "Alan Sans", sans-serif;
+    font-weight: 600;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.3s;
 }
 
 .agendar-servi button:hover {
-  background: #0b2f66;
+    background: #0b2f66;
 }
 
 /* MEUS AGENDAMENTOS */
 
-/* ================================
-   SEÇÃO: LISTA DE AGENDAMENTOS (CARDS)
-   ================================ */
-
 /* Contêiner geral dos cards */
 .agendamentos-container {
-  display: flex;
-  flex-direction: column; /* organiza em coluna */
-  gap: 15px; /* espaçamento entre cards */
+    display: flex;
+    flex-direction: column; /* organiza em coluna */
+    gap: 15px; /* espaçamento entre cards */
 }
 
 /* Card individual */
 .agendamento-card {
-  background-color: #f9f9f9; /* fundo claro */
-  border: 1px solid #ccc; /* borda sutil */
-  border-radius: 10px; /* cantos arredondados */
-  padding: 20px;
-  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.05); /* sombra suave */
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  flex-wrap: wrap;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+    background-color: #f9f9f9; /* fundo claro */
+    border: 1px solid #ccc; /* borda sutil */
+    border-radius: 10px; /* cantos arredondados */
+    padding: 20px;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.05); /* sombra suave */
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 /* Efeito hover no card */
 .agendamento-card:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+    transform: translateY(-3px);
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
 }
 
 /* Título e informações */
 .agendamento-info h3 {
-  font-size: 1.1rem;
-  color: #061f40;
-  margin-bottom: 8px;
+    font-size: 1.1rem;
+    color: #061f40;
+    margin-bottom: 8px;
 }
 
 .agendamento-info p {
-  font-size: 0.95rem;
-  color: #333;
-  margin-bottom: 4px;
+    font-size: 0.95rem;
+    color: #333;
+    margin-bottom: 4px;
 }
 
-/* Área dos botões (ações) */
+/* Botões Alterar e Excluir */
+
 .agendamento-acoes {
-  display: flex;
-  align-items: center;
-  gap: 10px;
+    display: flex;
+    align-items: flex-end;
+    height: 150px;
 }
 
-/* BOTÃO ALTERAR (AZUL) */
-.btn-alterar {
-  background: linear-gradient(
-    to right,
-    #061f40,
-    #6155f5
-  ); /* gradiente azul igual ao site */
-  color: white;
-  text-decoration: none;
-  padding: 8px 14px;
-  border-radius: 8px;
-  font-weight: 600;
-  transition: 0.3s;
+.btn-alterar img,
+.btn-excluir img {
+    width: 35px;
+    height: 35px;
+    transition: transform 0.2s ease;
 }
 
-.btn-alterar:hover {
-  background: #0b2f66; /* azul mais escuro ao passar o mouse */
+/* Efeito hover leve */
+.btn-alterar img:hover,
+.btn-excluir img:hover {
+    transform: scale(1.1);
 }
 
-/* BOTÃO EXCLUIR (VERMELHO) */
-.btn-excluir {
-  background: linear-gradient(
-    to right,
-    #f44336,
-    #d32f2f
-  ); /* gradiente vermelho */
-  color: white;
-  text-decoration: none;
-  padding: 8px 14px;
-  border-radius: 8px;
-  font-weight: 600;
-  transition: 0.3s;
-}
 
-.btn-excluir:hover {
-  background: #b71c1c;
-}
-
-/* BOTÕES DE AÇÃO */
+/* Botões de ação */
 
 .botoes-acoes {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 10px;
-  margin-top: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
 }
 
-/* Botão salvar (já no estilo principal) */
+/* Botão Salvar */
 .btn-salvar {
-  flex: 1;
-  background: linear-gradient(to right, #061f40, #6155f5);
-  color: white;
-  padding: 12px;
-  font-size: 1rem;
-  font-family: "Alan Sans", sans-serif;
-  font-weight: 600;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: 0.3s;
-  text-align: center;
+    flex: 1;
+    padding: 12px;
+    border-radius: 8px;
+    text-align: center;
+    transition: 0.3s;
 }
 
-.btn-salvar:hover {
-  background: #0b2f66;
-}
-
-/* Botão cancelar */
+/* Botão Cancelar */
 .btn-cancelar {
-  flex: 1;
-  background: #f5f5f5;
-  color: #333;
-  padding: 12px;
-  font-size: 1rem;
-  font-family: "Alan Sans", sans-serif;
-  font-weight: 600;
-  border-radius: 8px;
-  text-decoration: none;
-  text-align: center;
-  transition: 0.3s;
-  border: 1px solid #ccc;
+    flex: 1;
+    background-color: #888888;
+    color: #fff;
+    text-decoration: none; /* Não deixa como link ____ com o traço embaixo */
+    padding: 12px;
+    font-size: 1rem;
+    text-align: center;
+    border-radius: 8px;
+    transition: 0.3s ease;
 }
 
 .btn-cancelar:hover {
-  background: #ddd;
+    background-color: #616161;
 }

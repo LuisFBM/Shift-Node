@@ -52,13 +52,24 @@ class usuariosController {
 
     }
 
-    
     public function login($email, $senha) {
         $this->usuarios->email = $email;
         $this->usuarios->senha = $senha;
-        $this->usuarios->login(); // Método do objeto faz tudo
-    }
 
+        $resultado = $this->usuarios->login();
+
+        if ($resultado) {
+            // Login OK
+            $_SESSION['usuarios'] = $resultado;
+            header('Location: index.php');
+            exit();
+        } else {
+            // Login FALHOU
+            $_SESSION['erro'] = 'Email ou senha incorretos';
+            header('Location: login.php');
+            exit();
+        }
+    }
 
 
 }

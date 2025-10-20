@@ -18,9 +18,6 @@ if (isset($_GET['msg'])) {
         'excluido' => ['Agendamento excluído!', 'sucesso'],
         'atualizado' => ['Agendamento atualizado!', 'sucesso']
     ];
-    if (isset($mensagens[$_GET['msg']])) {
-        [$msg, $tipo] = $mensagens[$_GET['msg']];
-    }
 }
 
 if (isset($_GET['erro'])) {
@@ -197,9 +194,10 @@ $agendamentos = $agendaCtrl->listarPorUsuario($_SESSION['usuarios']->id);
                     <!-- Área dos botões de ação (Excluir, Editar, etc) -->
                     <div class="agendamento-acoes">
                         <!-- Botão ALTERAR leva a uma página de atualização -->
-                        <a href="editar_agendamento.php?id=<?= $agendamento->id_agendamento ?>" class="btn-alterar">Alterar</a>
+                        <a href="editar_agendamento.php?id=<?= $agendamento->id_agendamento ?>" class="btn-alterar"><img src="../img/Edit.png" alt="editar"></a>
 
-                        <a href="excluir_agendamento.php?id=<?= $agendamento->id_agendamento ?>" class="btn-excluir" onclick="return confirm('Deseja realmente excluir?')">Excluir</a>
+                        <a href="excluir_agendamento.php?id=<?= $agendamento->id_agendamento ?>" class="btn-excluir" onclick="return confirm('Deseja realmente excluir?')"><img
+                                    src="../img/Remove.png" alt=""></a>
                     </div>
                 </div>
             <?php endforeach; ?>

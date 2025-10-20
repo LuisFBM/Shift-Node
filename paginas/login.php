@@ -1,33 +1,23 @@
 <?php
 session_start();
 include_once '../controllers/usuariosController.php';
+$erro = null;
 
-// Se já está logado, redireciona
-if (isset($_SESSION['usuarios'])) {
-    $tipo = strtoupper($_SESSION['usuarios']->tipo);
-    if ($tipo === 'ADMIN') {
-        header('Location: dashboard.php');
-    } else {
-        header('Location: index.php');
-    }
-    exit;
-}
-
-$erro = $_SESSION['erro'] ?? ''; // Pega erro da sessão
-unset($_SESSION['erro']); // Limpa o erro
-
-// Processa o login
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $email = trim($_POST['usuarios']['email'] ?? '');
-    $senha = $_POST['usuarios']['senha'] ?? '';
+    $senha = trim($_POST['usuarios']['senha'] ?? '');
+    $email = ($_POST['usuarios']['email'] ?? '');
+    $senha = ($_POST['usuarios']['senha'] ?? '');
 
     if (!empty($email) && !empty($senha)) {
         $controller = new usuariosController();
-        $controller->login($email, $senha); // O método redireciona sozinho
+        $controller->login($email, $senha);
+        $controller->login($email, $senha);
     } else {
         $erro = "Preencha todos os campos.";
     }
 }
+
 ?>
 
 <!DOCTYPE html>
@@ -40,30 +30,35 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </head>
 <body class="fundo">
 
-    <form class="form" method="POST" action="">
-        <p class="form-title">Entrar na sua conta</p>
+<form class="form" method="POST" action="login.php">
+    <p class="form-title">Entrar na sua conta</p>
 
-        <?php if (!empty($erro)): ?>
-            <div class="erro-msg" style="color:red; margin-bottom:15px; text-align:center;">
-                <?= htmlspecialchars($erro) ?>
-            </div>
-        <?php endif; ?>
-
-        <div class="input-container">
-            <input type="email" name="usuarios[email]" placeholder="Digite seu e-mail" required>
+    <!-- Exibição de erro (se houver) -->
+    <?php if (!empty($erro)): ?>
+        <div class="erro-msg" style="color:red; margin-bottom:15px; text-align:center; font-size:14px;">
+            <?= htmlspecialchars($erro) ?>
         </div>
+    <?php endif; ?>
 
-        <div class="input-container">
-            <input type="password" name="usuarios[senha]" placeholder="Digite sua senha" required>
-        </div>
+    <div class="input-container">
+        <input type="email"
+               name="usuarios[email]"
+               placeholder="Digite seu e-mail"
+               value="<?= htmlspecialchars($_POST['usuarios']['email'] ?? '') ?>"
+               required>
+    </div>
 
-        <button type="submit" class="submit">Entrar</button>
+    <div class="input-container">
+        <input type="password" name="usuarios[senha]" placeholder="Digite sua senha" required>
+    </div>
 
-        <p class="signup-link">
-            Não tem conta?
-            <a href="cadastro.php">Cadastre-se</a>
-        </p>
-    </form>
+    <button type="submit" class="submit">Entrar</button>
+
+    <p class="signup-link">
+        Não tem conta?
+        <a href="cadastro.php">Cadastre-se</a>
+    </p>
+</form>
 
 </body>
 </html>

@@ -13,12 +13,6 @@ class agendar {
         $this->bd = $bd;
     }
 
-    public function lerTodos() {
-        $sql = 'SELECT * FROM agendamentos ORDER BY data_agendamento DESC';
-        $stmt = $this->bd->query($sql);
-        return $stmt->fetchAll(PDO::FETCH_OBJ);
-    }
-
     public function lerPorUsuario($id_usuario) {
         $sql = 'SELECT a.*, v.nome as veiculo_nome, v.ano as veiculo_ano 
                 FROM agendamentos a 
