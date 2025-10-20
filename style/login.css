@@ -18,7 +18,7 @@ body {
 
 .fundo {
   position: relative;
-  background: url("../img/fundo.png") no-repeat center center;
+  background: url("../img/opala.jpg") no-repeat center center;
   background-size: cover;
   height: 100vh;
   display: flex;
@@ -35,7 +35,6 @@ body {
   z-index: 1;
 }
 
-
 /* FORM CONTAINER */
 .form {
   background-color: #ededed;
@@ -43,7 +42,7 @@ body {
   width: 90%;
   max-width: 380px;
   border-radius: 1rem;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0);
   text-align: center;
 }
 

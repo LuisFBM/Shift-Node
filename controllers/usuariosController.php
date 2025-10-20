@@ -1,13 +1,10 @@
 <?php
-
 include_once '../banco/database.php';
 include_once '../objetos/usuarios.php';
 
 class usuariosController {
-
     private $bd;
     private $usuarios;
- 
 
     public function __construct() {
         $banco = new Database();
@@ -15,76 +12,54 @@ class usuariosController {
         $this->usuarios = new Usuarios($this->bd);
     }
 
-
-    public function cadastrarUsuarios($dados){
+    public function cadastrarUsuarios($dados) {
         $this->usuarios->nome = $dados['nome']; 
         $this->usuarios->email = $dados['email'];
-        $this->usuarios->senha = password_hash($dados['senha'], PASSWORD_DEFAULT);
+        $this->usuarios->senha = $dados['senha']; // Hash é feito no objeto
         $this->usuarios->telefone = $dados['telefone'];
         $this->usuarios->cpf = $dados['cpf'];
+        $this->usuarios->tipo = strtoupper($dados['tipo'] ?? 'CLIENTE');
 
-        if($this->usuarios->cadastrar($dados)){
-            header("Location: ../paginas/index.php");
+        if ($this->usuarios->cadastrar()) {
+            header("Location: ../paginas/login.php?cadastro=sucesso");
             exit();
         }
         return false;
     }
 
-    public function atualizarUsuarios($dados){
+    public function atualizarUsuarios($dados) {
+        $this->usuarios->id = $dados['id'];
         $this->usuarios->nome = $dados['nome']; 
         $this->usuarios->email = $dados['email'];
-        $this-> usuarios->senha = password_hash($dados['senha'], PASSWORD_DEFAULT);
+        $this->usuarios->senha = $dados['senha'];
         $this->usuarios->telefone = $dados['telefone'];
         $this->usuarios->cpf = $dados['cpf'];
+        $this->usuarios->tipo = strtoupper($dados['tipo']);
 
-        if($this->usuarios->atualizar()){
+        if ($this->usuarios->atualizar()) {
             header("Location: index.php");
             exit();
         }
         return false;
     }
 
-    public function excluirUsuario($id){
+    public function excluirUsuario($id) {
         $this->usuarios->id = $id;
-
-        if($this->usuarios->excluir()){
+        if ($this->usuarios->excluir()) {
             header("Location: login.php");
             exit();
         }
+
     }
-
-    public function login($email, $senha) {
-        // Busca o usuário no banco
-        $usuario = $this->usuarios->buscarPorEmail($email);
-
-        if ($usuario && password_verify($senha, $usuario->senha)) {
-            session_start();
-
-            // Armazena os dados essenciais do usuário
-            $_SESSION['usuarios'] = [
-                'id' => $usuario->id_usuario,
-                'nome' => $usuario->nome,
-                'email' => $usuario->email,
-                'tipo' => strtoupper($usuario->tipo) // garante maiúsculas
-            ];
-
-            // Redireciona conforme o tipo
-            if ($_SESSION['usuarios']['tipo'] === 'ADMIN') {
-                header("Location: ../paginas/dashboard.php");
-            } else {
-                header("Location: ../paginas/index.php");
-            }
-            exit;
-        } else {
-            header("Location: ../paginas/login.php?erro=1");
-            exit;
-        }
-    }
-
 
     
+    public function login($email, $senha) {
+        $this->usuarios->email = $email;
+        $this->usuarios->senha = $senha;
+        $this->usuarios->login(); // Método do objeto faz tudo
+    }
+
+
 
 }
-
-
 ?>

@@ -1,20 +1,22 @@
 <?php
-
+session_start();
 include_once "../banco/database.php";
 include_once "../objetos/usuarios.php";
 include_once "../controllers/usuariosController.php";
-include_once "../session.php";
 
+// Redireciona se já estiver logado
 if (isset($_SESSION['usuarios'])) {
-    if ($_SESSION['usuarios']['tipo'] === 'CLIENTE') {
+    $tipo = strtoupper($_SESSION['usuarios']->tipo); 
+    
+    if ($tipo === 'CLIENTE') {
         header('Location: index.php');
         exit();
-    } elseif ($_SESSION['usuarios']['tipo'] === 'ADMIN') {
+    } elseif ($tipo === 'ADMIN') {
+        // Admin pode redirecionar para dashboard se quiser
         header('Location: dashboard.php');
         exit();
     }
 }
-
 ?>
 
 
@@ -43,15 +45,15 @@ if (isset($_SESSION['usuarios'])) {
         </ul>
 
         <!-- Área de login -->
-        <div class="user-area">
-            <?php if (isset($_SESSION['usuarios'])): ?>
-                <span style="color: #fff;">Olá, <?= htmlspecialchars($_SESSION['usuarios']['nome']); ?>!</span>
-                <a style="color: red;" href="../logout.php">Sair</a>
-            <?php else: ?>
-                <a href="login.php" class="login">Login</a>
-                <a href="cadastro.php" class="cadastro">Cadastrar</a>
-            <?php endif; ?>
-        </div>
+     <div class="user-area">
+        <?php if (isset($_SESSION['usuarios'])): ?>
+        <span style="color: #fff;">Olá, <?= htmlspecialchars($_SESSION['usuarios']->nome); ?>!</span>
+        <a style="color: red;" href="../logout.php">Sair</a>
+        <?php else: ?>
+        <a href="login.php" class="login">Login</a>
+        <a href="cadastro.php" class="cadastro">Cadastrar</a>
+        <?php endif; ?>
+</div>
     </nav>
 </div>
 

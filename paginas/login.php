@@ -2,13 +2,28 @@
 session_start();
 include_once '../controllers/usuariosController.php';
 
+// Se já está logado, redireciona
+if (isset($_SESSION['usuarios'])) {
+    $tipo = strtoupper($_SESSION['usuarios']->tipo);
+    if ($tipo === 'ADMIN') {
+        header('Location: dashboard.php');
+    } else {
+        header('Location: index.php');
+    }
+    exit;
+}
+
+$erro = $_SESSION['erro'] ?? ''; // Pega erro da sessão
+unset($_SESSION['erro']); // Limpa o erro
+
+// Processa o login
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $email = ($_POST['usuarios']['email'] ?? '');
-    $senha = ($_POST['usuarios']['senha'] ?? '');
+    $email = trim($_POST['usuarios']['email'] ?? '');
+    $senha = $_POST['usuarios']['senha'] ?? '';
 
     if (!empty($email) && !empty($senha)) {
         $controller = new usuariosController();
-        $controller->login($email, $senha);
+        $controller->login($email, $senha); // O método redireciona sozinho
     } else {
         $erro = "Preencha todos os campos.";
     }
@@ -16,22 +31,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../style/login.css">
-    <title></title>
+    <title>Login - Shift Node</title>
 </head>
-
 <body class="fundo">
 
-     <form class="form" method="POST" action="">
+    <form class="form" method="POST" action="">
         <p class="form-title">Entrar na sua conta</p>
 
-        <?php if (isset($erro)) : ?>
-            <div class="erro-msg"><?= htmlspecialchars($erro) ?></div>
+        <?php if (!empty($erro)): ?>
+            <div class="erro-msg" style="color:red; margin-bottom:15px; text-align:center;">
+                <?= htmlspecialchars($erro) ?>
+            </div>
         <?php endif; ?>
 
         <div class="input-container">
@@ -50,7 +65,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </p>
     </form>
 
-   
 </body>
-
 </html>

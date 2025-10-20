@@ -14,28 +14,38 @@ class veiculoController {
     }
 
     public function indexVeiculo() {
-        $id_cliente = $_SESSION['usuarios']->id_usuario ?? null;
-        if (!$id_cliente) return [];
-        return $this->veiculo->lerTodosPorCliente($id_cliente);
+        $id_usuario = $_SESSION['usuarios']->id_usuario ?? null;
+        if (!$id_usuario) return [];
+        return $this->veiculo->lerTodosPorUsuario($id_usuario);
     }
 
-    public function cadastrarVeiculo($dados) {
-    $this->veiculo->nome = $dados['nome']; 
-    $this->veiculo->ano = $dados['ano'];
-    $this->veiculo->id_cliente = $dados['id_cliente']; 
+  public function cadastrarVeiculo($dados) {
+        $this->veiculo->nome = $dados['nome']; 
+        $this->veiculo->ano = $dados['ano'];
+        $this->veiculo->id_usuario = $dados['id_usuario']; 
 
-    if ($this->veiculo->cadastrar()) {  
-        return $this->veiculo->id; 
-    } else {
-        echo "Erro ao cadastrar veículo!";
+        // O método cadastrar() já retorna o ID ou false
+        $id_veiculo = $this->veiculo->cadastrar();
+        
+        if ($id_veiculo) {
+            return $id_veiculo; // Retorna o ID recebido
+        }
+        
         return false;
     }
-}
 
 
+    public function atualizarVeiculo($dados) {
+        $this->veiculo->id_veiculo = $dados['id_veiculo'];
+        $this->veiculo->nome = $dados['nome'];
+        $this->veiculo->ano = $dados['ano'];
 
-    public function excluirVeiculo($idVeiculo) {
-        $this->veiculo->id_veiculo = $idVeiculo;
+        return $this->veiculo->atualizar();
+    }
+
+
+    public function excluirVeiculo($id_veiculo) {
+        $this->veiculo->id_veiculo = $id_veiculo;
         return $this->veiculo->excluir();
     }
 

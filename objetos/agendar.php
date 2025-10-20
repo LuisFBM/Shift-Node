@@ -1,47 +1,57 @@
 <?php
-
-Class agendar {
+class agendar {
     public $id_agendamento;
-
-    public $id_cliente;
+    public $id_usuario;
     public $id_veiculo;
     public $hora;
     public $data_agendamento;
     public $tipo_servico;
     public $observacoes;
-    public $bd;
+    private $bd;
 
-
-    public function __construct($bd){
+    public function __construct($bd) {
         $this->bd = $bd;
     }
 
-    public function lerTodos(){
-        $sql = 'SELECT * FROM agendamentos';
-        $resultado = $this->bd->query($sql);
-        $resultado->execute();
-
-        return $resultado->fetchALL(PDO::FETCH_OBJ);
+    public function lerTodos() {
+        $sql = 'SELECT * FROM agendamentos ORDER BY data_agendamento DESC';
+        $stmt = $this->bd->query($sql);
+        return $stmt->fetchAll(PDO::FETCH_OBJ);
     }
 
-    public function lerAgendamento($id_agendamento){
-        $idAgendamento = "%" . $id_agendamento . "%";
-        $sql = 'SELECT * FROM agendamentos WHERE id_agendamento LIKE :id_agendamento';
-        $resultado = $this->bd->prepare($sql);
-        $resultado->bindParam(':id_agendamento', $idAgendamento);
-        $resultado->execute();
+    public function lerPorUsuario($id_usuario) {
+        $sql = 'SELECT a.*, v.nome as veiculo_nome, v.ano as veiculo_ano 
+                FROM agendamentos a 
+                INNER JOIN veiculos v ON a.id_veiculo = v.id_veiculo 
+                WHERE a.id_usuario = :id_usuario 
+                ORDER BY a.data_agendamento DESC';
+        
+        $stmt = $this->bd->prepare($sql);
+        $stmt->bindParam(':id_usuario', $id_usuario, PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_OBJ);
+    }
 
-        return $resultado->fetchALL(PDO::FETCH_OBJ);
+    // Busca um agendamento específico
+    public function buscarPorId($id_agendamento) {
+        $sql = 'SELECT a.*, v.nome as veiculo_nome, v.ano as veiculo_ano 
+                FROM agendamentos a 
+                INNER JOIN veiculos v ON a.id_veiculo = v.id_veiculo 
+                WHERE a.id_agendamento = :id_agendamento';
+        
+        $stmt = $this->bd->prepare($sql);
+        $stmt->bindParam(':id_agendamento', $id_agendamento, PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->fetch(PDO::FETCH_OBJ);
     }
 
     public function cadastrarAgendamento() {
-        $sql = "INSERT INTO agendamentos (id, id_veiculo, data_agendamento, hora, tipo_servico, observacoes)
-            VALUES (:id, :id_veiculo, :data_agendamento, :hora, :tipo_servico, :observacoes)";
+        $sql = "INSERT INTO agendamentos (id_usuario, id_veiculo, data_agendamento, hora, tipo_servico, observacoes)
+                VALUES (:id_usuario, :id_veiculo, :data_agendamento, :hora, :tipo_servico, :observacoes)";
 
         $stmt = $this->bd->prepare($sql);
-
-        $stmt->bindParam(':id', $this->id);
-        $stmt->bindParam(':id_veiculo', $this->id_veiculo);
+        $stmt->bindParam(':id_usuario', $this->id_usuario, PDO::PARAM_INT);
+        $stmt->bindParam(':id_veiculo', $this->id_veiculo, PDO::PARAM_INT);
         $stmt->bindParam(':data_agendamento', $this->data_agendamento);
         $stmt->bindParam(':hora', $this->hora);
         $stmt->bindParam(':tipo_servico', $this->tipo_servico);
@@ -50,38 +60,26 @@ Class agendar {
         return $stmt->execute();
     }
 
-    public function atualizar(){
-        $sql = "UPDATE agendamentos 
-                SET data_agendamento = :data_agendamento, hora = :hora, id_veiculo = :id_veiculo, observacoes = :observacoes 
+    
+    public function atualizar() {
+        $sql = "UPDATE agendamentos SET data_agendamento = :data_agendamento, hora = :hora, tipo_servico = :tipo_servico, observacoes = :observacoes 
                 WHERE id_agendamento = :id_agendamento";
 
         $stmt = $this->bd->prepare($sql);
+        $stmt->bindParam(':data_agendamento', $this->data_agendamento);
+        $stmt->bindParam(':hora', $this->hora);
+        $stmt->bindParam(':tipo_servico', $this->tipo_servico);
+        $stmt->bindParam(':observacoes', $this->observacoes);
+        $stmt->bindParam(':id_agendamento', $this->id_agendamento, PDO::PARAM_INT);
 
-        $stmt->bindParam(':data_agendamento', $this->data_agendamento, PDO::PARAM_STR);
-        $stmt->bindParam(':hora', $this->hora, PDO::PARAM_STR);
-        $stmt->bindParam(':id_veiculo', $this->id_veiculo, PDO::PARAM_INT);
-        $stmt->bindParam('tipo_servico', $this->tipo_servico. PDO::PARAM_STR);
-        $stmt->bindParam(':observacoes', $this->observacoes, PDO::PARAM_STR);
-
-        if($stmt->execute()){
-            return true;
-        } else {
-            return false;
-        }
+        return $stmt->execute();
     }
 
-    public function excluir(){
+    public function excluir() {
         $sql = 'DELETE FROM agendamentos WHERE id_agendamento = :id_agendamento';
         $stmt = $this->bd->prepare($sql);
         $stmt->bindParam(':id_agendamento', $this->id_agendamento, PDO::PARAM_INT);
-
-        if($stmt->execute()){
-            return true;
-        } else {
-            return false;
-        }
+        return $stmt->execute();
     }
-
 }
-
 ?>

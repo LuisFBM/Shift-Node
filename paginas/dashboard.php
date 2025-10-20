@@ -55,7 +55,7 @@
       <p><?php// echo $total_agendamentos; ?></p>
     </a>
 
-    <a href="cadastrar_servico.php" class="card card-purple">
+    <a href="cadastrar_servicos.php" class="card card-purple">
       <i class="fa fa-cogs fa-2x"></i>
       <h3>Cadastrar Serviços</h3>
       <p><?php// echo $total_servicos; ?></p>

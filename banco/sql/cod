@@ -3,9 +3,6 @@ USE shift_node;
 #select * from agendamentos;
 #drop database shift_node;
 
-
-#talvez preciso adicionar na tavela usuarios o campo formacao caso não for cliente.
-
 CREATE TABLE usuarios (
     id INT AUTO_INCREMENT PRIMARY KEY,
     nome VARCHAR(100) NOT NULL,

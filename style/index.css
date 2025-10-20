@@ -8,247 +8,255 @@
 @import url("https://fonts.googleapis.com/css2?family=Alan+Sans:wght@300..900&display=swap");
 
 * {
-    padding: 0;
-    margin: 0;
-    box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
 }
 
 .hero {
-    height: 4.3vw;
-    width: 100%;
-    background: linear-gradient(to right, #061f40, #6155f5);
+  height: 4.3vw;
+  width: 100%;
+  background: linear-gradient(to right, #061f40, #6155f5);
 }
 
 nav {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 10px;
-    padding: 10px 5%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding: 10px 5%;
 }
 
 .logo img {
-    max-height: 80px;
-    width: auto;
+  max-height: 80px;
+  width: auto;
 }
 
 nav ul li {
-    font-family: "Alan Sans", sans-serif;
-    list-style-type: none;
-    display: inline-block;
-    padding: 8px 20px;
+  font-family: "Alan Sans", sans-serif;
+  list-style-type: none;
+  display: inline-block;
+  padding: 8px 20px;
 }
 
 nav ul li a {
-    color: white;
-    text-decoration: none;
-    font-weight: bold;
-    font-size: 1.1rem;
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 1.1rem;
 }
 
 nav ul li a:hover {
-    color: lightblue;
-    transition: 0.3s;
+  color: lightblue;
+  transition: 0.3s;
 }
 
 .login {
-    background-color: white;
-    color: #6155f5;
-    border-radius: 5px;
-    cursor: pointer;
-    text-decoration: none;
-    font-family: "Alan Sans", sans-serif;
-    padding: 8px 20px;
+  background-color: white;
+  color: #6155f5;
+  border-radius: 5px;
+  cursor: pointer;
+  text-decoration: none;
+  font-family: "Alan Sans", sans-serif;
+  padding: 8px 20px;
 }
 
 .login:hover {
-    background-color: #6155f5;
-    color: white;
-    transition: 0.3s;
+  background-color: #6155f5;
+  color: white;
+  transition: 0.3s;
 }
 
 .cadastro {
-    background-color: white;
-    color: #6155f5;
-    border-radius: 5px;
-    cursor: pointer;
-    text-decoration: none;
-    font-family: "Alan Sans", sans-serif;
-    padding: 8px 20px;
+  background-color: white;
+  color: #6155f5;
+  border-radius: 5px;
+  cursor: pointer;
+  text-decoration: none;
+  font-family: "Alan Sans", sans-serif;
+  padding: 8px 20px;
 }
 
 .cadastro:hover {
-    background-color: #6155f5;
-    color: white;
-    transition: 0.3s;
+  background-color: #6155f5;
+  color: white;
+  transition: 0.3s;
 }
 
 /* Fundo do Home */
 
 .fundo {
-    position: relative;
-    background: url("../img/fundo.png") no-repeat center center;
-    background-size: cover;
-    height: 89vh;
-    display: flex;
-    align-items: center;
-    color: #fff;
-    padding-left: 60px;
-    overflow: hidden;
+  position: relative;
+  background: url("../img/fundo.png") no-repeat center center;
+  background-size: cover;
+  height: 89vh;
+  display: flex;
+  align-items: center;
+  color: #fff;
+  padding-left: 60px;
+  overflow: hidden;
 }
 
 .fundo::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background-color: rgba(0, 0, 0, 0.6);
-    z-index: 1;
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  z-index: 1;
 }
 
 .fundo-content {
-    position: relative;
-    z-index: 2;
-    font-family: "Roboto", sans-serif;
+  position: relative;
+  z-index: 2;
+  font-family: "Roboto", sans-serif;
 }
 
 ul li {
-    font-family: "Roboto", sans-serif;
-    font-size: 1.4rem;
+  font-family: "Roboto", sans-serif;
+  font-size: 1.4rem;
 }
 
 .fundo-content {
-    font-family: "Roboto", sans-serif;
+  font-family: "Roboto", sans-serif;
 }
-
 
 /* Área do usuário */
 
 .user-area {
-    display: flex;
-    align-items: center;
-    gap: 15px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
 }
 
 .user-area span {
-    font-weight: 500;
-    color: #111;
+  font-weight: 500;
+  color: #111;
 }
 
 .user-area a {
-    text-decoration: none;
-    color: #4f46e5;
-    font-weight: 500;
+  text-decoration: none;
+  color: #4f46e5;
+  font-weight: 500;
 }
 
 .btn-login,
 .btn-cadastro,
 .btn-logout {
-    background-color: #4f46e5;
-    color: #fff;
-    padding: 6px 14px;
-    border-radius: 6px;
-    transition: background 0.3s;
+  background-color: #4f46e5;
+  color: #fff;
+  padding: 6px 14px;
+  border-radius: 6px;
+  transition: background 0.3s;
 }
 
 .btn-login:hover,
 .btn-cadastro:hover,
 .btn-logout:hover {
-    background-color: #3730a3;
+  background-color: #3730a3;
+}
+
+.user-area i {
+  font-size: 1.2rem;
+  vertical-align: middle;
+  color: #fff;
 }
 
 /* Quem Somos */
 #quem-somos {
-    background: linear-gradient(70deg, #061f40, #6155f5);
-    color: #fff;
-    width: 100%;
-    height: 90%;
-    display: flex;
-    padding: 50px 40px;
+  background: linear-gradient(70deg, #061f40, #6155f5);
+  color: #fff;
+  width: 100%;
+  height: 90%;
+  display: flex;
+  padding: 50px 40px;
 }
 
 #quem-somos h1 {
-    font-family: "Open Sans", sans-serif;
-    font-size: 3.5rem;
-    margin-bottom: 20px;
-    padding: 10px;
-    font-weight: bold;
+  font-family: "Open Sans", sans-serif;
+  font-size: 3.5rem;
+  margin-bottom: 20px;
+  padding: 10px;
+  font-weight: bold;
 }
 
 .info {
-    width: 50%;
-    height: 100%;
-    line-height: 1.6;
-    font-size: large;
-    font-family: "Roboto", sans-serif;
+  width: 50%;
+  height: 100%;
+  line-height: 1.6;
+  font-size: large;
+  font-family: "Roboto", sans-serif;
 }
 
 /* Imagens do Quem Somos */
-
 .img {
-    width: 50%;
-    height: 100%;
+  width: 50%;
+  height: 100%;
 }
 
 .topo {
-    justify-content: flex-end;
-    align-items: flex-start;
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-start;
+  gap: 15px; /* espaço entre imagens */
+  margin-bottom: 15px;
 }
 
 .topo img {
-    width: 450px;
-    height: auto;
-    border-radius: 10px;
-    transition: transform 0.3s ease;
+  width: 420px; /* largura reduzida */
+  height: 240px; /* altura proporcional */
+  border-radius: 10px;
+  object-fit: cover; /* evita distorção */
+  transition: transform 0.3s ease;
 }
 
 .topo img:hover {
-    transform: scale(1.05);
+  transform: scale(1.05);
 }
 
 /* Cards de Serviços */
 #servicos {
-    padding: 60px 10%;
-    text-align: center;
+  padding: 60px 10%;
+  text-align: center;
 }
 
 #servicos h2 {
-    font-family: "Open Sans", sans-serif;
-    margin-bottom: 30px;
-    color: #061f40;
+  font-family: "Open Sans", sans-serif;
+  margin-bottom: 30px;
+  color: #061f40;
 }
 
 .card-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
 }
 
 .card {
-    background: #fff;
-    border-radius: 10px;
-    padding: 20px;
-    width: 280px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    transition: 0.3s;
+  background: #fff;
+  border-radius: 10px;
+  padding: 20px;
+  width: 280px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  transition: 0.3s;
 }
 
 .card:hover {
-    transform: translateY(-5px);
+  transform: translateY(-5px);
 }
 
 .card i {
-    font-size: 2rem;
-    color: #6155f5;
-    margin-bottom: 10px;
+  font-size: 2rem;
+  color: #6155f5;
+  margin-bottom: 10px;
 }
 
 /* Rodapé */
 footer {
-    background-color: linear-gradient(70deg, #061f40, #6155f5);
-    color: #fff;
-    text-align: center;
-    padding: 20px;
-    font-size: 0.9rem;
+  background-color: linear-gradient(70deg, #061f40, #6155f5);
+  color: #fff;
+  text-align: center;
+  padding: 20px;
+  font-size: 0.9rem;
 }
