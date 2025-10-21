@@ -92,12 +92,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </tr>
         </thead>
         <tbody>
-            <?php if(count($horarios) === 0): ?>
+            <?php if(count($hora) === 0): ?>
                 <tr>
                     <td colspan="4">Nenhum horário cadastrado.</td>
                 </tr>
             <?php else: ?>
-                <?php foreach($horarios as $h): ?>
+                <?php foreach($hora as $h): ?>
                     <tr>
                         <td><?= $h->id ?></td>
                         <td><?= $h->data ?></td>

@@ -13,6 +13,14 @@ class agendar {
         $this->bd = $bd;
     }
 
+    public function ListarAgendamentos(){
+       $sql = "SELECT * FROM agendamentos";
+       $resultado = $this->bd->query($sql);
+       $resultado->execute();
+
+       return $resultado->fetchAll(PDO::FETCH_OBJ);
+}
+
     public function lerPorUsuario($id_usuario) {
         $sql = 'SELECT a.*, v.nome as veiculo_nome, v.ano as veiculo_ano 
                 FROM agendamentos a 

@@ -13,6 +13,10 @@ class agendamentoController {
         $this->agendamentos = new agendar($this->bd);
     }
 
+    public function index() {
+        return $this->agendamentos->ListarAgendamentos();
+    }
+
     public function listarPorUsuario($id_usuario) {
         return $this->agendamentos->lerPorUsuario($id_usuario);
     }

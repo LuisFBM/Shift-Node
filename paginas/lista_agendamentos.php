@@ -2,6 +2,13 @@
 session_start();
 include_once "../banco/database.php";
 include_once "../objetos/usuarios.php";
+include_once "../controllers/agendamentoController.php";
+
+$controller = new agendamentoController();
+$agendamentos = $controller->index();
+global $agendamentos;
+
+$agendamentos = null;
 
 // Redireciona se não for admin
 if (!isset($_SESSION['usuarios']) || strtoupper($_SESSION['usuarios']->tipo) !== 'ADMIN') {
@@ -9,8 +16,7 @@ if (!isset($_SESSION['usuarios']) || strtoupper($_SESSION['usuarios']->tipo) !==
     exit();
 }
 
-// Aqui você carregaria os agendamentos do banco
-$agendamentos = []; // Exemplo vazio, futuramente puxar do banco
+
 ?>
 
 <!DOCTYPE html>
@@ -63,9 +69,9 @@ $agendamentos = []; // Exemplo vazio, futuramente puxar do banco
     <div class="filtros">
         <select id="filtroStatus">
             <option value="">Todos os status</option>
-            <option value="pendente">Pendente</option>
-            <option value="confirmado">Confirmado</option>
-            <option value="cancelado">Cancelado</option>
+            <option value="Pendente">Pendente</option>
+            <option value="Confirmado">Confirmado</option>
+            <option value="Cancelado">Cancelado</option>
         </select>
         <input type="date" id="filtroData" placeholder="Data">
         <button onclick="filtrar()"><i class="fas fa-filter"></i> Filtrar</button>

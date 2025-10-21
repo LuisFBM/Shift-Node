@@ -20,17 +20,6 @@ if (isset($_GET['msg'])) {
     ];
 }
 
-if (isset($_GET['erro'])) {
-    $erros = [
-        'permissao' => 'Você não tem permissão.',
-        'excluir' => 'Erro ao excluir.'
-    ];
-    if (isset($erros[$_GET['erro']])) {
-        $msg = $erros[$_GET['erro']];
-        $tipo = 'erro';
-    }
-}
-
 // Processa cadastro
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['cadastrar'])) {
     
