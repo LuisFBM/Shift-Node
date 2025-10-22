@@ -33,26 +33,6 @@ class agendar {
     $resultado->execute();
     return $resultado->fetchAll(PDO::FETCH_OBJ);
 
-    }   
-
-    // Confirmar um agendamento
-    public function confirmar($id) {
-        $sql = "UPDATE agendamentos 
-                SET status = 'Confirmado' 
-                WHERE id_agendamento = :id";
-        $stmt = $this->bd->prepare($sql);
-        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
-        return $stmt->execute();
-    }
-
-    // Cancelar agendamento
-    public function cancelar($id) {
-        $sql = "UPDATE agendamentos 
-                SET status = 'Cancelado' 
-                WHERE id_agendamento = :id";
-        $stmt = $this->bd->prepare($sql);
-        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
-        return $stmt->execute();
     }
 
 
@@ -130,7 +110,7 @@ class agendar {
         return $stmt->execute();
     }
 
-    private function atualizarStatus($id, $status) {
+    public function atualizarStatus($id, $status) {
     $sql = "UPDATE agendamentos 
             SET status = :status 
             WHERE id_agendamento = :id";

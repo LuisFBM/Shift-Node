@@ -5,11 +5,6 @@ include_once "../objetos/usuarios.php";
 include_once "../controllers/agendamentoController.php";
 
 $controller = new agendamentoController();
-$agendamentos = $controller->index();
-
-$banco = new Database();
-$bd = $banco->conectar();
-$agendar = new agendar($bd); 
 
 // Redireciona se não for admin
 if (!isset($_SESSION['usuarios']) || strtoupper($_SESSION['usuarios']->tipo) !== 'ADMIN') {
@@ -17,20 +12,26 @@ if (!isset($_SESSION['usuarios']) || strtoupper($_SESSION['usuarios']->tipo) !==
     exit();
 }
 
-// Processa ações de confirmação e cancelamento
+// === ATUALIZA STATUS ===
+// Verifica se há ação de confirmar ou cancelar
 if (isset($_GET['confirmar'])) {
-    $id = $_GET['confirmar'];
-    $agendar->id_agendamento = $id;
-    $agendar->confirmar($id); // ou atualizarStatus('Confirmado')
+    $id = intval($_GET['confirmar']);
+    $controller->atualizarStatusAgendamento($id, 'Confirmado');
+    header("Location: lista_agendamentos.php");
+    exit();
 }
 
 if (isset($_GET['cancelar'])) {
-    $id = $_GET['cancelar'];
-    $agendar->id_agendamento = $id;
-    $agendar->cancelar($id); // ou atualizarStatus('Cancelado')
+    $id = intval($_GET['cancelar']);
+    $controller->atualizarStatusAgendamento($id, 'Cancelado');
+    header("Location: lista_agendamentos.php");
+    exit();
 }
 
+// === LISTA AGENDAMENTOS ===
+$agendamentos = $controller->index();
 ?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -121,8 +122,8 @@ if (isset($_GET['cancelar'])) {
                     <a href="lista_agendamentos.php?confirmar=<?= $agendamento->id_agendamento ?>" class="btn btn-confirmar">
                     <i class="fas fa-check"></i>
                     </a>
-                    
-                    
+
+
                     <a href="lista_agendamentos.php?cancelar=<?= $agendamento->id_agendamento ?>" class="btn btn-cancelar">
                     <i class="fas fa-times"></i>
                     </a>
