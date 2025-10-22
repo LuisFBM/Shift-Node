@@ -14,11 +14,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $data = $_POST['data'];
     $hora = $_POST['hora'];
 
+}
 
 
-    // Aqui você faria a inserção no banco de dados
-    // Exemplo: $database->query("INSERT INTO horarios (data, hora) VALUES (?, ?)", [$data, $hora]);
-}   
+
 ?>
 
 <!DOCTYPE html>

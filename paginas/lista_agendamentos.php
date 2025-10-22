@@ -6,9 +6,10 @@ include_once "../controllers/agendamentoController.php";
 
 $controller = new agendamentoController();
 $agendamentos = $controller->index();
-global $agendamentos;
 
-$agendamentos = null;
+$banco = new Database();
+$bd = $banco->conectar();
+$agendar = new agendar($bd); 
 
 // Redireciona se não for admin
 if (!isset($_SESSION['usuarios']) || strtoupper($_SESSION['usuarios']->tipo) !== 'ADMIN') {
@@ -16,34 +17,44 @@ if (!isset($_SESSION['usuarios']) || strtoupper($_SESSION['usuarios']->tipo) !==
     exit();
 }
 
+// Processa ações de confirmação e cancelamento
+if (isset($_GET['confirmar'])) {
+    $id = $_GET['confirmar'];
+    $agendar->id_agendamento = $id;
+    $agendar->confirmar($id); // ou atualizarStatus('Confirmado')
+}
+
+if (isset($_GET['cancelar'])) {
+    $id = $_GET['cancelar'];
+    $agendar->id_agendamento = $id;
+    $agendar->cancelar($id); // ou atualizarStatus('Cancelado')
+}
 
 ?>
-
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Agendamentos - Admin</title>
+    <title>Agendamentos - Admin | Shift Node</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link rel="stylesheet" href="../style/lista_agendamento.css">
     <link rel="stylesheet" href="../style/index.css">
+    <link rel="stylesheet" href="../style/lista_agendamento.css">
 </head>
 <body>
 
-<!-- Navbar Dashboard -->
+<!-- Navbar -->
 <div class="hero">
     <nav>
         <a href="dashboard.php" class="logo">
-            <img src="../img/shiftnode.png" alt="logo">
+            <img src="../img/shiftnode.png" alt="Shift Node Logo">
         </a>
         <ul>
             <li><a href="dashboard.php">Dashboard</a></li>
-            <li><a href="lista_agendamentos.php">Agendamentos</a></li>
+            <li><a href="lista_agendamentos.php" class="active">Agendamentos</a></li>
             <li><a href="cadastrar_horario.php">Horários</a></li>
         </ul>
 
-        <!-- Área de login -->
         <div class="user-area">
             <?php if (isset($_SESSION['usuarios'])): ?>
                 <span style="color: #fff;">Olá, <?= htmlspecialchars($_SESSION['usuarios']->nome); ?>!</span>
@@ -56,9 +67,9 @@ if (!isset($_SESSION['usuarios']) || strtoupper($_SESSION['usuarios']->tipo) !==
     </nav>
 </div>
 
-<!-- CONTEÚDO -->
+<!-- CONTEÚDO PRINCIPAL -->
 <div class="container">
-    
+
     <!-- Cabeçalho -->
     <div class="header">
         <h1><i class="fas fa-calendar-check"></i> Gerenciar Agendamentos</h1>
@@ -69,72 +80,76 @@ if (!isset($_SESSION['usuarios']) || strtoupper($_SESSION['usuarios']->tipo) !==
     <div class="filtros">
         <select id="filtroStatus">
             <option value="">Todos os status</option>
-            <option value="Pendente">Pendente</option>
-            <option value="Confirmado">Confirmado</option>
-            <option value="Cancelado">Cancelado</option>
+            <option value="pendente">Pendente</option>
+            <option value="confirmado">Confirmado</option>
+            <option value="cancelado">Cancelado</option>
         </select>
         <input type="date" id="filtroData" placeholder="Data">
-        <button onclick="filtrar()"><i class="fas fa-filter"></i> Filtrar</button>
+        <button><i class="fas fa-filter"></i> Filtrar</button>
     </div>
 
-    <!-- Tabela -->
-    <div class="tabela-box">
-        <table>
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Cliente</th>
-                    <th>Serviço</th>
-                    <th>Data</th>
-                    <th>Status</th>
-                    <th>Ações</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php if (empty($agendamentos)): ?>
-                <!-- Mensagem quando não há agendamentos -->
-                <tr>
-                    <td colspan="6">
-                        <div class="vazio">
-                            <i class="fas fa-calendar-times"></i>
-                            <p>Nenhum agendamento encontrado</p>
-                        </div>
-                    </td>
-                </tr>
-                <?php else: ?>
-                <!-- Loop pelos agendamentos (exemplo) -->
-                <?php foreach ($agendamentos as $item): ?>
-                <tr>
-                    <td>#<?= $item['id'] ?></td>
-                    <td><?= $item['cliente'] ?></td>
-                    <td><?= $item['servico'] ?></td>
-                    <td><?= $item['data'] ?></td>
+   <div class="tabela-box">
+    <table>
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Cliente</th>
+            <th>Veículo</th>
+            <th>Data</th>
+            <th>Hora</th>
+            <th>Serviço</th>
+            <th>Observações</th>
+            <th>Data Criação</th>
+        </tr>
+        </thead>
+        <tbody>
+            <?php if (!empty($agendamentos)): ?>
+                <?php foreach ($agendamentos as $agendamento): ?>
+                    <tr>
+                        <td><?= $agendamento->id_agendamento ?></td>
+                        <td><?= $agendamento->nome_usuario ?></td>
+                        <td><?= $agendamento->nome_veiculo ?></td>
+                        <td><?= $agendamento->data_agendamento ?></td>
+                        <td><?= $agendamento->hora ?></td>
+                        <td><?= $agendamento->tipo_servico ?></td>
+                        <td><?= $agendamento->observacoes ?></td>
+                        <td><?= $agendamento->data_criacao ?></td>
+
                     <td>
-                        <span class="badge badge-<?= $item['status'] ?>">
-                            <?= ucfirst($item['status']) ?>
-                        </span>
+                    <?php if ($agendamento->status === 'Pendente'): ?>
+
+                    <a href="lista_agendamentos.php?confirmar=<?= $agendamento->id_agendamento ?>" class="btn btn-confirmar">
+                    <i class="fas fa-check"></i>
+                    </a>
+                    
+                    
+                    <a href="lista_agendamentos.php?cancelar=<?= $agendamento->id_agendamento ?>" class="btn btn-cancelar">
+                    <i class="fas fa-times"></i>
+                    </a>
+
+                    <?php else: ?>
+
+                    <span class="status-<?= strtolower($agendamento->status) ?>">
+                    <?= $agendamento->status ?>
+                    
+                    </span>
+
+                    <?php endif; ?>
+
                     </td>
-                    <td>
-                        <button class="btn btn-confirmar" onclick="confirmar(<?= $item['id'] ?>)">
-                            <i class="fas fa-check"></i>
-                        </button>
-                        <button class="btn btn-cancelar" onclick="cancelar(<?= $item['id'] ?>)">
-                            <i class="fas fa-times"></i>
-                        </button>
-                        <button class="btn btn-ver" onclick="ver(<?= $item['id'] ?>)">
-                            <i class="fas fa-eye"></i>
-                        </button>
-                    </td>
-                </tr>
+
+                    </tr>
                 <?php endforeach; ?>
-                <?php endif; ?>
-            </tbody>
-        </table>
-    </div>
-
+            <?php else: ?>
+                <tr>
+                    <td colspan="8" style="text-align:center;">Nenhum agendamento encontrado</td>
+                </tr>
+            <?php endif; ?>
+        </tbody>
+    </table>
 </div>
 
-<script src="../JS/list_agend.js"></script>
+</div>
 
 </body>
 </html>

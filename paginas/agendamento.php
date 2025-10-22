@@ -61,6 +61,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['cadastrar'])) {
             $msg = "Erro ao cadastrar veículo.";
             $tipo = 'erro';
         }
+
     }
 }
 
@@ -163,6 +164,15 @@ $agendamentos = $agendaCtrl->listarPorUsuario($_SESSION['usuarios']->id);
                             <p><strong>Veículo:</strong> <?= htmlspecialchars($a->veiculo_nome) ?> (<?= htmlspecialchars($a->veiculo_ano) ?>)</p>
                             <?php if (!empty($a->observacoes)): ?>
                                 <p><strong>Obs:</strong> <?= htmlspecialchars($a->observacoes) ?></p>
+
+                                <p><strong>Status:</strong> 
+
+                                <span class="status <?= strtolower($a->status) ?>">
+                                <?= htmlspecialchars($a->status) ?>
+                                </span>
+                                
+                                </p>
+
                             <?php endif; ?>
                         </div>
                         <div class="agendamento-acoes">

@@ -1,169 +1,181 @@
-/* === EXPLICAÇÃO: Estilos básicos da página === */
+/* ======== ESTILOS GERAIS ======== */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
+
 body {
-  font-family: Arial, sans-serif;
-  background: #f5f5f5; /* Fundo cinza claro */
+  font-family: "Roboto", sans-serif;
+  background: #f5f5f5;
+  color: #333;
 }
 
-/* === NAVBAR: Barra de navegação no topo === */
-.navbar {
-  background: linear-gradient(to right, #061f40, #6155f5); /* Gradiente azul */
-  padding: 20px;
-  color: white;
-  display: flex; /* Itens lado a lado */
-  justify-content: space-between; /* Espaço entre logo e links */
-  align-items: center;
-}
-.navbar a {
-  color: white;
-  text-decoration: none;
-  margin: 0 15px;
-  font-weight: bold;
-}
-.navbar a:hover {
-  color: lightblue;
-} /* Muda cor ao passar mouse */
-
-/* === CONTAINER: Limita largura do conteúdo === */
+/* ======== CONTAINER ======== */
 .container {
-  max-width: 1200px; /* Não passa de 1200px */
-  margin: 30px auto; /* Centraliza */
+  max-width: 1200px;
+  margin: 40px auto;
   padding: 20px;
 }
 
-/* === CABEÇALHO: Título da página === */
+/* ======== CABEÇALHO ======== */
 .header {
-  background: white;
+  background: #fff;
   padding: 25px;
-  border-radius: 10px; /* Cantos arredondados */
-  margin-bottom: 20px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Sombra suave */
+  border-radius: 10px;
+  margin-bottom: 25px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 .header h1 {
   color: #061f40;
-  font-size: 28px;
+  font-size: 26px;
 }
 .header h1 i {
-  color: #6155f5; /* Ícone roxo */
+  color: #6155f5;
   margin-right: 10px;
 }
+.header p {
+  margin-top: 8px;
+  color: #666;
+}
 
-/* === FILTROS: Área para buscar agendamentos === */
+/* ======== FILTROS ======== */
 .filtros {
-  background: white;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  background: #fff;
   padding: 20px;
   border-radius: 10px;
-  margin-bottom: 20px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  display: flex; /* Itens na horizontal */
-  gap: 15px; /* Espaço entre filtros */
-  flex-wrap: wrap; /* Quebra linha se necessário */
+  margin-bottom: 25px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
 }
+
 .filtros input,
 .filtros select {
   padding: 10px;
   border: 2px solid #ddd;
   border-radius: 5px;
-  flex: 1; /* Cresce proporcionalmente */
   min-width: 200px;
 }
+
 .filtros button {
   padding: 10px 20px;
   background: #6155f5;
-  color: white;
+  color: #fff;
   border: none;
   border-radius: 5px;
-  cursor: pointer; /* Mãozinha ao passar mouse */
   font-weight: bold;
-}
-.filtros button:hover {
-  background: #4a3fd1; /* Escurece ao passar mouse */
+  cursor: pointer;
+  transition: 0.3s;
 }
 
-/* === TABELA: Lista de agendamentos === */
-.tabela-box {
-  background: white;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  overflow-x: auto; /* Scroll horizontal em telas pequenas */
+.filtros button:hover {
+  background: #4a3fd1;
 }
+
+/* ======== TABELA ======== */
+.tabela-box {
+  background: #fff;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  overflow-x: auto;
+  font-family: "Roboto", sans-serif;
+}
+
 table {
   width: 100%;
-  border-collapse: collapse; /* Remove espaços entre células */
+  border-collapse: collapse;
+  background: white;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+  border-radius: 10px;
+  overflow: hidden;
 }
-/* Cabeçalho da tabela (thead) */
-thead {
-  background: linear-gradient(to right, #061f40, #6155f5);
-  color: white;
-}
-th {
-  padding: 15px;
-  text-align: left;
-  font-weight: bold;
-}
-/* Linhas da tabela (tbody) */
+
+th,
 td {
   padding: 15px;
-  border-bottom: 1px solid #f0f0f0; /* Linha separadora */
-}
-tbody tr:hover {
-  background: #f8f9ff; /* Destaca linha ao passar mouse */
+  text-align: left;
+  border-bottom: 1px solid #b1a5a5;
 }
 
-/* === BADGES: Etiquetas de status === */
-.badge {
-  padding: 5px 12px;
-  border-radius: 15px; /* Bem arredondado */
-  color: white;
-  font-size: 12px;
+/* Status styles */
+
+.status-pendente {
+  color: orange;
   font-weight: bold;
-  text-transform: uppercase; /* MAIÚSCULA */
 }
-.badge-pendente {
-  background: #ffa500;
-} /* Laranja */
-.badge-confirmado {
-  background: #28a745;
-} /* Verde */
-.badge-cancelado {
-  background: #dc3545;
-} /* Vermelho */
+.status-confirmado {
+  color: green;
+  font-weight: bold;
+}
+.status-cancelado {
+  color: red;
+  font-weight: bold;
+}
 
-/* === BOTÕES DE AÇÃO: Confirmar, Cancelar, Ver === */
+/* ======== BOTOES DE AÇÃO ======== */
+
 .btn {
-  padding: 8px 12px;
+  padding: 6px 12px;
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  margin: 0 5px;
+  margin: 0 3px;
   color: white;
   font-size: 14px;
-}
-.btn-confirmar {
-  background: #28a745;
-} /* Verde */
-.btn-cancelar {
-  background: #dc3545;
-} /* Vermelho */
-.btn-ver {
-  background: #17a2b8;
-} /* Azul claro */
-.btn:hover {
-  opacity: 0.8; /* Fica transparente ao passar mouse */
-  transform: scale(1.05); /* Aumenta levemente */
+  transition: 0.3s;
+  gap: 10px;
+  margin-left: 15px;
 }
 
-/* === ESTADO VAZIO: Quando não há dados === */
+.btn-confirmar {
+  background: #28a745;
+}
+
+.btn-cancelar {
+  background: #dc3545;
+}
+
+.btn-ver {
+  background: #17a2b8;
+}
+
+.btn:hover {
+  opacity: 0.85;
+  transform: scale(1.05);
+}
+
+/* === MENSAGEM DE STATUS === */
+.mensagem-status {
+  padding: 15px;
+  margin-bottom: 20px;
+  border-radius: 8px;
+  color: #fff;
+  font-weight: bold;
+}
+
+.mensagem-sucesso {
+  background: #28a745;
+}
+
+.mensagem-cancelado {
+  background: #dc3545;
+}
+
+.mensagem-info {
+  background: #17a2b8;
+  color: #fff;
+}
+
+/* === ESTADO VAZIO === */
 .vazio {
   text-align: center;
   padding: 50px;
   color: #999;
 }
+
 .vazio i {
   font-size: 60px;
   color: #ddd;

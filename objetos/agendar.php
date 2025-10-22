@@ -13,13 +13,48 @@ class agendar {
         $this->bd = $bd;
     }
 
-    public function ListarAgendamentos(){
-       $sql = "SELECT * FROM agendamentos";
-       $resultado = $this->bd->query($sql);
-       $resultado->execute();
+    public function listarAgendamentos() {
+    $sql = "SELECT 
+            a.id_agendamento,
+            u.nome AS nome_usuario,
+            v.nome AS nome_veiculo,
+            a.data_agendamento,
+            a.hora,
+            a.tipo_servico,
+            a.observacoes,
+            a.data_criacao,
+            a.status
+        FROM agendamentos a
+        INNER JOIN usuarios u ON a.id_usuario = u.id
+        INNER JOIN veiculos v ON a.id_veiculo = v.id_veiculo
+        ORDER BY a.data_agendamento DESC";
 
-       return $resultado->fetchAll(PDO::FETCH_OBJ);
-}
+    $resultado = $this->bd->prepare($sql);
+    $resultado->execute();
+    return $resultado->fetchAll(PDO::FETCH_OBJ);
+
+    }   
+
+    // Confirmar um agendamento
+    public function confirmar($id) {
+        $sql = "UPDATE agendamentos 
+                SET status = 'Confirmado' 
+                WHERE id_agendamento = :id";
+        $stmt = $this->bd->prepare($sql);
+        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+        return $stmt->execute();
+    }
+
+    // Cancelar agendamento
+    public function cancelar($id) {
+        $sql = "UPDATE agendamentos 
+                SET status = 'Cancelado' 
+                WHERE id_agendamento = :id";
+        $stmt = $this->bd->prepare($sql);
+        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+        return $stmt->execute();
+    }
+
 
     public function lerPorUsuario($id_usuario) {
         $sql = 'SELECT a.*, v.nome as veiculo_nome, v.ano as veiculo_ano 
@@ -93,6 +128,17 @@ class agendar {
         $stmt->bindParam(':hora', $this->hora);
 
         return $stmt->execute();
+    }
+
+    private function atualizarStatus($id, $status) {
+    $sql = "UPDATE agendamentos 
+            SET status = :status 
+            WHERE id_agendamento = :id";
+    $stmt = $this->bd->prepare($sql);
+    $stmt->bindParam(':status', $status);
+    $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+    return $stmt->execute();
+
     }
 
 }

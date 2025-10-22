@@ -13,6 +13,7 @@ class agendamentoController {
         $this->agendamentos = new agendar($this->bd);
     }
 
+    // Listar todos os agendamentos
     public function index() {
         return $this->agendamentos->ListarAgendamentos();
     }
@@ -60,5 +61,10 @@ class agendamentoController {
             header("Location: ../paginas/agendamento.php");
         }
     }
+
+    public function atualizarStatusAgendamento($id, $status) {
+        return $this->agendamentos->atualizarStatus($id, $status);
+    }
+    
 }
 ?>
