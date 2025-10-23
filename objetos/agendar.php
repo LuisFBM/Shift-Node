@@ -120,42 +120,26 @@ class agendar {
     }
 
 
-        public function cadastrarHorario() {
-    // Verifica se o horário já existe no banco
-    $sqlVerificar = "SELECT COUNT(*) FROM horarios WHERE data = :data AND hora = :hora";
-    $stmtVerificar = $this->bd->prepare($sqlVerificar);
-    $stmtVerificar->bindParam(':data', $this->data);
-    $stmtVerificar->bindParam(':hora', $this->hora);
-    $stmtVerificar->execute();
-
-    if ($stmtVerificar->fetchColumn() > 0) {
-        return [
-            'status' => false,
-            'mensagem' => 'Esse horário já está cadastrado.'
-        ];
-    }
-
-    // Se não existir, insere o novo horário
-    $sql = "INSERT INTO horarios (data, hora) VALUES (:data, :hora)";
+    public function cadastrarHorario() {
+    // Insere novo horário na tabela horarios_disponiveis
+    $sql = "INSERT INTO horarios_disponiveis (hora, status) VALUES (:hora, 'disponível')";
     $stmt = $this->bd->prepare($sql);
-    $stmt->bindParam(':data', $this->data);
     $stmt->bindParam(':hora', $this->hora);
 
-    if ($stmt->execute()) {
-        return [
-            'status' => true,
-            'mensagem' => 'Horário cadastrado com sucesso!'
-        ];
-    } else {
-        return [
-            'status' => false,
-            'mensagem' => 'Erro ao cadastrar o horário.'
-        ];
+    return $stmt->execute();
     }
-}
 
+    public function excluirHorario($id_horario) {
 
-    private function atualizarStatus($id, $status) {
+    $sql = "DELETE FROM horarios_disponiveis WHERE id_horario = :id_horario";
+    $stmt = $this->bd->prepare($sql);
+    $stmt->bindParam(':id_horario', $id_horario, PDO::PARAM_INT);
+    return $stmt->execute();
+
+    }
+
+    public function atualizarStatus($id, $status) {
+
     $sql = "UPDATE agendamentos 
             SET status = :status 
             WHERE id_agendamento = :id";
@@ -166,5 +150,38 @@ class agendar {
 
     }
 
+  public function listarHorariosDisponiveis() {
+    $sql = "SELECT id_horario AS id, hora, status 
+            FROM horarios_disponiveis 
+            ORDER BY hora ASC";
+    $stmt = $this->bd->prepare($sql);
+    $stmt->execute();
+    return $stmt->fetchAll(PDO::FETCH_OBJ);
 }
+
+
+    public function contarAgendamentos() {
+    $sql = "SELECT COUNT(*) AS total FROM agendamentos";
+    $stmt = $this->bd->prepare($sql);
+    $stmt->execute();
+    return $stmt->fetch(PDO::FETCH_OBJ)->total;
+    }
+
+    public function contarConfirmados() {
+    $sql = "SELECT COUNT(*) AS total FROM agendamentos WHERE status = 'CONFIRMADO'";
+    $stmt = $this->bd->prepare($sql);
+    $stmt->execute();
+    return $stmt->fetch(PDO::FETCH_OBJ)->total;
+    }
+
+    public function contarCancelados() {
+    $sql = "SELECT COUNT(*) AS total FROM agendamentos WHERE status = 'CANCELADO'";
+    $stmt = $this->bd->prepare($sql);
+    $stmt->execute();
+    return $stmt->fetch(PDO::FETCH_OBJ)->total;
+    }
+
+
+}
+
 ?>

@@ -32,22 +32,43 @@ body {
 }
 
 /* Cards do painel resumo */
-.card {
-  border-radius: 10px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  padding: 20px;
-  transition: transform 0.3s ease;
-  text-align: center;
+.cards-container {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin-bottom: 40px;
 }
 
-.card:hover {
+.painel-card {
+  width: 220px; /* largura fixa, mas pode usar % se preferir */
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+  text-align: center;
+  transition: transform 0.3s;
+}
+
+.painel-card:hover {
   transform: translateY(-5px);
 }
 
-.card i {
-  font-size: 2rem;
+.painel-card .icon {
+  font-size: 28px;
+  color: #6f63ff;
   margin-bottom: 10px;
-  color: #6155f5;
+}
+
+.painel-card h5 {
+  margin-bottom: 8px;
+  font-weight: 600;
+}
+
+.painel-card .valor {
+  font-size: 24px;
+  font-weight: bold;
+  color: #333;
 }
 
 /* Tabelas */

@@ -1,71 +1,124 @@
-.main-content {
+/* Container principal */
+.container {
   max-width: 1200px;
-  margin: 30px auto;
+  margin: 40px auto;
   padding: 20px;
+  font-family: "Alan Sans", sans-serif;
 }
 
-h2 {
+/* Cabeçalho */
+.header h1 {
   color: #061f40;
+  font-size: 28px;
+  margin-bottom: 5px;
+}
+
+.header p {
+  color: #555;
   margin-bottom: 20px;
 }
 
-/* Tabela de Horários Cadastrados */
+/* Filtros */
+.filtros {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.filtros select,
+.filtros input,
+.filtros button {
+  padding: 8px 12px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+}
+
+.filtros button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.filtros button:hover {
+  background-color: #0056b3;
+}
+
+/* Tabela */
+.tabela-box {
+  overflow-x: auto;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+  padding: 15px;
+}
 
 table {
   width: 100%;
   border-collapse: collapse;
-  background: white;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  border-radius: 10px;
-  overflow: hidden;
+  min-width: 900px;
 }
 
-th,td {
-  padding: 15px;
+thead th {
+  background-color: #f1f1f1;
   text-align: left;
+  padding: 12px;
+  font-weight: 600;
+  color: #333;
+}
+
+tbody td {
+  padding: 12px;
   border-bottom: 1px solid #eee;
 }
 
-/* Card das Funções */
-
-.card {
-  background: #f9f9f9;
-padding: 30px;
-  border-radius: 12px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  width: 100%;
-  transition: transform 0.3s ease;
-  transform: translateY(0);
+tbody tr:hover {
+  background-color: #f9f9f9;
 }
 
-.card:hover {
-  transform: translateY(-5px);
-}
-
-/* Formulário dentro do card */
-.card-func {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
-  gap: 20px;
-  flex-wrap: wrap; /* evita quebra em telas menores */
-}
-
-
-.data,.hora,.adicionar {
-  display: flex;
-  flex-direction: column;
-}
-.data label,.hora label {
-  margin-bottom: 5px;
+/* Status */
+.status-pendente {
+  color: #ffc107;
   font-weight: bold;
 }
 
-.adicionar button {
-  color: rgb(0, 0, 0);
-  border: none;
-  padding: 10px 15px;
+.status-confirmado {
+  color: #28a745;
+  font-weight: bold;
+}
+
+.status-cancelado {
+  color: #dc3545;
+  font-weight: bold;
+}
+
+/* Botões */
+.btn {
+  padding: 5px 10px;
   border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 14px;
+}
+
+.btn-confirmar {
+  background-color: #28a745;
+  color: #fff;
+  border: none;
+}
+
+.btn-confirmar:hover {
+  background-color: #218838;
+}
+
+.btn-cancelar {
+  background-color: #dc3545;
+  color: #fff;
+  border: none;
+}
+
+.btn-cancelar:hover {
+  background-color: #c82333;
 }

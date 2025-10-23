@@ -1,14 +1,22 @@
 <?php
 session_start();
 include_once "../banco/database.php";
-include_once "../objetos/usuarios.php";
 include_once "../controllers/usuariosController.php";
+include_once "../controllers/agendamentoController.php";
 
 // Redireciona se não estiver logado ou não for admin
 if (!isset($_SESSION['usuarios']) || strtoupper($_SESSION['usuarios']->tipo) !== 'ADMIN') {
     header('Location: ../paginas/index.php');
     exit();
 }
+
+// Instancia os controllers
+$agendamentoCtrl = new AgendamentoController();
+
+// Obtém os dados dos métodos
+$totalAgendamentos = $agendamentoCtrl->contarAgendamentos();
+$confirmados = $agendamentoCtrl->contarConfirmados();
+$cancelados = $agendamentoCtrl->contarCancelados();
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -33,14 +41,10 @@ if (!isset($_SESSION['usuarios']) || strtoupper($_SESSION['usuarios']->tipo) !==
             <li><a href="lista_agendamentos.php">Agendamentos</a></li>
             <li><a href="cadastrar_horario.php">Horários</a></li>
         </ul>
-     <!-- Área de login -->
         <div class="user-area">
             <?php if (isset($_SESSION['usuarios'])): ?>
                 <span style="color: #fff;">Olá, <?= htmlspecialchars($_SESSION['usuarios']->nome); ?>!</span>
                 <a style="color: red;" href="../logout.php">Sair</a>
-            <?php else: ?>
-                <a href="login.php" class="login">Login</a>
-                <a href="cadastro.php" class="cadastro">Cadastrar</a>
             <?php endif; ?>
         </div>
     </nav>
@@ -49,36 +53,27 @@ if (!isset($_SESSION['usuarios']) || strtoupper($_SESSION['usuarios']->tipo) !==
 <main class="container mt-4">
     <h2 class="text-center mb-4">Painel de Controle Administrativo</h2>
 
-    <div class="row text-center g-3">
-        <div class="col-md-3">
-            <div class="card painel-card">
-                <i class="fas fa-calendar-check icon"></i>
-                <h5>Total de Agendamentos</h5>
-                <p></p>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="card painel-card">
-                <i class="fas fa-clock icon"></i>
-                <h5>Horários Livres</h5>
-                <p></p>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="card painel-card">
-                <i class="fas fa-check-circle icon"></i>
-                <h5>Confirmados</h5>
-                <p></p>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="card painel-card">
-                <i class="fas fa-times-circle icon"></i>
-                <h5>Cancelados</h5>
-                <p></p>
-            </div>
-        </div>
+<div class="cards-container text-center">
+    <div class="card painel-card">
+        <i class="fas fa-calendar-check icon"></i>
+        <h5>Total de Agendamentos</h5>
+        <p class="valor"><?= $totalAgendamentos; ?></p>
     </div>
+
+    <div class="card painel-card">
+        <i class="fas fa-check-circle icon"></i>
+        <h5>Confirmados</h5>
+        <p class="valor"><?= $confirmados; ?></p>
+    </div>
+
+    <div class="card painel-card">
+        <i class="fas fa-times-circle icon"></i>
+        <h5>Cancelados</h5>
+        <p class="valor"><?= $cancelados; ?></p>
+    </div>
+</div>
+
+</div>
 
     <div class="text-center mt-5">
         <p>Bem-vindo ao painel de administração do <strong>Shift Node</strong>.<br>

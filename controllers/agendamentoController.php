@@ -65,6 +65,31 @@ class agendamentoController {
     public function atualizarStatusAgendamento($id, $status) {
         return $this->agendamentos->atualizarStatus($id, $status);
     }
+
+    public function cadastrarHorario($dados) {
+        $this->agendamentos->hora = $dados['hora'];
+        return $this->agendamentos->cadastrarHorario();
+    }
+
+   public function excluirHorario($id_horario) {
+    return $this->agendamentos->excluirHorario($id_horario);
+    }
+
+    public function listarHorariosDisponiveis() {
+        return $this->agendamentos->listarHorariosDisponiveis();
+    }
+
+    public function contarAgendamentos() {
+    return $this->agendamentos->contarAgendamentos();
+    }
+
+    public function contarConfirmados() {
+    return $this->agendamentos->contarConfirmados();
+    }
+
+    public function contarCancelados() {
+    return $this->agendamentos->contarCancelados();
+    }
     
 }
 ?>
