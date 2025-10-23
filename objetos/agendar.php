@@ -120,15 +120,40 @@ class agendar {
     }
 
 
-    public function cadastrarHorario() {
-        $sql = "INSERT INTO horarios (data, hora) VALUES (:data, :hora)";
+        public function cadastrarHorario() {
+    // Verifica se o horário já existe no banco
+    $sqlVerificar = "SELECT COUNT(*) FROM horarios WHERE data = :data AND hora = :hora";
+    $stmtVerificar = $this->bd->prepare($sqlVerificar);
+    $stmtVerificar->bindParam(':data', $this->data);
+    $stmtVerificar->bindParam(':hora', $this->hora);
+    $stmtVerificar->execute();
 
-        $stmt = $this->bd->prepare($sql);
-        $stmt->bindParam(':data', $this->data);
-        $stmt->bindParam(':hora', $this->hora);
-
-        return $stmt->execute();
+    if ($stmtVerificar->fetchColumn() > 0) {
+        return [
+            'status' => false,
+            'mensagem' => 'Esse horário já está cadastrado.'
+        ];
     }
+
+    // Se não existir, insere o novo horário
+    $sql = "INSERT INTO horarios (data, hora) VALUES (:data, :hora)";
+    $stmt = $this->bd->prepare($sql);
+    $stmt->bindParam(':data', $this->data);
+    $stmt->bindParam(':hora', $this->hora);
+
+    if ($stmt->execute()) {
+        return [
+            'status' => true,
+            'mensagem' => 'Horário cadastrado com sucesso!'
+        ];
+    } else {
+        return [
+            'status' => false,
+            'mensagem' => 'Erro ao cadastrar o horário.'
+        ];
+    }
+}
+
 
     private function atualizarStatus($id, $status) {
     $sql = "UPDATE agendamentos 

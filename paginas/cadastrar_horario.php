@@ -9,15 +9,47 @@ if (!isset($_SESSION['usuarios']) || strtoupper($_SESSION['usuarios']->tipo) !==
     exit();
 }
 
+$banco = new Database();
+$bd = $banco->conectar();
+
+// Cria a tabela de horários se não existir (opcional)
+$bd->exec("CREATE TABLE IF NOT EXISTS horarios (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    data DATE NOT NULL,
+    hora TIME NOT NULL
+)");
+
 // Cadastro de horários
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $data = $_POST['data'];
     $hora = $_POST['hora'];
 
+    // Insere no banco
+    $stmt = $bd->prepare("INSERT INTO horarios (data, hora) VALUES (:data, :hora)");
+    $stmt->bindParam(':data', $data);
+    $stmt->bindParam(':hora', $hora);
+    $stmt->execute();
+
+    // Recarrega a página para atualizar a tabela
+    header("Location: cadastrar_horario.php");
+    exit();
 }
 
 
+// Exclusão de horários
+if (isset($_POST['excluir'])) {
+    $id = intval($_POST['excluir']);
+    $stmt = $bd->prepare("DELETE FROM horarios WHERE id = :id");
+    $stmt->bindParam(':id', $id);
+    $stmt->execute();
+    header("Location: cadastrar_horario.php");
+    exit();
+}
 
+// Busca os horários cadastrados
+$stmt = $bd->prepare("SELECT * FROM horarios ORDER BY data, hora");
+$stmt->execute();
+$horarios = $stmt->fetchAll(PDO::FETCH_OBJ);
 ?>
 
 <!DOCTYPE html>
