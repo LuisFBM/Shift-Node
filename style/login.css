@@ -15,25 +15,24 @@ body {
 }
 
 /* Fundo */
-
 .fundo {
-  position: relative;
-  background: url("../img/opala.jpg") no-repeat center center;
-  background-size: cover;
-  height: 100vh;
-  display: flex;
-  align-items: center;
-  padding-left: 60px;
-  overflow: hidden;
+    position: relative;
+    background-size: cover;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    padding-left: 60px;
+    overflow: hidden;
 }
 
 .fundo::before {
-  /*  content: ""; deixa o fundo escuro */
-  position: absolute;
-  inset: 0;
-  background-color: rgba(0, 0, 0, 0.7);
-  z-index: 1;
+    /*  content: ""; deixa o fundo escuro */
+    position: absolute;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 1;
 }
+
 
 /* FORM CONTAINER */
 .form {
@@ -117,20 +116,4 @@ body {
   border-radius: 0.6rem;
   margin-bottom: 1rem;
   font-size: 0.9rem;
-}
-
-/* RESPONSIVIDADE */
-@media (max-width: 480px) {
-  .form {
-    padding: 1.5rem;
-    border-radius: 0.8rem;
-  }
-
-  .form-title {
-    font-size: 1.3rem;
-  }
-
-  .submit {
-    font-size: 0.95rem;
-  }
 }

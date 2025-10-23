@@ -20,7 +20,6 @@ body {
 
 .fundo {
   position: relative;
-  background: url("../img/maverick.jpg") no-repeat center center;
   background-size: cover;
   height: 100vh;
   display: flex;
