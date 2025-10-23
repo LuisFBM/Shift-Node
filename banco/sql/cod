@@ -1,8 +1,8 @@
 CREATE DATABASE IF NOT EXISTS shift_node;
 USE shift_node;
-#DROP DATABASE shift_node;
+select * from horarios_disponiveis;
+#drop database shift_node;
 
--- Tabela de usuários
 CREATE TABLE usuarios (
     id INT AUTO_INCREMENT PRIMARY KEY,
     nome VARCHAR(100) NOT NULL,
@@ -15,7 +15,6 @@ CREATE TABLE usuarios (
     data_cadastro TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
--- Tabela de veículos
 CREATE TABLE veiculos (
     id_veiculo INT AUTO_INCREMENT PRIMARY KEY,
     id_usuario INT NOT NULL,
@@ -27,7 +26,6 @@ CREATE TABLE veiculos (
         ON DELETE CASCADE
 );
 
--- Tabela de serviços
 CREATE TABLE servicos (
     id_servico INT AUTO_INCREMENT PRIMARY KEY,
     nome VARCHAR(100) NOT NULL,
@@ -35,7 +33,6 @@ CREATE TABLE servicos (
     data_cadastro TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
--- Tabela de agendamentos (atualizada para admin)
 CREATE TABLE agendamentos (
     id_agendamento INT AUTO_INCREMENT PRIMARY KEY,
     id_usuario INT NOT NULL,
@@ -43,8 +40,16 @@ CREATE TABLE agendamentos (
     data_agendamento DATE NOT NULL,
     hora TIME NOT NULL,
     observacoes VARCHAR(100),
-    tipo_servico ENUM('Verificar nível de fluídos', 'Trocar óleo do motor e filtro', 'Trocar fluído de freio', 'Trocar fluído de arrefecimento', 'Revisão completa de freios', 'Verificar pastilhas de freio', 'Trocar discos e tambores de freio'),
-    status ENUM('PENDENTE', 'CONFIRMADO', 'CANCELADO', 'CONCLUIDO') DEFAULT 'PENDENTE',
+    tipo_servico ENUM(
+        'Verificar nível de fluídos',
+        'Trocar óleo do motor e filtro',
+        'Trocar fluído de freio',
+        'Trocar fluído de arrefecimento',
+        'Revisão completa de freios',
+        'Verificar pastilhas de freio',
+        'Trocar discos e tambores de freio'
+    ),
+    status ENUM('Pendente', 'Confirmado', 'Cancelado') DEFAULT 'Pendente',
     data_criacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (id_usuario)
         REFERENCES usuarios (id),
@@ -52,78 +57,37 @@ CREATE TABLE agendamentos (
         REFERENCES veiculos (id_veiculo)
 );
 
--- Tabela de horários disponíveis (para o admin gerenciar)
 CREATE TABLE horarios_disponiveis (
     id_horario INT AUTO_INCREMENT PRIMARY KEY,
-    data_disponivel DATE NOT NULL,
-    hora_inicio TIME NOT NULL,
-    hora_fim TIME NOT NULL,
-    disponivel BOOLEAN DEFAULT TRUE,
-    data_cadastro TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    UNIQUE KEY unique_horario (data_disponivel, hora_inicio)
+    hora TIME NOT NULL,
+	status ENUM('disponível','ocupado') DEFAULT 'disponível'
 );
 
--- ========================================
--- PROCEDURE 1: Listar agendamentos com filtros (para o admin)
--- ========================================
-DELIMITER //
-CREATE PROCEDURE sp_listar_agendamentos_admin(
-    IN p_status VARCHAR(20),
-    IN p_data_inicio DATE,
-    IN p_data_fim DATE
+-- Atualizar status
+
+DELIMITER $$
+
+CREATE PROCEDURE atualizar_status_agendamento(
+    IN p_id_agendamento INT,
+    IN p_status ENUM('Pendente','Confirmado','Cancelado')
 )
 BEGIN
-    -- Retorna todos os agendamentos com informações do cliente e veículo
-    -- Permite filtrar por status e período de datas
-    SELECT 
-        a.id_agendamento,
-        a.data_agendamento,
-        a.hora,
-        a.status,
-        a.tipo_servico,
-        a.observacoes,
-        u.nome AS cliente_nome,
-        u.telefone AS cliente_telefone,
-        u.email AS cliente_email,
-        v.nome AS veiculo_nome,
-        v.ano AS veiculo_ano,
-        a.data_criacao
-    FROM agendamentos a
-    INNER JOIN usuarios u ON a.id_usuario = u.id
-    INNER JOIN veiculos v ON a.id_veiculo = v.id_veiculo
-    WHERE 
-        (p_status IS NULL OR a.status = p_status)
-        AND (p_data_inicio IS NULL OR a.data_agendamento >= p_data_inicio)
-        AND (p_data_fim IS NULL OR a.data_agendamento <= p_data_fim)
-    ORDER BY a.data_agendamento DESC, a.hora DESC;
-END//
+    UPDATE agendamentos
+    SET status = p_status
+    WHERE id_agendamento = p_id_agendamento;
+END $$
+
 DELIMITER ;
 
--- ========================================
--- PROCEDURE 2: Gerenciar status de agendamento (confirmar/cancelar)
--- ========================================
-DELIMITER //
-CREATE PROCEDURE sp_atualizar_status_agendamento(
-    IN p_id_agendamento INT,
-    IN p_novo_status ENUM('PENDENTE', 'CONFIRMADO', 'CANCELADO', 'CONCLUIDO')
-)
+-- Contagem de Agendamentos
+
+DELIMITER $$
+
+CREATE PROCEDURE contar_agendamentos_por_status()
 BEGIN
-    -- Atualiza o status de um agendamento específico
-    -- Verifica se o agendamento existe antes de atualizar
-    DECLARE v_existe INT;
-    
-    SELECT COUNT(*) INTO v_existe 
-    FROM agendamentos 
-    WHERE id_agendamento = p_id_agendamento;
-    
-    IF v_existe > 0 THEN
-        UPDATE agendamentos 
-        SET status = p_novo_status
-        WHERE id_agendamento = p_id_agendamento;
-        
-        SELECT 'SUCCESS' AS resultado, 'Status atualizado com sucesso' AS mensagem;
-    ELSE
-        SELECT 'ERROR' AS resultado, 'Agendamento não encontrado' AS mensagem;
-    END IF;
-END//
+    SELECT status, COUNT(*) AS total
+    FROM agendamentos
+    GROUP BY status;
+END $$
+
 DELIMITER ;
